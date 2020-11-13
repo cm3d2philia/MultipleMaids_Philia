@@ -15,87 +15,87 @@ namespace CM3D2.MultipleMaids.Plugin
 	{
 		public void Update()
 		{
-			if (this.isInit)
+			if (isInit)
 			{
-				if (this.allowUpdate)
+				if (allowUpdate)
 				{
-					this.MaidUpdate();
-					if (this.isFadeOut)
+					MaidUpdate();
+					if (isFadeOut)
 					{
 						bool flag = false;
-						for (int i2 = 0; i2 < this.maxMaidCnt; i2++)
+						for (int i2 = 0; i2 < maxMaidCnt; i2++)
 						{
-							if (this.maidArray[i2] && this.maidArray[i2].Visible && this.maidArray[i2].IsAllProcPropBusy)
+							if (maidArray[i2] && maidArray[i2].Visible && maidArray[i2].IsAllProcPropBusy)
 							{
 								flag = true;
 							}
 						}
 						if (!flag)
 						{
-							if (!this.isBusyInit)
+							if (!isBusyInit)
 							{
-								this.isBusyInit = true;
+								isBusyInit = true;
 							}
 							else
 							{
-								for (int i2 = 0; i2 < this.maxMaidCnt; i2++)
+								for (int i2 = 0; i2 < maxMaidCnt; i2++)
 								{
-									if (!this.isLock[i2])
+									if (!isLock[i2])
 									{
-										if (this.maidArray[i2] != null)
+										if (maidArray[i2] != null)
 										{
-											this.maidArray[i2].CrossFade(this.poseArray[0] + ".anm", false, true, false, 0f, 1f);
-											this.maidArray[i2].SetAutoTwistAll(true);
+											maidArray[i2].CrossFade(poseArray[0] + ".anm", false, true, false, 0f, 1f);
+											maidArray[i2].SetAutoTwistAll(true);
 										}
 									}
-									this.poseCount[i2] = 30;
-									if (this.maidArray[i2] && this.maidArray[i2].Visible)
+									poseCount[i2] = 30;
+									if (maidArray[i2] && maidArray[i2].Visible)
 									{
-										this.maidArray[i2].body0.BoneHitHeightY = -10f;
-										if (this.selectList.Count > i2)
+										maidArray[i2].body0.BoneHitHeightY = -10f;
+										if (selectList.Count > i2)
 										{
-											if (this.goSlot[(int)this.selectList[i2]] == null)
+											if (goSlot[(int)selectList[i2]] == null)
 											{
-												this.maidArray[i2].CrossFade(this.poseArray[0] + ".anm", false, true, false, 0f, 1f);
-												this.maidArray[i2].SetAutoTwistAll(true);
-												this.goSlot[(int)this.selectList[i2]] = new List<TBodySkin>(this.maidArray[i2].body0.goSlot);
-												if (!this.isVR)
+												maidArray[i2].CrossFade(poseArray[0] + ".anm", false, true, false, 0f, 1f);
+												maidArray[i2].SetAutoTwistAll(true);
+												goSlot[(int)selectList[i2]] = new List<TBodySkin>(maidArray[i2].body0.goSlot);
+												if (!isVR)
 												{
 													try
 													{
-														this.shodaiFlg[(int)this.selectList[i2]] = false;
-														TMorph morph = this.maidArray[i2].body0.Face.morph;
+														shodaiFlg[(int)selectList[i2]] = false;
+														TMorph morph = maidArray[i2].body0.Face.morph;
 														float[] fieldValue = MultipleMaids.GetFieldValue<TMorph, float[]>(morph, "BlendValues");
 														float item = fieldValue[(int)morph.hash["tangopen"]];
 													}
 													catch
 													{
-														this.shodaiFlg[(int)this.selectList[i2]] = true;
+														shodaiFlg[(int)selectList[i2]] = true;
 													}
-													if (!this.isVR)
+													if (!isVR)
 													{
-														this.eyeL[(int)this.selectList[i2]] = this.maidArray[i2].body0.quaDefEyeL.eulerAngles;
-														this.eyeR[(int)this.selectList[i2]] = this.maidArray[i2].body0.quaDefEyeR.eulerAngles;
+														eyeL[(int)selectList[i2]] = maidArray[i2].body0.quaDefEyeL.eulerAngles;
+														eyeR[(int)selectList[i2]] = maidArray[i2].body0.quaDefEyeR.eulerAngles;
 													}
 												}
-												if (this.isKamiyure)
+												if (isKamiyure)
 												{
-													for (int j = 0; j < this.maidArray[i2].body0.goSlot.Count; j++)
+													for (int j = 0; j < maidArray[i2].body0.goSlot.Count; j++)
 													{
 														if (j >= 3 && j <= 6)
 														{
-															if (this.maidArray[i2].body0.goSlot[j].obj != null)
+															if (maidArray[i2].body0.goSlot[j].obj != null)
 															{
-																DynamicBone component = this.maidArray[i2].body0.goSlot[j].obj.GetComponent<DynamicBone>();
+																DynamicBone component = maidArray[i2].body0.goSlot[j].obj.GetComponent<DynamicBone>();
 																if (component != null)
 																{
-																	component.m_Damping = this.kamiyure2;
-																	component.m_Elasticity = this.kamiyure3;
+																	component.m_Damping = kamiyure2;
+																	component.m_Elasticity = kamiyure3;
 																	if (j == 5)
 																	{
-																		component.m_Elasticity = this.kamiyure3 / 20f;
+																		component.m_Elasticity = kamiyure3 / 20f;
 																	}
-																	component.m_Radius = this.kamiyure4;
+																	component.m_Radius = kamiyure4;
 																	component.UpdateParameters();
 																}
 															}
@@ -106,17 +106,17 @@ namespace CM3D2.MultipleMaids.Plugin
 										}
 									}
 								}
-								this.isBusyInit = false;
+								isBusyInit = false;
 								GameMain.Instance.MainCamera.FadeIn(1f, false, null, true, true, default(Color));
-								this.isFadeOut = false;
-								this.bGui = true;
+								isFadeOut = false;
+								bGui = true;
 							}
 						}
 					}
 				}
-				if (this.isVR && this.isVRScroll)
+				if (isVR && isVRScroll)
 				{
-					if (!this.getModKeyPressing(MultipleMaids.modKey.Ctrl) && !this.getModKeyPressing(MultipleMaids.modKey.Alt) && !Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.X) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.R) && !Input.GetKey(KeyCode.E) && !Input.GetKey(KeyCode.Y) && !Input.GetKey(KeyCode.V) && !Input.GetKey(KeyCode.C) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.S))
+					if (!getModKeyPressing(MultipleMaids.modKey.Ctrl) && !getModKeyPressing(MultipleMaids.modKey.Alt) && !Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.X) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.R) && !Input.GetKey(KeyCode.E) && !Input.GetKey(KeyCode.Y) && !Input.GetKey(KeyCode.V) && !Input.GetKey(KeyCode.C) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.S))
 					{
 						Vector3 vector = MultipleMaids.GetFieldValue<OvrCamera, Vector3>(GameMain.Instance.OvrMgr.OvrCamera, "v");
 						string text = "TrackingSpace/CenterEyeAnchor";
@@ -124,7 +124,7 @@ namespace CM3D2.MultipleMaids.Plugin
 						{
 							text = "Main Camera (eye)";
 						}
-						GameObject childObject = UTY.GetChildObject(this.mainCamera.gameObject, text, false);
+						GameObject childObject = UTY.GetChildObject(mainCamera.gameObject, text, false);
 						Transform transform = childObject.transform;
 						Vector3 a = transform.rotation * Vector3.forward;
 						vector += a * (Input.GetAxis("Mouse ScrollWheel") * (5f * Time.deltaTime * 2f * 5f));
@@ -134,72 +134,72 @@ namespace CM3D2.MultipleMaids.Plugin
 						MultipleMaids.SetFieldValue4<OvrCamera, Transform>(GameMain.Instance.OvrMgr.OvrCamera, "m_trBaseHead", fieldValue2);
 					}
 				}
-				if (this.isMekure1a || this.isMekure2a || this.isZurasia)
+				if (isMekure1a || isMekure2a || isZurasia)
 				{
-					for (int i2 = 0; i2 < this.maidCnt; i2++)
+					for (int i2 = 0; i2 < maidCnt; i2++)
 					{
-						if (this.maidArray[i2] && this.maidArray[i2].Visible)
+						if (maidArray[i2] && maidArray[i2].Visible)
 						{
-							if (this.isMekure1a)
+							if (isMekure1a)
 							{
-								if (this.isMekure1)
+								if (isMekure1)
 								{
-									this.maidArray[i2].ItemChangeTemp("skirt", "めくれスカート");
-									this.maidArray[i2].ItemChangeTemp("onepiece", "めくれスカート");
+									maidArray[i2].ItemChangeTemp("skirt", "めくれスカート");
+									maidArray[i2].ItemChangeTemp("onepiece", "めくれスカート");
 								}
 								else
 								{
-									this.ResetProp(this.maidArray[i2], MPN.skirt);
-									this.ResetProp(this.maidArray[i2], MPN.onepiece);
+									ResetProp(maidArray[i2], MPN.skirt);
+									ResetProp(maidArray[i2], MPN.onepiece);
 								}
-								this.maidArray[i2].AllProcPropSeqStart();
+								maidArray[i2].AllProcPropSeqStart();
 							}
-							if (this.isMekure2a)
+							if (isMekure2a)
 							{
-								if (this.isMekure2)
+								if (isMekure2)
 								{
-									this.maidArray[i2].ItemChangeTemp("skirt", "めくれスカート後ろ");
-									this.maidArray[i2].ItemChangeTemp("onepiece", "めくれスカート後ろ");
+									maidArray[i2].ItemChangeTemp("skirt", "めくれスカート後ろ");
+									maidArray[i2].ItemChangeTemp("onepiece", "めくれスカート後ろ");
 								}
 								else
 								{
-									this.ResetProp(this.maidArray[i2], MPN.skirt);
-									this.ResetProp(this.maidArray[i2], MPN.onepiece);
+									ResetProp(maidArray[i2], MPN.skirt);
+									ResetProp(maidArray[i2], MPN.onepiece);
 								}
-								this.maidArray[i2].AllProcPropSeqStart();
+								maidArray[i2].AllProcPropSeqStart();
 							}
-							if (this.isZurasia)
+							if (isZurasia)
 							{
-								if (this.isZurasi)
+								if (isZurasi)
 								{
-									this.maidArray[i2].ItemChangeTemp("panz", "パンツずらし");
-									this.maidArray[i2].ItemChangeTemp("mizugi", "パンツずらし");
+									maidArray[i2].ItemChangeTemp("panz", "パンツずらし");
+									maidArray[i2].ItemChangeTemp("mizugi", "パンツずらし");
 								}
 								else
 								{
-									this.ResetProp(this.maidArray[i2], MPN.panz);
-									this.ResetProp(this.maidArray[i2], MPN.mizugi);
+									ResetProp(maidArray[i2], MPN.panz);
+									ResetProp(maidArray[i2], MPN.mizugi);
 								}
-								this.maidArray[i2].AllProcPropSeqStart();
+								maidArray[i2].AllProcPropSeqStart();
 							}
 						}
 					}
-					this.isMekure1a = false;
-					this.isMekure2a = false;
-					this.isZurasia = false;
+					isMekure1a = false;
+					isMekure2a = false;
+					isZurasia = false;
 				}
-				if (this.isKamiyure)
+				if (isKamiyure)
 				{
-					int num = this.maidCnt;
+					int num = maidCnt;
 					if (num == 0)
 					{
 						num = 3;
 					}
 					for (int i2 = 0; i2 < num; i2++)
 					{
-						if (this.maidArray[i2] && this.maidArray[i2].Visible)
+						if (maidArray[i2] && maidArray[i2].Visible)
 						{
-							Maid maid = this.maidArray[i2];
+							Maid maid = maidArray[i2];
 							for (int j = 0; j < maid.body0.goSlot.Count; j++)
 							{
 								if (j >= 3 && j <= 6)
@@ -209,22 +209,22 @@ namespace CM3D2.MultipleMaids.Plugin
 										DynamicBone component = maid.body0.goSlot[j].obj.GetComponent<DynamicBone>();
 										if (component != null)
 										{
-											if (component.m_Damping != this.kamiyure2 || component.m_Elasticity != this.kamiyure3 || component.m_Radius != this.kamiyure4)
+											if (component.m_Damping != kamiyure2 || component.m_Elasticity != kamiyure3 || component.m_Radius != kamiyure4)
 											{
 												if (j == 5)
 												{
-													if (component.m_Damping == this.kamiyure2 && component.m_Elasticity == this.kamiyure3 / 20f && component.m_Radius == this.kamiyure4)
+													if (component.m_Damping == kamiyure2 && component.m_Elasticity == kamiyure3 / 20f && component.m_Radius == kamiyure4)
 													{
 														goto IL_A35;
 													}
 												}
-												component.m_Damping = this.kamiyure2;
-												component.m_Elasticity = this.kamiyure3;
+												component.m_Damping = kamiyure2;
+												component.m_Elasticity = kamiyure3;
 												if (j == 5)
 												{
-													component.m_Elasticity = this.kamiyure3 / 20f;
+													component.m_Elasticity = kamiyure3 / 20f;
 												}
-												component.m_Radius = this.kamiyure4;
+												component.m_Radius = kamiyure4;
 												component.UpdateParameters();
 											}
 										}
@@ -235,31 +235,31 @@ namespace CM3D2.MultipleMaids.Plugin
 						}
 					}
 				}
-				if (this.isSkirtyure)
+				if (isSkirtyure)
 				{
-					int num = this.maidCnt;
+					int num = maidCnt;
 					if (num == 0)
 					{
 						num = 3;
 					}
 					for (int i2 = 0; i2 < num; i2++)
 					{
-						if (this.maidArray[i2] && this.maidArray[i2].Visible)
+						if (maidArray[i2] && maidArray[i2].Visible)
 						{
 							int j = 0;
-							while (j < this.maidArray[i2].body0.goSlot.Count)
+							while (j < maidArray[i2].body0.goSlot.Count)
 							{
-								if (this.maidArray[i2].body0.goSlot[j].obj != null)
+								if (maidArray[i2].body0.goSlot[j].obj != null)
 								{
-									DynamicSkirtBone fieldValue3 = MultipleMaids.GetFieldValue<BoneHair3, DynamicSkirtBone>(this.maidArray[i2].body0.goSlot[j].bonehair3, "m_SkirtBone");
+									DynamicSkirtBone fieldValue3 = MultipleMaids.GetFieldValue<BoneHair3, DynamicSkirtBone>(maidArray[i2].body0.goSlot[j].bonehair3, "m_SkirtBone");
 									if (fieldValue3 != null)
 									{
 										fieldValue3.m_vGravity = new Vector3(0.5f, 0.5f, 0.5f);
-										if (fieldValue3.m_fPanierForce != this.skirtyure3 || fieldValue3.m_fPanierForceDistanceThreshold != this.skirtyure2 || fieldValue3.m_fRegDefaultRadius != this.skirtyure4)
+										if (fieldValue3.m_fPanierForce != skirtyure3 || fieldValue3.m_fPanierForceDistanceThreshold != skirtyure2 || fieldValue3.m_fRegDefaultRadius != skirtyure4)
 										{
-											fieldValue3.m_fPanierForce = this.skirtyure3;
-											fieldValue3.m_fPanierForceDistanceThreshold = this.skirtyure2;
-											fieldValue3.m_fRegDefaultRadius = this.skirtyure4;
+											fieldValue3.m_fPanierForce = skirtyure3;
+											fieldValue3.m_fPanierForceDistanceThreshold = skirtyure2;
+											fieldValue3.m_fRegDefaultRadius = skirtyure4;
 										}
 									}
 								}
@@ -273,197 +273,197 @@ namespace CM3D2.MultipleMaids.Plugin
 				}
 				if ((!Input.GetKey(KeyCode.KeypadEnter) && Input.GetKeyDown(KeyCode.Keypad1)) || Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Keypad9) || Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.KeypadDivide) || Input.GetKeyDown(KeyCode.KeypadMultiply) || Input.GetKeyDown(KeyCode.KeypadMinus))
 				{
-					if (Input.GetKey(KeyCode.H) || this.isVR)
+					if (Input.GetKey(KeyCode.H) || isVR)
 					{
 						if (Input.GetKeyDown(KeyCode.Keypad1))
 						{
-							this.isWear = !this.isWear;
+							isWear = !isWear;
 						}
 						if (Input.GetKeyDown(KeyCode.Keypad2))
 						{
-							this.isSkirt = !this.isSkirt;
+							isSkirt = !isSkirt;
 						}
 						if (Input.GetKeyDown(KeyCode.Keypad3))
 						{
-							this.isBra = !this.isBra;
+							isBra = !isBra;
 						}
 						if (Input.GetKeyDown(KeyCode.Keypad4))
 						{
-							this.isPanz = !this.isPanz;
+							isPanz = !isPanz;
 						}
 						if (Input.GetKeyDown(KeyCode.Keypad5))
 						{
-							this.isHeadset = !this.isHeadset;
+							isHeadset = !isHeadset;
 						}
 						if (Input.GetKeyDown(KeyCode.Keypad6))
 						{
-							this.isAccUde = !this.isAccUde;
+							isAccUde = !isAccUde;
 						}
 						if (Input.GetKeyDown(KeyCode.Keypad7))
 						{
-							this.isGlove = !this.isGlove;
+							isGlove = !isGlove;
 						}
 						if (Input.GetKeyDown(KeyCode.Keypad8))
 						{
-							this.isStkg = !this.isStkg;
+							isStkg = !isStkg;
 						}
 						if (Input.GetKeyDown(KeyCode.Keypad9))
 						{
-							this.isShoes = !this.isShoes;
+							isShoes = !isShoes;
 						}
 						if (Input.GetKeyDown(KeyCode.Keypad0))
 						{
-							this.isAccSenaka = !this.isAccSenaka;
+							isAccSenaka = !isAccSenaka;
 						}
 						if (Input.GetKeyDown(KeyCode.KeypadDivide))
 						{
-							this.isMekure1 = !this.isMekure1;
+							isMekure1 = !isMekure1;
 						}
 						if (Input.GetKeyDown(KeyCode.KeypadMultiply))
 						{
-							this.isMekure2 = !this.isMekure2;
+							isMekure2 = !isMekure2;
 						}
 						if (Input.GetKeyDown(KeyCode.KeypadMinus))
 						{
-							this.isZurasi = !this.isZurasi;
+							isZurasi = !isZurasi;
 						}
-						this.h2Flg = true;
-						if (this.sceneLevel != 3 && this.sceneLevel != 5)
+						h2Flg = true;
+						if (sceneLevel != 3 && sceneLevel != 5)
 						{
-							this.maidArray[0] = GameMain.Instance.CharacterMgr.GetMaid(0);
-							this.maidArray[1] = GameMain.Instance.CharacterMgr.GetMaid(1);
-							this.maidArray[2] = GameMain.Instance.CharacterMgr.GetMaid(2);
-							this.maidArray[3] = GameMain.Instance.CharacterMgr.GetMaid(3);
-							this.maidCnt = 4;
+							maidArray[0] = GameMain.Instance.CharacterMgr.GetMaid(0);
+							maidArray[1] = GameMain.Instance.CharacterMgr.GetMaid(1);
+							maidArray[2] = GameMain.Instance.CharacterMgr.GetMaid(2);
+							maidArray[3] = GameMain.Instance.CharacterMgr.GetMaid(3);
+							maidCnt = 4;
 						}
-						for (int i2 = 0; i2 < this.maidCnt; i2++)
+						for (int i2 = 0; i2 < maidCnt; i2++)
 						{
-							if (this.maidArray[i2] && this.maidArray[i2].Visible)
+							if (maidArray[i2] && maidArray[i2].Visible)
 							{
 								if (Input.GetKeyDown(KeyCode.KeypadDivide) || Input.GetKeyDown(KeyCode.KeypadMultiply) || Input.GetKeyDown(KeyCode.KeypadMinus))
 								{
-									if (this.sceneLevel == 3 || this.sceneLevel == 5)
+									if (sceneLevel == 3 || sceneLevel == 5)
 									{
 										if (Input.GetKeyDown(KeyCode.KeypadDivide))
 										{
-											this.isMekure1a = true;
+											isMekure1a = true;
 										}
 										if (Input.GetKeyDown(KeyCode.KeypadMultiply))
 										{
-											this.isMekure2a = true;
+											isMekure2a = true;
 										}
 										if (Input.GetKeyDown(KeyCode.KeypadMinus))
 										{
-											this.isZurasia = true;
+											isZurasia = true;
 										}
 									}
 									else
 									{
 										if (Input.GetKeyDown(KeyCode.KeypadDivide))
 										{
-											if (this.isMekure1)
+											if (isMekure1)
 											{
-												this.maidArray[i2].ItemChangeTemp("skirt", "めくれスカート");
-												this.maidArray[i2].ItemChangeTemp("onepiece", "めくれスカート");
+												maidArray[i2].ItemChangeTemp("skirt", "めくれスカート");
+												maidArray[i2].ItemChangeTemp("onepiece", "めくれスカート");
 											}
 											else
 											{
-												this.ResetProp(this.maidArray[i2], MPN.skirt);
-												this.ResetProp(this.maidArray[i2], MPN.onepiece);
+												ResetProp(maidArray[i2], MPN.skirt);
+												ResetProp(maidArray[i2], MPN.onepiece);
 											}
-											this.maidArray[i2].AllProcPropSeqStart();
+											maidArray[i2].AllProcPropSeqStart();
 										}
 										if (Input.GetKeyDown(KeyCode.KeypadMultiply))
 										{
-											if (this.isMekure2)
+											if (isMekure2)
 											{
-												this.maidArray[i2].ItemChangeTemp("skirt", "めくれスカート後ろ");
-												this.maidArray[i2].ItemChangeTemp("onepiece", "めくれスカート後ろ");
+												maidArray[i2].ItemChangeTemp("skirt", "めくれスカート後ろ");
+												maidArray[i2].ItemChangeTemp("onepiece", "めくれスカート後ろ");
 											}
 											else
 											{
-												this.ResetProp(this.maidArray[i2], MPN.skirt);
-												this.ResetProp(this.maidArray[i2], MPN.onepiece);
+												ResetProp(maidArray[i2], MPN.skirt);
+												ResetProp(maidArray[i2], MPN.onepiece);
 											}
-											this.maidArray[i2].AllProcPropSeqStart();
+											maidArray[i2].AllProcPropSeqStart();
 										}
 										if (Input.GetKeyDown(KeyCode.KeypadMinus))
 										{
-											if (this.isZurasi)
+											if (isZurasi)
 											{
-												this.maidArray[i2].ItemChangeTemp("panz", "パンツずらし");
-												this.maidArray[i2].ItemChangeTemp("mizugi", "パンツずらし");
+												maidArray[i2].ItemChangeTemp("panz", "パンツずらし");
+												maidArray[i2].ItemChangeTemp("mizugi", "パンツずらし");
 											}
 											else
 											{
-												this.ResetProp(this.maidArray[i2], MPN.panz);
-												this.ResetProp(this.maidArray[i2], MPN.mizugi);
+												ResetProp(maidArray[i2], MPN.panz);
+												ResetProp(maidArray[i2], MPN.mizugi);
 											}
-											this.maidArray[i2].AllProcPropSeqStart();
+											maidArray[i2].AllProcPropSeqStart();
 										}
 									}
 								}
 								else
 								{
-									Hashtable fieldValue4 = MultipleMaids.GetFieldValue<TBody, Hashtable>(this.maidArray[i2].body0, "m_hFoceHide");
+									Hashtable fieldValue4 = MultipleMaids.GetFieldValue<TBody, Hashtable>(maidArray[i2].body0, "m_hFoceHide");
 									if (Input.GetKeyDown(KeyCode.Keypad1))
 									{
-										fieldValue4[7] = this.isWear;
-										fieldValue4[9] = this.isWear;
-										fieldValue4[10] = this.isWear;
+										fieldValue4[7] = isWear;
+										fieldValue4[9] = isWear;
+										fieldValue4[10] = isWear;
 									}
 									if (Input.GetKeyDown(KeyCode.Keypad2))
 									{
-										fieldValue4[8] = this.isSkirt;
+										fieldValue4[8] = isSkirt;
 									}
 									if (Input.GetKeyDown(KeyCode.Keypad3))
 									{
-										fieldValue4[12] = this.isBra;
+										fieldValue4[12] = isBra;
 									}
 									if (Input.GetKeyDown(KeyCode.Keypad4))
 									{
-										fieldValue4[11] = this.isPanz;
+										fieldValue4[11] = isPanz;
 									}
 									if (Input.GetKeyDown(KeyCode.Keypad5))
 									{
-										fieldValue4[15] = this.isHeadset;
-										fieldValue4[40] = this.isHeadset;
+										fieldValue4[15] = isHeadset;
+										fieldValue4[40] = isHeadset;
 									}
 									if (Input.GetKeyDown(KeyCode.Keypad6))
 									{
-										fieldValue4[29] = this.isAccUde;
+										fieldValue4[29] = isAccUde;
 									}
 									if (Input.GetKeyDown(KeyCode.Keypad7))
 									{
-										fieldValue4[16] = this.isGlove;
+										fieldValue4[16] = isGlove;
 									}
 									if (Input.GetKeyDown(KeyCode.Keypad8))
 									{
-										fieldValue4[13] = this.isStkg;
+										fieldValue4[13] = isStkg;
 									}
 									if (Input.GetKeyDown(KeyCode.Keypad9))
 									{
-										fieldValue4[14] = this.isShoes;
+										fieldValue4[14] = isShoes;
 									}
 									if (Input.GetKeyDown(KeyCode.Keypad0))
 									{
-										fieldValue4[31] = this.isAccSenaka;
+										fieldValue4[31] = isAccSenaka;
 									}
-									MultipleMaids.SetFieldValue6<TBody, Hashtable>(this.maidArray[i2].body0, "m_hFoceHide", fieldValue4);
-									this.maidArray[i2].body0.FixMaskFlag();
-									this.maidArray[i2].body0.FixVisibleFlag(false);
+									MultipleMaids.SetFieldValue6<TBody, Hashtable>(maidArray[i2].body0, "m_hFoceHide", fieldValue4);
+									maidArray[i2].body0.FixMaskFlag();
+									maidArray[i2].body0.FixVisibleFlag(false);
 								}
 							}
 						}
 					}
 				}
-				if (!this.yotogiFlg && (this.sceneLevel == 14 || this.sceneLevel == 24))
+				if (!yotogiFlg && (sceneLevel == 14 || sceneLevel == 24))
 				{
-					Maid maid = this.maidArray[0];
-					Vector3 vector2 = this.mainCameraTransform.TransformDirection(Vector3.forward);
-					Vector3 vector3 = this.mainCameraTransform.TransformDirection(Vector3.right);
-					Vector3 vector4 = this.mainCameraTransform.TransformDirection(Vector3.up);
-					if (Input.GetKeyDown(KeyCode.LeftBracket) || (Input.GetKeyDown(KeyCode.BackQuote) && this.getModKeyPressing(MultipleMaids.modKey.Alt)))
+					Maid maid = maidArray[0];
+					Vector3 vector2 = mainCameraTransform.TransformDirection(Vector3.forward);
+					Vector3 vector3 = mainCameraTransform.TransformDirection(Vector3.right);
+					Vector3 vector4 = mainCameraTransform.TransformDirection(Vector3.up);
+					if (Input.GetKeyDown(KeyCode.LeftBracket) || (Input.GetKeyDown(KeyCode.BackQuote) && getModKeyPressing(MultipleMaids.modKey.Alt)))
 					{
 						for (int k = 0; k < 10; k++)
 						{
@@ -471,347 +471,347 @@ namespace CM3D2.MultipleMaids.Plugin
 							maid.transform.RotateAround(maid.transform.position, Vector3.forward, -maid.transform.rotation.eulerAngles.z);
 						}
 					}
-					else if ((Input.GetKey(KeyCode.Minus) && this.getModKeyPressing(MultipleMaids.modKey.Shift)) || (Input.GetKey(KeyCode.I) && this.getModKeyPressing(MultipleMaids.modKey.Alt)))
+					else if ((Input.GetKey(KeyCode.Minus) && getModKeyPressing(MultipleMaids.modKey.Shift)) || (Input.GetKey(KeyCode.I) && getModKeyPressing(MultipleMaids.modKey.Alt)))
 					{
 						maid.transform.RotateAround(maid.transform.position, new Vector3(vector3.x, 0f, vector3.z), 0.4f);
 					}
-					else if ((Input.GetKey(KeyCode.Quote) && this.getModKeyPressing(MultipleMaids.modKey.Shift)) || (Input.GetKey(KeyCode.K) && this.getModKeyPressing(MultipleMaids.modKey.Alt)))
+					else if ((Input.GetKey(KeyCode.Quote) && getModKeyPressing(MultipleMaids.modKey.Shift)) || (Input.GetKey(KeyCode.K) && getModKeyPressing(MultipleMaids.modKey.Alt)))
 					{
 						maid.transform.RotateAround(maid.transform.position, new Vector3(vector3.x, 0f, vector3.z), -0.4f);
 					}
-					else if (Input.GetKey(KeyCode.Minus) || (Input.GetKey(KeyCode.J) && this.getModKeyPressing(MultipleMaids.modKey.Alt)))
+					else if (Input.GetKey(KeyCode.Minus) || (Input.GetKey(KeyCode.J) && getModKeyPressing(MultipleMaids.modKey.Alt)))
 					{
 						maid.transform.RotateAround(maid.transform.position, new Vector3(vector2.x, 0f, vector2.z), 0.4f);
 					}
-					else if (Input.GetKey(KeyCode.Quote) || (Input.GetKey(KeyCode.L) && this.getModKeyPressing(MultipleMaids.modKey.Alt)))
+					else if (Input.GetKey(KeyCode.Quote) || (Input.GetKey(KeyCode.L) && getModKeyPressing(MultipleMaids.modKey.Alt)))
 					{
 						maid.transform.RotateAround(maid.transform.position, new Vector3(vector2.x, 0f, vector2.z), -0.4f);
 					}
-					if (Input.GetKeyUp(KeyCode.H) && !this.hFlg)
+					if (Input.GetKeyUp(KeyCode.H) && !hFlg)
 					{
-						if (this.h2Flg)
+						if (h2Flg)
 						{
-							this.h2Flg = false;
+							h2Flg = false;
 						}
 						else
 						{
-							if (this.isVR)
+							if (isVR)
 							{
-								this.isF6 = true;
+								isF6 = true;
 							}
-							if (!this.maidArray[0])
+							if (!maidArray[0])
 							{
-								this.maidArray[0] = GameMain.Instance.CharacterMgr.GetMaid(0);
+								maidArray[0] = GameMain.Instance.CharacterMgr.GetMaid(0);
 							}
 							string value = "";
-							if (this.wearIndex == 0)
+							if (wearIndex == 0)
 							{
 								value = "Underwear";
-								this.wearIndex = 1;
-								this.isWear = false;
-								this.isSkirt = false;
-								this.isBra = true;
-								this.isPanz = true;
-								this.isHeadset = false;
-								this.isGlove = false;
-								this.isStkg = true;
-								this.isShoes = false;
+								wearIndex = 1;
+								isWear = false;
+								isSkirt = false;
+								isBra = true;
+								isPanz = true;
+								isHeadset = false;
+								isGlove = false;
+								isStkg = true;
+								isShoes = false;
 							}
-							else if (this.wearIndex == 1)
+							else if (wearIndex == 1)
 							{
 								value = "Nude";
-								this.wearIndex = 2;
-								this.isWear = false;
-								this.isSkirt = false;
-								this.isBra = false;
-								this.isPanz = false;
-								this.isHeadset = false;
-								this.isGlove = false;
-								this.isStkg = false;
-								this.isShoes = false;
+								wearIndex = 2;
+								isWear = false;
+								isSkirt = false;
+								isBra = false;
+								isPanz = false;
+								isHeadset = false;
+								isGlove = false;
+								isStkg = false;
+								isShoes = false;
 							}
-							else if (this.wearIndex == 2)
+							else if (wearIndex == 2)
 							{
 								value = "None";
-								this.wearIndex = 0;
-								this.isWear = true;
-								this.isSkirt = true;
-								this.isBra = true;
-								this.isPanz = true;
-								this.isHeadset = true;
-								this.isGlove = true;
-								this.isStkg = true;
-								this.isShoes = true;
+								wearIndex = 0;
+								isWear = true;
+								isSkirt = true;
+								isBra = true;
+								isPanz = true;
+								isHeadset = true;
+								isGlove = true;
+								isStkg = true;
+								isShoes = true;
 							}
 							TBody.MaskMode maskMode = (TBody.MaskMode)Enum.Parse(typeof(TBody.MaskMode), value);
-							for (int i2 = 0; i2 < this.maidCnt; i2++)
+							for (int i2 = 0; i2 < maidCnt; i2++)
 							{
-								if (this.maidArray[i2] && this.maidArray[i2].Visible)
+								if (maidArray[i2] && maidArray[i2].Visible)
 								{
-									this.maidArray[i2].body0.SetMaskMode(maskMode);
+									maidArray[i2].body0.SetMaskMode(maskMode);
 								}
 							}
 						}
 					}
 				}
-				if (this.isVR)
+				if (isVR)
 				{
 					if (Input.GetKey(KeyCode.F7) && Input.GetKeyDown(KeyCode.Alpha1))
 					{
 						string text2 = GameMain.Instance.BgMgr.GetBGName();
 						int l = 0;
-						foreach (string text3 in this.bgArray)
+						foreach (string text3 in bgArray)
 						{
 							if (text3 == text2)
 							{
-								this.bgIndex = l;
-								this.bgIndex6 = l;
+								bgIndex = l;
+								bgIndex6 = l;
 								break;
 							}
 							l++;
 						}
-						this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
-						this.lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
-						this.lightX6 = this.lightX[0];
-						this.lightY6 = this.lightY[0];
-						this.loadScene = 10000;
-						this.kankyoLoadFlg = true;
+						lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+						lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
+						lightX6 = lightX[0];
+						lightY6 = lightY[0];
+						loadScene = 10000;
+						kankyoLoadFlg = true;
 						GameMain.Instance.SoundMgr.PlaySe("se002.ogg", false);
 					}
 					if (Input.GetKey(KeyCode.F7) && Input.GetKeyDown(KeyCode.Alpha2))
 					{
 						string text2 = GameMain.Instance.BgMgr.GetBGName();
 						int l = 0;
-						foreach (string text3 in this.bgArray)
+						foreach (string text3 in bgArray)
 						{
 							if (text3 == text2)
 							{
-								this.bgIndex = l;
-								this.bgIndex6 = l;
+								bgIndex = l;
+								bgIndex6 = l;
 								break;
 							}
 							l++;
 						}
-						this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
-						this.lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
-						this.lightX6 = this.lightX[0];
-						this.lightY6 = this.lightY[0];
-						this.loadScene = 10001;
-						this.kankyoLoadFlg = true;
+						lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+						lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
+						lightX6 = lightX[0];
+						lightY6 = lightY[0];
+						loadScene = 10001;
+						kankyoLoadFlg = true;
 						GameMain.Instance.SoundMgr.PlaySe("se002.ogg", false);
 					}
 					if (Input.GetKey(KeyCode.F7) && Input.GetKeyDown(KeyCode.Alpha3))
 					{
 						string text2 = GameMain.Instance.BgMgr.GetBGName();
 						int l = 0;
-						foreach (string text3 in this.bgArray)
+						foreach (string text3 in bgArray)
 						{
 							if (text3 == text2)
 							{
-								this.bgIndex = l;
-								this.bgIndex6 = l;
+								bgIndex = l;
+								bgIndex6 = l;
 								break;
 							}
 							l++;
 						}
-						this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
-						this.lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
-						this.lightX6 = this.lightX[0];
-						this.lightY6 = this.lightY[0];
-						this.loadScene = 10002;
-						this.kankyoLoadFlg = true;
+						lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+						lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
+						lightX6 = lightX[0];
+						lightY6 = lightY[0];
+						loadScene = 10002;
+						kankyoLoadFlg = true;
 						GameMain.Instance.SoundMgr.PlaySe("se002.ogg", false);
 					}
 					if (Input.GetKey(KeyCode.F7) && Input.GetKeyDown(KeyCode.Alpha4))
 					{
 						string text2 = GameMain.Instance.BgMgr.GetBGName();
 						int l = 0;
-						foreach (string text3 in this.bgArray)
+						foreach (string text3 in bgArray)
 						{
 							if (text3 == text2)
 							{
-								this.bgIndex = l;
-								this.bgIndex6 = l;
+								bgIndex = l;
+								bgIndex6 = l;
 								break;
 							}
 							l++;
 						}
-						this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
-						this.lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
-						this.lightX6 = this.lightX[0];
-						this.lightY6 = this.lightY[0];
-						this.loadScene = 10003;
-						this.kankyoLoadFlg = true;
+						lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+						lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
+						lightX6 = lightX[0];
+						lightY6 = lightY[0];
+						loadScene = 10003;
+						kankyoLoadFlg = true;
 						GameMain.Instance.SoundMgr.PlaySe("se002.ogg", false);
 					}
 					if (Input.GetKey(KeyCode.F7) && Input.GetKeyDown(KeyCode.Alpha5))
 					{
 						string text2 = GameMain.Instance.BgMgr.GetBGName();
 						int l = 0;
-						foreach (string text3 in this.bgArray)
+						foreach (string text3 in bgArray)
 						{
 							if (text3 == text2)
 							{
-								this.bgIndex = l;
-								this.bgIndex6 = l;
+								bgIndex = l;
+								bgIndex6 = l;
 								break;
 							}
 							l++;
 						}
-						this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
-						this.lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
-						this.lightX6 = this.lightX[0];
-						this.lightY6 = this.lightY[0];
-						this.loadScene = 10004;
-						this.kankyoLoadFlg = true;
+						lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+						lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
+						lightX6 = lightX[0];
+						lightY6 = lightY[0];
+						loadScene = 10004;
+						kankyoLoadFlg = true;
 						GameMain.Instance.SoundMgr.PlaySe("se002.ogg", false);
 					}
 					if (Input.GetKey(KeyCode.F7) && Input.GetKeyDown(KeyCode.Alpha6))
 					{
 						string text2 = GameMain.Instance.BgMgr.GetBGName();
 						int l = 0;
-						foreach (string text3 in this.bgArray)
+						foreach (string text3 in bgArray)
 						{
 							if (text3 == text2)
 							{
-								this.bgIndex = l;
-								this.bgIndex6 = l;
+								bgIndex = l;
+								bgIndex6 = l;
 								break;
 							}
 							l++;
 						}
-						this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
-						this.lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
-						this.lightX6 = this.lightX[0];
-						this.lightY6 = this.lightY[0];
-						this.loadScene = 10005;
-						this.kankyoLoadFlg = true;
+						lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+						lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
+						lightX6 = lightX[0];
+						lightY6 = lightY[0];
+						loadScene = 10005;
+						kankyoLoadFlg = true;
 						GameMain.Instance.SoundMgr.PlaySe("se002.ogg", false);
 					}
 					if (Input.GetKey(KeyCode.F7) && Input.GetKeyDown(KeyCode.Alpha7))
 					{
 						string text2 = GameMain.Instance.BgMgr.GetBGName();
 						int l = 0;
-						foreach (string text3 in this.bgArray)
+						foreach (string text3 in bgArray)
 						{
 							if (text3 == text2)
 							{
-								this.bgIndex = l;
-								this.bgIndex6 = l;
+								bgIndex = l;
+								bgIndex6 = l;
 								break;
 							}
 							l++;
 						}
-						this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
-						this.lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
-						this.lightX6 = this.lightX[0];
-						this.lightY6 = this.lightY[0];
-						this.loadScene = 10006;
-						this.kankyoLoadFlg = true;
+						lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+						lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
+						lightX6 = lightX[0];
+						lightY6 = lightY[0];
+						loadScene = 10006;
+						kankyoLoadFlg = true;
 						GameMain.Instance.SoundMgr.PlaySe("se002.ogg", false);
 					}
 					if (Input.GetKey(KeyCode.F7) && Input.GetKeyDown(KeyCode.Alpha8))
 					{
 						string text2 = GameMain.Instance.BgMgr.GetBGName();
 						int l = 0;
-						foreach (string text3 in this.bgArray)
+						foreach (string text3 in bgArray)
 						{
 							if (text3 == text2)
 							{
-								this.bgIndex = l;
-								this.bgIndex6 = l;
+								bgIndex = l;
+								bgIndex6 = l;
 								break;
 							}
 							l++;
 						}
-						this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
-						this.lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
-						this.lightX6 = this.lightX[0];
-						this.lightY6 = this.lightY[0];
-						this.loadScene = 10007;
-						this.kankyoLoadFlg = true;
+						lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+						lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
+						lightX6 = lightX[0];
+						lightY6 = lightY[0];
+						loadScene = 10007;
+						kankyoLoadFlg = true;
 						GameMain.Instance.SoundMgr.PlaySe("se002.ogg", false);
 					}
 					if (Input.GetKey(KeyCode.F7) && Input.GetKeyDown(KeyCode.Alpha9))
 					{
 						string text2 = GameMain.Instance.BgMgr.GetBGName();
 						int l = 0;
-						foreach (string text3 in this.bgArray)
+						foreach (string text3 in bgArray)
 						{
 							if (text3 == text2)
 							{
-								this.bgIndex = l;
-								this.bgIndex6 = l;
+								bgIndex = l;
+								bgIndex6 = l;
 								break;
 							}
 							l++;
 						}
-						this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
-						this.lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
-						this.lightX6 = this.lightX[0];
-						this.lightY6 = this.lightY[0];
-						this.loadScene = 10008;
-						this.kankyoLoadFlg = true;
+						lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+						lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
+						lightX6 = lightX[0];
+						lightY6 = lightY[0];
+						loadScene = 10008;
+						kankyoLoadFlg = true;
 						GameMain.Instance.SoundMgr.PlaySe("se002.ogg", false);
 					}
 					if (Input.GetKey(KeyCode.F7) && Input.GetKeyDown(KeyCode.Alpha0))
 					{
 						string text2 = GameMain.Instance.BgMgr.GetBGName();
 						int l = 0;
-						foreach (string text3 in this.bgArray)
+						foreach (string text3 in bgArray)
 						{
 							if (text3 == text2)
 							{
-								this.bgIndex = l;
-								this.bgIndex6 = l;
+								bgIndex = l;
+								bgIndex6 = l;
 								break;
 							}
 							l++;
 						}
-						this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
-						this.lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
-						this.lightX6 = this.lightX[0];
-						this.lightY6 = this.lightY[0];
-						this.loadScene = 10009;
-						this.kankyoLoadFlg = true;
+						lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+						lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
+						lightX6 = lightX[0];
+						lightY6 = lightY[0];
+						loadScene = 10009;
+						kankyoLoadFlg = true;
 						GameMain.Instance.SoundMgr.PlaySe("se002.ogg", false);
 					}
 				}
-				if (this.isSavePose4)
+				if (isSavePose4)
 				{
-					this.isSavePose4 = false;
-					Maid maid = this.maidArray[this.selectMaidIndex];
+					isSavePose4 = false;
+					Maid maid = maidArray[selectMaidIndex];
 					Vector3 localEulerAngles = maid.transform.localEulerAngles;
 					maid.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
 					Vector3 position = maid.transform.position;
 					maid.transform.position = new Vector3(0f, 0f, 0f);
 					Transform transform2 = CMT.SearchObjName(maid.body0.m_Bones.transform, "Bip01", true);
-					transform2.eulerAngles = this.bipRotation;
-					transform2.position = this.bipPosition;
+					transform2.eulerAngles = bipRotation;
+					transform2.position = bipPosition;
 					maid.transform.localEulerAngles = localEulerAngles;
 					maid.transform.position = position;
 					CacheBoneDataArray cacheBoneDataArray = maid.gameObject.AddComponent<CacheBoneDataArray>();
 					cacheBoneDataArray.CreateCache(maid.body0.GetBone("Bip01"));
 					byte[] anmBinary = cacheBoneDataArray.GetAnmBinary(true, true);
-					string path4 = Path.GetFullPath(".\\") + "Mod\\MultipleMaidsPose\\" + this.inName3 + ".anm";
+					string path4 = Path.GetFullPath(".\\") + "Mod\\MultipleMaidsPose\\" + inName3 + ".anm";
 					for (int l = 0; l < 100; l++)
 					{
 						if (!File.Exists(path4))
 						{
 							break;
 						}
-						this.inName3 += "_";
-						path4 = Path.GetFullPath(".\\") + "Mod\\MultipleMaidsPose\\" + this.inName3 + ".anm";
+						inName3 += "_";
+						path4 = Path.GetFullPath(".\\") + "Mod\\MultipleMaidsPose\\" + inName3 + ".anm";
 					}
 					File.WriteAllBytes(path4, anmBinary);
-					this.strList2 = new List<string>();
-					this.strListE = new List<string>();
-					this.strListE2 = new List<string>();
-					this.strListS = new List<string>();
-					this.strListD = new List<string>();
-					this.strS = "";
-					List<string> list = new List<string>(350 + this.poseArray2.Length);
-					list.AddRange(this.poseArray2);
+					strList2 = new List<string>();
+					strListE = new List<string>();
+					strListE2 = new List<string>();
+					strListS = new List<string>();
+					strListD = new List<string>();
+					strS = "";
+					List<string> list = new List<string>(350 + poseArray2.Length);
+					list.AddRange(poseArray2);
 					List<string> list2 = new List<string>();
 					for (int l = 11; l < 200; l++)
 					{
@@ -906,16 +906,16 @@ namespace CM3D2.MultipleMaids.Plugin
 					{
 						list.AddRange(list2.ToArray());
 					}
-					list.AddRange(this.poseArrayVP2);
-					list.AddRange(this.poseArrayFB);
-					list.AddRange(this.poseArray4);
-					list.AddRange(this.poseArray5);
-					list.AddRange(this.poseArray6);
-					this.poseArray = list.ToArray();
+					list.AddRange(poseArrayVP2);
+					list.AddRange(poseArrayFB);
+					list.AddRange(poseArray4);
+					list.AddRange(poseArray5);
+					list.AddRange(poseArray6);
+					poseArray = list.ToArray();
 					Action<string, List<string>> action = delegate (string path, List<string> result_list)
 					{
 						string[] files = Directory.GetFiles(path);
-						this.countS = 0;
+						countS = 0;
 						for (int num208 = 0; num208 < files.Length; num208++)
 						{
 							if (Path.GetExtension(files[num208]) == ".anm")
@@ -931,8 +931,8 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									'.'
 								})[0];
-								this.strListS.Add(text21 + "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000/" + files[num208]);
-								this.countS++;
+								strListS.Add(text21 + "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000/" + files[num208]);
+								countS++;
 							}
 						}
 					};
@@ -958,12 +958,12 @@ namespace CM3D2.MultipleMaids.Plugin
 									{
 										if (text3.StartsWith("dance_test"))
 										{
-											this.strListD.Add(text3);
+											strListD.Add(text3);
 										}
 										else
 										{
 											bool flag2 = false;
-											foreach (string text in this.strListS)
+											foreach (string text in strListS)
 											{
 												string text4 = text.Split(new char[]
 												{
@@ -984,7 +984,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								}
 								else if (!text3.StartsWith("pose_"))
 								{
-									this.strListE.Add(text3);
+									strListE.Add(text3);
 								}
 							}
 						}
@@ -996,68 +996,68 @@ namespace CM3D2.MultipleMaids.Plugin
 					foreach (string text in list4)
 					{
 						bool flag3 = false;
-						for (int l = 0; l < this.poseArray.Length; l++)
+						for (int l = 0; l < poseArray.Length; l++)
 						{
-							if (text == this.poseArray[l])
+							if (text == poseArray[l])
 							{
 								flag3 = true;
 							}
 						}
 						if (!flag3 && text.StartsWith("edit_"))
 						{
-							this.strList2.Add(text);
+							strList2.Add(text);
 						}
 					}
 					foreach (string text in list4)
 					{
 						bool flag3 = false;
-						for (int l = 0; l < this.poseArray.Length; l++)
+						for (int l = 0; l < poseArray.Length; l++)
 						{
-							if (text == this.poseArray[l])
+							if (text == poseArray[l])
 							{
 								flag3 = true;
 							}
 						}
 						if (!flag3 && text.StartsWith("pose_"))
 						{
-							this.strList2.Add(text);
+							strList2.Add(text);
 						}
 					}
 					foreach (string text in list4)
 					{
 						bool flag3 = false;
-						for (int l = 0; l < this.poseArray.Length; l++)
+						for (int l = 0; l < poseArray.Length; l++)
 						{
-							if (text == this.poseArray[l])
+							if (text == poseArray[l])
 							{
 								flag3 = true;
 							}
 						}
 						if (!flag3 && !text.StartsWith("edit_") && !text.StartsWith("pose_"))
 						{
-							this.strList2.Add(text);
+							strList2.Add(text);
 						}
 					}
-					foreach (string text in this.strListE)
+					foreach (string text in strListE)
 					{
 						bool flag3 = false;
-						for (int l = 0; l < this.poseArray.Length; l++)
+						for (int l = 0; l < poseArray.Length; l++)
 						{
-							if (text == this.poseArray[l])
+							if (text == poseArray[l])
 							{
 								flag3 = true;
 							}
 						}
 						if (!flag3)
 						{
-							this.strListE2.Add(text);
+							strListE2.Add(text);
 							num2++;
 						}
 					}
-					list.AddRange(this.strList2.ToArray());
-					list.AddRange(this.strListE2.ToArray());
-					this.existPose = false;
-					this.poseIniStr = "";
+					list.AddRange(strList2.ToArray());
+					list.AddRange(strListE2.ToArray());
+					existPose = false;
+					poseIniStr = "";
 					List<IniKey> keys = base.Preferences["pose"].Keys;
 					foreach (IniKey iniKey in keys)
 					{
@@ -1070,178 +1070,178 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									iniKey.Key
 								});
-								this.existPose = true;
-								if (this.poseIniStr == "")
+								existPose = true;
+								if (poseIniStr == "")
 								{
-									this.poseIniStr = iniKey.Key;
+									poseIniStr = iniKey.Key;
 								}
 							}
 						}
 					}
-					list.AddRange(this.strListS.ToArray());
-					this.poseArray = list.ToArray();
-					List<string> list5 = new List<string>(50 + this.poseGroupArray2.Length);
-					list5.AddRange(this.poseGroupArray2);
-					list5.AddRange(this.poseGroupArrayVP);
-					list5.AddRange(this.poseGroupArrayFB);
-					list5.AddRange(this.poseGroupArray3);
-					list5.Add(this.poseArray5[0]);
-					list5.Add(this.poseArray6[0]);
-					list5.Add(this.strList2[0]);
-					list5.Add(this.strListE2[0]);
-					this.existPose = true;
-					if (this.strListS.Count > 0 && this.poseIniStr == "")
+					list.AddRange(strListS.ToArray());
+					poseArray = list.ToArray();
+					List<string> list5 = new List<string>(50 + poseGroupArray2.Length);
+					list5.AddRange(poseGroupArray2);
+					list5.AddRange(poseGroupArrayVP);
+					list5.AddRange(poseGroupArrayFB);
+					list5.AddRange(poseGroupArray3);
+					list5.Add(poseArray5[0]);
+					list5.Add(poseArray6[0]);
+					list5.Add(strList2[0]);
+					list5.Add(strListE2[0]);
+					existPose = true;
+					if (strListS.Count > 0 && poseIniStr == "")
 					{
-						list5.Add(this.strListS[0]);
+						list5.Add(strListS[0]);
 					}
-					if (this.poseIniStr != "")
+					if (poseIniStr != "")
 					{
-						list5.Add(this.poseIniStr);
+						list5.Add(poseIniStr);
 					}
-					this.poseGroupArray = list5.ToArray();
-					this.groupList = new ArrayList();
-					for (int k = 0; k < this.poseArray.Length; k++)
+					poseGroupArray = list5.ToArray();
+					groupList = new ArrayList();
+					for (int k = 0; k < poseArray.Length; k++)
 					{
-						for (int i2 = 0; i2 < this.poseGroupArray.Length; i2++)
+						for (int i2 = 0; i2 < poseGroupArray.Length; i2++)
 						{
-							if (this.poseGroupArray[i2] == this.poseArray[k])
+							if (poseGroupArray[i2] == poseArray[k])
 							{
-								this.groupList.Add(k);
-								if (this.poseGroupArray[i2] == this.strList2[0])
+								groupList.Add(k);
+								if (poseGroupArray[i2] == strList2[0])
 								{
-									this.sPoseCount = k;
+									sPoseCount = k;
 								}
 							}
 						}
 					}
-					this.poseGroupComboList = new GUIContent[this.poseGroupArray.Length + 1];
-					this.poseGroupComboList[0] = new GUIContent("1:通常");
-					for (int n = 0; n < this.poseGroupArray.Length; n++)
+					poseGroupComboList = new GUIContent[poseGroupArray.Length + 1];
+					poseGroupComboList[0] = new GUIContent("1:通常");
+					for (int n = 0; n < poseGroupArray.Length; n++)
 					{
-						if (this.poseGroupArray[n] == "maid_dressroom01")
+						if (poseGroupArray[n] == "maid_dressroom01")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":立ち");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":立ち");
 						}
-						if (this.poseGroupArray[n] == "tennis_kamae_f")
+						if (poseGroupArray[n] == "tennis_kamae_f")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":中腰");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":中腰");
 						}
-						if (this.poseGroupArray[n] == "senakanagasi_f")
+						if (poseGroupArray[n] == "senakanagasi_f")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":膝をつく");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":膝をつく");
 						}
-						if (this.poseGroupArray[n] == "work_hansei")
+						if (poseGroupArray[n] == "work_hansei")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":座り");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":座り");
 						}
-						if (this.poseGroupArray[n] == "inu_taiki_f")
+						if (poseGroupArray[n] == "inu_taiki_f")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":四つん這い");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":四つん這い");
 						}
-						if (this.poseGroupArray[n] == "syagami_pose_f")
+						if (poseGroupArray[n] == "syagami_pose_f")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":床座り");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":床座り");
 						}
-						if (this.poseGroupArray[n] == "densyasuwari_taiki_f")
+						if (poseGroupArray[n] == "densyasuwari_taiki_f")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":椅子座り");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":椅子座り");
 						}
-						if (this.poseGroupArray[n] == "work_kaiwa")
+						if (poseGroupArray[n] == "work_kaiwa")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":ソファー座り");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":ソファー座り");
 						}
-						if (this.poseGroupArray[n] == "dance_cm3d2_001_f1,14.14")
+						if (poseGroupArray[n] == "dance_cm3d2_001_f1,14.14")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":ドキドキ☆Fallin' Love");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":ドキドキ☆Fallin' Love");
 						}
-						if (this.poseGroupArray[n] == "dance_cm3d_001_f1,39.25")
+						if (poseGroupArray[n] == "dance_cm3d_001_f1,39.25")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":entrance to you");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":entrance to you");
 						}
-						if (this.poseGroupArray[n] == "dance_cm3d_002_end_f1,50.71")
+						if (poseGroupArray[n] == "dance_cm3d_002_end_f1,50.71")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":scarlet leap");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":scarlet leap");
 						}
-						if (this.poseGroupArray[n] == "dance_cm3d2_002_smt_f,7.76,")
+						if (poseGroupArray[n] == "dance_cm3d2_002_smt_f,7.76,")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":stellar my tears");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":stellar my tears");
 						}
-						if (this.poseGroupArray[n] == "dance_cm3d_003_sp2_f1,90.15")
+						if (poseGroupArray[n] == "dance_cm3d_003_sp2_f1,90.15")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":rhythmix to you");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":rhythmix to you");
 						}
-						if (this.poseGroupArray[n] == "dance_cm3d2_003_hs_f1,0.01,")
+						if (poseGroupArray[n] == "dance_cm3d2_003_hs_f1,0.01,")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":happy!happy!スキャンダル!!");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":happy!happy!スキャンダル!!");
 						}
-						if (this.poseGroupArray[n] == "dance_cm3d_004_kano_f1,124.93")
+						if (poseGroupArray[n] == "dance_cm3d_004_kano_f1,124.93")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":Can Know Two Close");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":Can Know Two Close");
 						}
-						if (this.poseGroupArray[n] == "dance_cm3d2_004_sse_f1,0.01")
+						if (poseGroupArray[n] == "dance_cm3d2_004_sse_f1,0.01")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":sweet sweet everyday");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":sweet sweet everyday");
 						}
-						if (this.poseGroupArray[n] == "turusi_sex_in_taiki_f")
+						if (poseGroupArray[n] == "turusi_sex_in_taiki_f")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":拘束");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":拘束");
 						}
-						if (this.poseGroupArray[n] == "rosyutu_pose01_f")
+						if (poseGroupArray[n] == "rosyutu_pose01_f")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":エロ");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":エロ");
 						}
-						if (this.poseGroupArray[n] == "rosyutu_aruki_f_once_,1.37")
+						if (poseGroupArray[n] == "rosyutu_aruki_f_once_,1.37")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":歩き");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":歩き");
 						}
-						if (this.poseGroupArray[n] == "stand_desk1")
+						if (poseGroupArray[n] == "stand_desk1")
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":その他");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":その他");
 						}
-						if (this.poseGroupArray[n] == this.poseArray5[0])
+						if (poseGroupArray[n] == poseArray5[0])
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":ダンスMC");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":ダンスMC");
 						}
-						if (this.poseGroupArray[n] == this.poseArray6[0])
+						if (poseGroupArray[n] == poseArray6[0])
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":ダンス");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":ダンス");
 						}
-						if (n == this.poseGroupArray.Length - 3)
+						if (n == poseGroupArray.Length - 3)
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":通常2");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":通常2");
 						}
-						if (n == this.poseGroupArray.Length - 2)
+						if (n == poseGroupArray.Length - 2)
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":エロ2");
+							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":エロ2");
 						}
-						if (n == this.poseGroupArray.Length - 1)
+						if (n == poseGroupArray.Length - 1)
 						{
-							this.poseGroupComboList[n + 1] = new GUIContent("99:登録ポーズ");
+							poseGroupComboList[n + 1] = new GUIContent("99:登録ポーズ");
 						}
 					}
 					int num3 = -1;
-					for (int k = 0; k < this.groupList.Count; k++)
+					for (int k = 0; k < groupList.Count; k++)
 					{
-						if (this.poseIndex[this.selectMaidIndex] < (int)this.groupList[k])
+						if (poseIndex[selectMaidIndex] < (int)groupList[k])
 						{
 							num3 = k;
 							break;
 						}
 					}
-					int num4 = (int)this.groupList[0];
+					int num4 = (int)groupList[0];
 					int num5 = 0;
 					if (num3 > 0)
 					{
-						num4 = (int)this.groupList[num3] - (int)this.groupList[num3 - 1];
-						num5 = (int)this.groupList[num3 - 1];
+						num4 = (int)groupList[num3] - (int)groupList[num3 - 1];
+						num5 = (int)groupList[num3 - 1];
 					}
 					if (num3 < 0)
 					{
-						num3 = this.groupList.Count;
-						num4 = this.poseArray.Length - (int)this.groupList[num3 - 1];
-						num5 = (int)this.groupList[num3 - 1];
+						num3 = groupList.Count;
+						num4 = poseArray.Length - (int)groupList[num3 - 1];
+						num5 = (int)groupList[num3 - 1];
 					}
-					this.poseComboList = new GUIContent[num4];
+					poseComboList = new GUIContent[num4];
 					int num6 = 0;
 					for (int j = num5; j < num5 + num4; j++)
 					{
@@ -1249,12 +1249,12 @@ namespace CM3D2.MultipleMaids.Plugin
 						List<IniKey> keys2 = base.Preferences["pose"].Keys;
 						foreach (IniKey iniKey in keys2)
 						{
-							if (this.poseArray[j] == iniKey.Key)
+							if (poseArray[j] == iniKey.Key)
 							{
 								IniKey iniKey2 = base.Preferences["pose"][iniKey.Key];
 								if (iniKey2.Value != null && iniKey2.Value.ToString() != "" && iniKey2.Value.ToString() != "del")
 								{
-									this.poseComboList[num6] = new GUIContent(string.Concat(new object[]
+									poseComboList[num6] = new GUIContent(string.Concat(new object[]
 									{
 										num6 + 1,
 										":",
@@ -1271,23 +1271,23 @@ namespace CM3D2.MultipleMaids.Plugin
 						}
 						if (!flag4)
 						{
-							this.poseComboList[num6] = new GUIContent(num6 + 1 + ":" + this.poseArray[j]);
+							poseComboList[num6] = new GUIContent(num6 + 1 + ":" + poseArray[j]);
 						}
 						num6++;
 					}
-					this.poseGroupCombo.selectedItemIndex = num3;
-					this.poseGroupIndex = num3;
-					this.poseCombo.selectedItemIndex = 0;
-					for (int l = (int)this.groupList[this.groupList.Count - 1]; l < this.poseArray.Length; l++)
+					poseGroupCombo.selectedItemIndex = num3;
+					poseGroupIndex = num3;
+					poseCombo.selectedItemIndex = 0;
+					for (int l = (int)groupList[groupList.Count - 1]; l < poseArray.Length; l++)
 					{
-						string text4 = this.poseArray[l].Split(new char[]
+						string text4 = poseArray[l].Split(new char[]
 						{
 							'/'
 						})[0].Replace("\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000", "");
-						if (text4 == this.inName3)
+						if (text4 == inName3)
 						{
-							this.poseIndex[this.selectMaidIndex] = l;
-							string path3 = this.poseArray[l].Split(new char[]
+							poseIndex[selectMaidIndex] = l;
+							string path3 = poseArray[l].Split(new char[]
 							{
 								'/'
 							})[1];
@@ -1325,41 +1325,41 @@ namespace CM3D2.MultipleMaids.Plugin
 							break;
 						}
 					}
-					this.isLock[this.selectMaidIndex] = false;
-					this.inName3 = "";
-					this.isSavePose = false;
+					isLock[selectMaidIndex] = false;
+					inName3 = "";
+					isSavePose = false;
 				}
-				if (this.isSavePose3)
+				if (isSavePose3)
 				{
-					Maid maid = this.maidArray[this.selectMaidIndex];
-					this.isSavePose3 = false;
-					this.isSavePose4 = true;
+					Maid maid = maidArray[selectMaidIndex];
+					isSavePose3 = false;
+					isSavePose4 = true;
 					Transform transform2 = CMT.SearchObjName(maid.body0.m_Bones.transform, "Bip01", true);
-					transform2.eulerAngles = this.bipRotation;
-					transform2.position = this.bipPosition;
+					transform2.eulerAngles = bipRotation;
+					transform2.position = bipPosition;
 				}
-				if (this.isSavePose2)
+				if (isSavePose2)
 				{
-					Maid maid = this.maidArray[this.selectMaidIndex];
-					this.isSavePose2 = false;
-					this.isSavePose3 = true;
+					Maid maid = maidArray[selectMaidIndex];
+					isSavePose2 = false;
+					isSavePose3 = true;
 					Transform transform2 = CMT.SearchObjName(maid.body0.m_Bones.transform, "Bip01", true);
-					transform2.eulerAngles = this.bipRotation;
-					transform2.position = this.bipPosition;
+					transform2.eulerAngles = bipRotation;
+					transform2.position = bipPosition;
 				}
-				if (this.isSavePose)
+				if (isSavePose)
 				{
-					Maid maid = this.maidArray[this.selectMaidIndex];
+					Maid maid = maidArray[selectMaidIndex];
 					Transform transform2 = CMT.SearchObjName(maid.body0.m_Bones.transform, "Bip01", true);
-					this.bipPosition = new Vector3(transform2.position.x - maid.transform.position.x, transform2.position.y, transform2.position.z - maid.transform.position.z);
-					this.bipRotation = transform2.eulerAngles;
+					bipPosition = new Vector3(transform2.position.x - maid.transform.position.x, transform2.position.y, transform2.position.z - maid.transform.position.z);
+					bipRotation = transform2.eulerAngles;
 					maid.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
 					maid.transform.position = new Vector3(maid.transform.position.x, 0f, maid.transform.position.z);
-					this.isSavePose = false;
-					this.isSavePose2 = true;
-					this.isStop[this.selectMaidIndex] = true;
+					isSavePose = false;
+					isSavePose2 = true;
+					isStop[selectMaidIndex] = true;
 				}
-				if (this.saveScene > 0)
+				if (saveScene > 0)
 				{
 					string text = "";
 					string text5 = "";
@@ -1381,30 +1381,30 @@ namespace CM3D2.MultipleMaids.Plugin
 						":",
 						minute.ToString("00")
 					});
-					if (this.saveScene < 9999)
+					if (saveScene < 9999)
 					{
-						this.date[this.saveScene - 1 - this.page * 10] = text6;
-						this.ninzu[this.saveScene - 1 - this.page * 10] = this.maidCnt + "人";
+						date[saveScene - 1 - page * 10] = text6;
+						ninzu[saveScene - 1 - page * 10] = maidCnt + "人";
 					}
 					text5 = text5 + text6 + ",";
-					text5 = text5 + this.maidCnt + ",";
-					text5 = text5 + this.bgArray[this.bgIndex].Replace("_", " ") + ",";
+					text5 = text5 + maidCnt + ",";
+					text5 = text5 + bgArray[bgIndex].Replace("_", " ") + ",";
 					string text7 = text5;
 					string[] array4 = new string[7];
 					array4[0] = text7;
 					string[] array5 = array4;
 					int num8 = 1;
-					float num9 = this.bg.localEulerAngles.x;
+					float num9 = bg.localEulerAngles.x;
 					array5[num8] = num9.ToString("0.###");
 					array4[2] = ",";
 					string[] array6 = array4;
 					int num10 = 3;
-					num9 = this.bg.localEulerAngles.y;
+					num9 = bg.localEulerAngles.y;
 					array6[num10] = num9.ToString("0.###");
 					array4[4] = ",";
 					string[] array7 = array4;
 					int num11 = 5;
-					num9 = this.bg.localEulerAngles.z;
+					num9 = bg.localEulerAngles.z;
 					array7[num11] = num9.ToString("0.###");
 					array4[6] = ",";
 					text5 = string.Concat(array4);
@@ -1413,17 +1413,17 @@ namespace CM3D2.MultipleMaids.Plugin
 					array4[0] = text7;
 					string[] array8 = array4;
 					int num12 = 1;
-					num9 = this.bg.position.x;
+					num9 = bg.position.x;
 					array8[num12] = num9.ToString("0.###");
 					array4[2] = ",";
 					string[] array9 = array4;
 					int num13 = 3;
-					num9 = this.bg.position.y;
+					num9 = bg.position.y;
 					array9[num13] = num9.ToString("0.###");
 					array4[4] = ",";
 					string[] array10 = array4;
 					int num14 = 5;
-					num9 = this.bg.position.z;
+					num9 = bg.position.z;
 					array10[num14] = num9.ToString("0.###");
 					array4[6] = ",";
 					text5 = string.Concat(array4);
@@ -1432,17 +1432,17 @@ namespace CM3D2.MultipleMaids.Plugin
 					array4[0] = text7;
 					string[] array11 = array4;
 					int num15 = 1;
-					num9 = this.bg.localScale.x;
+					num9 = bg.localScale.x;
 					array11[num15] = num9.ToString("0.###");
 					array4[2] = ",";
 					string[] array12 = array4;
 					int num16 = 3;
-					num9 = this.bg.localScale.y;
+					num9 = bg.localScale.y;
 					array12[num16] = num9.ToString("0.###");
 					array4[4] = ",";
 					string[] array13 = array4;
 					int num17 = 5;
-					num9 = this.bg.localScale.z;
+					num9 = bg.localScale.z;
 					array13[num17] = num9.ToString("0.###");
 					array4[6] = ",";
 					text5 = string.Concat(array4);
@@ -1450,19 +1450,19 @@ namespace CM3D2.MultipleMaids.Plugin
 					text5 = string.Concat(new string[]
 					{
 						text7,
-						this.softG.x.ToString("0.###"),
+						softG.x.ToString("0.###"),
 						",",
-						this.softG.y.ToString("0.###"),
+						softG.y.ToString("0.###"),
 						",",
-						this.softG.z.ToString("0.###"),
+						softG.z.ToString("0.###"),
 						","
 					});
-					text5 = text5 + this.bgmIndex + ",";
-					text5 = text5 + this.effectIndex + ",";
-					text5 = text5 + this.lightIndex[0] + ",";
-					text5 = text5 + this.lightColorR[0] + ",";
-					text5 = text5 + this.lightColorG[0] + ",";
-					text5 = text5 + this.lightColorB[0] + ",";
+					text5 = text5 + bgmIndex + ",";
+					text5 = text5 + effectIndex + ",";
+					text5 = text5 + lightIndex[0] + ",";
+					text5 = text5 + lightColorR[0] + ",";
+					text5 = text5 + lightColorG[0] + ",";
+					text5 = text5 + lightColorB[0] + ",";
 					text7 = text5;
 					array4 = new string[7];
 					array4[0] = text7;
@@ -1485,66 +1485,66 @@ namespace CM3D2.MultipleMaids.Plugin
 					text5 = text5 + GameMain.Instance.MainLight.GetComponent<Light>().intensity + ",";
 					text5 = text5 + GameMain.Instance.MainLight.GetComponent<Light>().spotAngle + ",";
 					text5 = text5 + GameMain.Instance.MainLight.GetComponent<Light>().range + ",";
-					text5 = text5 + this.mainCamera.GetTargetPos().x + ",";
-					text5 = text5 + this.mainCamera.GetTargetPos().y + ",";
-					text5 = text5 + this.mainCamera.GetTargetPos().z + ",";
-					text5 = text5 + this.mainCamera.GetDistance() + ",";
+					text5 = text5 + mainCamera.GetTargetPos().x + ",";
+					text5 = text5 + mainCamera.GetTargetPos().y + ",";
+					text5 = text5 + mainCamera.GetTargetPos().z + ",";
+					text5 = text5 + mainCamera.GetDistance() + ",";
 					text7 = text5;
 					array4 = new string[7];
 					array4[0] = text7;
 					string[] array17 = array4;
 					int num21 = 1;
-					num9 = this.mainCamera.transform.eulerAngles.x;
+					num9 = mainCamera.transform.eulerAngles.x;
 					array17[num21] = num9.ToString("0.###");
 					array4[2] = ",";
 					string[] array18 = array4;
 					int num22 = 3;
-					num9 = this.mainCamera.transform.eulerAngles.y;
+					num9 = mainCamera.transform.eulerAngles.y;
 					array18[num22] = num9.ToString("0.###");
 					array4[4] = ",";
 					string[] array19 = array4;
 					int num23 = 5;
-					num9 = this.mainCamera.transform.eulerAngles.z;
+					num9 = mainCamera.transform.eulerAngles.z;
 					array19[num23] = num9.ToString("0.###");
 					array4[6] = ",";
 					text5 = string.Concat(array4);
-					this.inName = this.inName.Replace("_", " ").Replace(",", " ");
-					this.inText = this.inText.Replace("_", " ").Replace(",", " ");
-					if (this.isMessage)
+					inName = inName.Replace("_", " ").Replace(",", " ");
+					inText = inText.Replace("_", " ").Replace(",", " ");
+					if (isMessage)
 					{
 						text7 = text5;
 						text5 = string.Concat(new string[]
 						{
 							text7,
 							"1,",
-							this.inName,
+							inName,
 							",",
-							this.inText.Replace("\n", "&kaigyo")
+							inText.Replace("\n", "&kaigyo")
 						});
 					}
 					else
 					{
 						text5 += "0,,";
 					}
-					if (this.doguObject.Count > 0)
+					if (doguObject.Count > 0)
 					{
-						text5 = text5 + "," + this.doguArray[this.doguIndex[this.doguSelectIndex]].Replace("_", " ") + ",";
+						text5 = text5 + "," + doguArray[doguIndex[doguSelectIndex]].Replace("_", " ") + ",";
 						text7 = text5;
 						array4 = new string[7];
 						array4[0] = text7;
 						string[] array20 = array4;
 						int num24 = 1;
-						num9 = this.doguObject[this.doguSelectIndex].transform.localEulerAngles.x;
+						num9 = doguObject[doguSelectIndex].transform.localEulerAngles.x;
 						array20[num24] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array21 = array4;
 						int num25 = 3;
-						num9 = this.doguObject[this.doguSelectIndex].transform.localEulerAngles.y;
+						num9 = doguObject[doguSelectIndex].transform.localEulerAngles.y;
 						array21[num25] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array22 = array4;
 						int num26 = 5;
-						num9 = this.doguObject[this.doguSelectIndex].transform.localEulerAngles.z;
+						num9 = doguObject[doguSelectIndex].transform.localEulerAngles.z;
 						array22[num26] = num9.ToString("0.###");
 						array4[6] = ",";
 						text5 = string.Concat(array4);
@@ -1553,17 +1553,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array23 = array4;
 						int num27 = 1;
-						num9 = this.doguObject[this.doguSelectIndex].transform.position.x;
+						num9 = doguObject[doguSelectIndex].transform.position.x;
 						array23[num27] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array24 = array4;
 						int num28 = 3;
-						num9 = this.doguObject[this.doguSelectIndex].transform.position.y;
+						num9 = doguObject[doguSelectIndex].transform.position.y;
 						array24[num28] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array25 = array4;
 						int num29 = 5;
-						num9 = this.doguObject[this.doguSelectIndex].transform.position.z;
+						num9 = doguObject[doguSelectIndex].transform.position.z;
 						array25[num29] = num9.ToString("0.###");
 						array4[6] = ",";
 						text5 = string.Concat(array4);
@@ -1572,27 +1572,27 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array26 = array4;
 						int num30 = 1;
-						num9 = this.doguObject[this.doguSelectIndex].transform.localScale.x;
+						num9 = doguObject[doguSelectIndex].transform.localScale.x;
 						array26[num30] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array27 = array4;
 						int num31 = 3;
-						num9 = this.doguObject[this.doguSelectIndex].transform.localScale.y;
+						num9 = doguObject[doguSelectIndex].transform.localScale.y;
 						array27[num31] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array28 = array4;
 						int num32 = 5;
-						num9 = this.doguObject[this.doguSelectIndex].transform.localScale.z;
+						num9 = doguObject[doguSelectIndex].transform.localScale.z;
 						array28[num32] = num9.ToString("0.###");
 						text5 = string.Concat(array4);
 					}
 					text5 += "_";
-					for (int l = 0; l < this.maidCnt; l++)
+					for (int l = 0; l < maidCnt; l++)
 					{
-						Maid maid = this.maidArray[l];
+						Maid maid = maidArray[l];
 						string text8 = "";
 						string text9 = "";
-						this.SetIK(maid, l);
+						SetIK(maid, l);
 						for (int i2 = 0; i2 < 20; i2++)
 						{
 							text7 = text8;
@@ -1600,17 +1600,17 @@ namespace CM3D2.MultipleMaids.Plugin
 							array4[0] = text7;
 							string[] array29 = array4;
 							int num33 = 1;
-							num9 = this.Finger[l, i2].localEulerAngles.x;
+							num9 = Finger[l, i2].localEulerAngles.x;
 							array29[num33] = num9.ToString("0.###");
 							array4[2] = ",";
 							string[] array30 = array4;
 							int num34 = 3;
-							num9 = this.Finger[l, i2].localEulerAngles.y;
+							num9 = Finger[l, i2].localEulerAngles.y;
 							array30[num34] = num9.ToString("0.###");
 							array4[4] = ",";
 							string[] array31 = array4;
 							int num35 = 5;
-							num9 = this.Finger[l, i2].localEulerAngles.z;
+							num9 = Finger[l, i2].localEulerAngles.z;
 							array31[num35] = num9.ToString("0.###");
 							array4[6] = ":";
 							text8 = string.Concat(array4);
@@ -1622,17 +1622,17 @@ namespace CM3D2.MultipleMaids.Plugin
 							array4[0] = text7;
 							string[] array32 = array4;
 							int num36 = 1;
-							num9 = this.Finger[l, i2].localEulerAngles.x;
+							num9 = Finger[l, i2].localEulerAngles.x;
 							array32[num36] = num9.ToString("0.###");
 							array4[2] = ",";
 							string[] array33 = array4;
 							int num37 = 3;
-							num9 = this.Finger[l, i2].localEulerAngles.y;
+							num9 = Finger[l, i2].localEulerAngles.y;
 							array33[num37] = num9.ToString("0.###");
 							array4[4] = ",";
 							string[] array34 = array4;
 							int num38 = 5;
-							num9 = this.Finger[l, i2].localEulerAngles.z;
+							num9 = Finger[l, i2].localEulerAngles.z;
 							array34[num38] = num9.ToString("0.###");
 							array4[6] = ":";
 							text9 = string.Concat(array4);
@@ -1643,17 +1643,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array35 = array4;
 						int num39 = 1;
-						num9 = this.Spine.eulerAngles.x;
+						num9 = Spine.eulerAngles.x;
 						array35[num39] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array36 = array4;
 						int num40 = 3;
-						num9 = this.Spine.eulerAngles.y;
+						num9 = Spine.eulerAngles.y;
 						array36[num40] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array37 = array4;
 						int num41 = 5;
-						num9 = this.Spine.eulerAngles.z;
+						num9 = Spine.eulerAngles.z;
 						array37[num41] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1662,17 +1662,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array38 = array4;
 						int num42 = 1;
-						num9 = this.Spine0a.eulerAngles.x;
+						num9 = Spine0a.eulerAngles.x;
 						array38[num42] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array39 = array4;
 						int num43 = 3;
-						num9 = this.Spine0a.eulerAngles.y;
+						num9 = Spine0a.eulerAngles.y;
 						array39[num43] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array40 = array4;
 						int num44 = 5;
-						num9 = this.Spine0a.eulerAngles.z;
+						num9 = Spine0a.eulerAngles.z;
 						array40[num44] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1681,17 +1681,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array41 = array4;
 						int num45 = 1;
-						num9 = this.Spine1.eulerAngles.x;
+						num9 = Spine1.eulerAngles.x;
 						array41[num45] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array42 = array4;
 						int num46 = 3;
-						num9 = this.Spine1.eulerAngles.y;
+						num9 = Spine1.eulerAngles.y;
 						array42[num46] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array43 = array4;
 						int num47 = 5;
-						num9 = this.Spine1.eulerAngles.z;
+						num9 = Spine1.eulerAngles.z;
 						array43[num47] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1700,17 +1700,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array44 = array4;
 						int num48 = 1;
-						num9 = this.Spine1a.eulerAngles.x;
+						num9 = Spine1a.eulerAngles.x;
 						array44[num48] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array45 = array4;
 						int num49 = 3;
-						num9 = this.Spine1a.eulerAngles.y;
+						num9 = Spine1a.eulerAngles.y;
 						array45[num49] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array46 = array4;
 						int num50 = 5;
-						num9 = this.Spine1a.eulerAngles.z;
+						num9 = Spine1a.eulerAngles.z;
 						array46[num50] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1719,17 +1719,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array47 = array4;
 						int num51 = 1;
-						num9 = this.Pelvis.eulerAngles.x;
+						num9 = Pelvis.eulerAngles.x;
 						array47[num51] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array48 = array4;
 						int num52 = 3;
-						num9 = this.Pelvis.eulerAngles.y;
+						num9 = Pelvis.eulerAngles.y;
 						array48[num52] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array49 = array4;
 						int num53 = 5;
-						num9 = this.Pelvis.eulerAngles.z;
+						num9 = Pelvis.eulerAngles.z;
 						array49[num53] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1738,17 +1738,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array50 = array4;
 						int num54 = 1;
-						num9 = this.HandL1[l].localEulerAngles.x;
+						num9 = HandL1[l].localEulerAngles.x;
 						array50[num54] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array51 = array4;
 						int num55 = 3;
-						num9 = this.HandL1[l].localEulerAngles.y;
+						num9 = HandL1[l].localEulerAngles.y;
 						array51[num55] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array52 = array4;
 						int num56 = 5;
-						num9 = this.HandL1[l].localEulerAngles.z;
+						num9 = HandL1[l].localEulerAngles.z;
 						array52[num56] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1757,17 +1757,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array53 = array4;
 						int num57 = 1;
-						num9 = this.UpperArmL1[l].eulerAngles.x;
+						num9 = UpperArmL1[l].eulerAngles.x;
 						array53[num57] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array54 = array4;
 						int num58 = 3;
-						num9 = this.UpperArmL1[l].eulerAngles.y;
+						num9 = UpperArmL1[l].eulerAngles.y;
 						array54[num58] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array55 = array4;
 						int num59 = 5;
-						num9 = this.UpperArmL1[l].eulerAngles.z;
+						num9 = UpperArmL1[l].eulerAngles.z;
 						array55[num59] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1776,17 +1776,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array56 = array4;
 						int num60 = 1;
-						num9 = this.ForearmL1[l].eulerAngles.x;
+						num9 = ForearmL1[l].eulerAngles.x;
 						array56[num60] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array57 = array4;
 						int num61 = 3;
-						num9 = this.ForearmL1[l].eulerAngles.y;
+						num9 = ForearmL1[l].eulerAngles.y;
 						array57[num61] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array58 = array4;
 						int num62 = 5;
-						num9 = this.ForearmL1[l].eulerAngles.z;
+						num9 = ForearmL1[l].eulerAngles.z;
 						array58[num62] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1795,17 +1795,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array59 = array4;
 						int num63 = 1;
-						num9 = this.HandR1[l].localEulerAngles.x;
+						num9 = HandR1[l].localEulerAngles.x;
 						array59[num63] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array60 = array4;
 						int num64 = 3;
-						num9 = this.HandR1[l].localEulerAngles.y;
+						num9 = HandR1[l].localEulerAngles.y;
 						array60[num64] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array61 = array4;
 						int num65 = 5;
-						num9 = this.HandR1[l].localEulerAngles.z;
+						num9 = HandR1[l].localEulerAngles.z;
 						array61[num65] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1814,17 +1814,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array62 = array4;
 						int num66 = 1;
-						num9 = this.UpperArmR1[l].eulerAngles.x;
+						num9 = UpperArmR1[l].eulerAngles.x;
 						array62[num66] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array63 = array4;
 						int num67 = 3;
-						num9 = this.UpperArmR1[l].eulerAngles.y;
+						num9 = UpperArmR1[l].eulerAngles.y;
 						array63[num67] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array64 = array4;
 						int num68 = 5;
-						num9 = this.UpperArmR1[l].eulerAngles.z;
+						num9 = UpperArmR1[l].eulerAngles.z;
 						array64[num68] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1833,17 +1833,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array65 = array4;
 						int num69 = 1;
-						num9 = this.ForearmR1[l].eulerAngles.x;
+						num9 = ForearmR1[l].eulerAngles.x;
 						array65[num69] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array66 = array4;
 						int num70 = 3;
-						num9 = this.ForearmR1[l].eulerAngles.y;
+						num9 = ForearmR1[l].eulerAngles.y;
 						array66[num70] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array67 = array4;
 						int num71 = 5;
-						num9 = this.ForearmR1[l].eulerAngles.z;
+						num9 = ForearmR1[l].eulerAngles.z;
 						array67[num71] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1852,17 +1852,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array68 = array4;
 						int num72 = 1;
-						num9 = this.HandL2[l].localEulerAngles.x;
+						num9 = HandL2[l].localEulerAngles.x;
 						array68[num72] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array69 = array4;
 						int num73 = 3;
-						num9 = this.HandL2[l].localEulerAngles.y;
+						num9 = HandL2[l].localEulerAngles.y;
 						array69[num73] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array70 = array4;
 						int num74 = 5;
-						num9 = this.HandL2[l].localEulerAngles.z;
+						num9 = HandL2[l].localEulerAngles.z;
 						array70[num74] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1871,17 +1871,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array71 = array4;
 						int num75 = 1;
-						num9 = this.UpperArmL2[l].eulerAngles.x;
+						num9 = UpperArmL2[l].eulerAngles.x;
 						array71[num75] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array72 = array4;
 						int num76 = 3;
-						num9 = this.UpperArmL2[l].eulerAngles.y;
+						num9 = UpperArmL2[l].eulerAngles.y;
 						array72[num76] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array73 = array4;
 						int num77 = 5;
-						num9 = this.UpperArmL2[l].eulerAngles.z;
+						num9 = UpperArmL2[l].eulerAngles.z;
 						array73[num77] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1890,17 +1890,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array74 = array4;
 						int num78 = 1;
-						num9 = this.ForearmL2[l].eulerAngles.x;
+						num9 = ForearmL2[l].eulerAngles.x;
 						array74[num78] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array75 = array4;
 						int num79 = 3;
-						num9 = this.ForearmL2[l].eulerAngles.y;
+						num9 = ForearmL2[l].eulerAngles.y;
 						array75[num79] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array76 = array4;
 						int num80 = 5;
-						num9 = this.ForearmL2[l].eulerAngles.z;
+						num9 = ForearmL2[l].eulerAngles.z;
 						array76[num80] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1909,17 +1909,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array77 = array4;
 						int num81 = 1;
-						num9 = this.HandR2[l].localEulerAngles.x;
+						num9 = HandR2[l].localEulerAngles.x;
 						array77[num81] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array78 = array4;
 						int num82 = 3;
-						num9 = this.HandR2[l].localEulerAngles.y;
+						num9 = HandR2[l].localEulerAngles.y;
 						array78[num82] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array79 = array4;
 						int num83 = 5;
-						num9 = this.HandR2[l].localEulerAngles.z;
+						num9 = HandR2[l].localEulerAngles.z;
 						array79[num83] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1928,17 +1928,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array80 = array4;
 						int num84 = 1;
-						num9 = this.UpperArmR2[l].eulerAngles.x;
+						num9 = UpperArmR2[l].eulerAngles.x;
 						array80[num84] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array81 = array4;
 						int num85 = 3;
-						num9 = this.UpperArmR2[l].eulerAngles.y;
+						num9 = UpperArmR2[l].eulerAngles.y;
 						array81[num85] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array82 = array4;
 						int num86 = 5;
-						num9 = this.UpperArmR2[l].eulerAngles.z;
+						num9 = UpperArmR2[l].eulerAngles.z;
 						array82[num86] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1947,17 +1947,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array83 = array4;
 						int num87 = 1;
-						num9 = this.ForearmR2[l].eulerAngles.x;
+						num9 = ForearmR2[l].eulerAngles.x;
 						array83[num87] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array84 = array4;
 						int num88 = 3;
-						num9 = this.ForearmR2[l].eulerAngles.y;
+						num9 = ForearmR2[l].eulerAngles.y;
 						array84[num88] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array85 = array4;
 						int num89 = 5;
-						num9 = this.ForearmR2[l].eulerAngles.z;
+						num9 = ForearmR2[l].eulerAngles.z;
 						array85[num89] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -1966,17 +1966,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array86 = array4;
 						int num90 = 1;
-						num9 = this.Head.eulerAngles.x;
+						num9 = Head.eulerAngles.x;
 						array86[num90] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array87 = array4;
 						int num91 = 3;
-						num9 = this.Head.eulerAngles.y;
+						num9 = Head.eulerAngles.y;
 						array87[num91] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array88 = array4;
 						int num92 = 5;
-						num9 = this.Head.eulerAngles.z;
+						num9 = Head.eulerAngles.z;
 						array88[num92] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
@@ -2037,9 +2037,9 @@ namespace CM3D2.MultipleMaids.Plugin
 						array97[num101] = num9.ToString("0.###");
 						array4[6] = ":";
 						text10 = string.Concat(array4);
-						if (this.poseArray[this.poseIndex[l]].Contains("MultipleMaidsPose"))
+						if (poseArray[poseIndex[l]].Contains("MultipleMaidsPose"))
 						{
-							string text4 = this.poseArray[this.poseIndex[l]].Replace("\u3000", "").Split(new char[]
+							string text4 = poseArray[poseIndex[l]].Replace("\u3000", "").Split(new char[]
 							{
 								'/'
 							})[0];
@@ -2047,9 +2047,9 @@ namespace CM3D2.MultipleMaids.Plugin
 						}
 						else
 						{
-							text10 = text10 + this.poseArray[this.poseIndex[l]].Replace("_", " ").Replace(",", "|") + ":";
+							text10 = text10 + poseArray[poseIndex[l]].Replace("_", " ").Replace(",", "|") + ":";
 						}
-						text10 = text10 + this.faceIndex[l] + ":";
+						text10 = text10 + faceIndex[l] + ":";
 						TMorph morph = maid.body0.Face.morph;
 						float[] fieldValue = MultipleMaids.GetFieldValue<TMorph, float[]>(morph, "BlendValues");
 						float[] fieldValue5 = MultipleMaids.GetFieldValue<TMorph, float[]>(morph, "BlendValuesBackup");
@@ -2249,17 +2249,17 @@ namespace CM3D2.MultipleMaids.Plugin
 							text10 = text10 + fieldValue5[(int)morph.hash["eyeclose8" + TMorph.crcFaceTypesStr[num102]]] + ":";
 						}
 						string text11 = "";
-						if (this.isLook[l])
+						if (isLook[l])
 						{
 							text11 = text11 + 1 + ",";
-							text11 = text11 + this.lookX[l].ToString("0.###") + ",";
-							text11 = text11 + this.lookY[l].ToString("0.###") + ":";
+							text11 = text11 + lookX[l].ToString("0.###") + ",";
+							text11 = text11 + lookY[l].ToString("0.###") + ":";
 						}
 						else
 						{
 							text11 = text11 + 0 + ",0,0:";
 						}
-						text11 = text11 + this.itemIndex[l] + ":";
+						text11 = text11 + itemIndex[l] + ":";
 						Transform transform3 = CMT.SearchObjName(maid.body0.m_Bones.transform, "_IK_handL", true);
 						Transform transform4 = CMT.SearchObjName(maid.body0.m_Bones.transform, "_IK_handR", true);
 						text7 = text11;
@@ -2305,17 +2305,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array104 = array4;
 						int num109 = 1;
-						num9 = this.ClavicleL1[l].eulerAngles.x;
+						num9 = ClavicleL1[l].eulerAngles.x;
 						array104[num109] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array105 = array4;
 						int num110 = 3;
-						num9 = this.ClavicleL1[l].eulerAngles.y;
+						num9 = ClavicleL1[l].eulerAngles.y;
 						array105[num110] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array106 = array4;
 						int num111 = 5;
-						num9 = this.ClavicleL1[l].eulerAngles.z;
+						num9 = ClavicleL1[l].eulerAngles.z;
 						array106[num111] = num9.ToString("0.###");
 						array4[6] = ":";
 						text11 = string.Concat(array4);
@@ -2324,21 +2324,21 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array107 = array4;
 						int num112 = 1;
-						num9 = this.ClavicleR1[l].eulerAngles.x;
+						num9 = ClavicleR1[l].eulerAngles.x;
 						array107[num112] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array108 = array4;
 						int num113 = 3;
-						num9 = this.ClavicleR1[l].eulerAngles.y;
+						num9 = ClavicleR1[l].eulerAngles.y;
 						array108[num113] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array109 = array4;
 						int num114 = 5;
-						num9 = this.ClavicleR1[l].eulerAngles.z;
+						num9 = ClavicleR1[l].eulerAngles.z;
 						array109[num114] = num9.ToString("0.###");
 						array4[6] = ":";
 						text11 = string.Concat(array4);
-						if (this.hanten[l])
+						if (hanten[l])
 						{
 							text11 += "1:";
 						}
@@ -2871,22 +2871,22 @@ namespace CM3D2.MultipleMaids.Plugin
 							text10,
 							text11
 						});
-						if (l + 1 != this.maidCnt)
+						if (l + 1 != maidCnt)
 						{
 							text += ";";
 						}
 					}
 					string text12 = "_";
-					text12 = text12 + this.lightKage[0] + ",";
-					if (this.isBloom)
+					text12 = text12 + lightKage[0] + ",";
+					if (isBloom)
 					{
 						text12 += "1,";
-						text12 = text12 + this.bloom1 + ",";
-						text12 = text12 + this.bloom2 + ",";
-						text12 = text12 + this.bloom3 + ",";
-						text12 = text12 + this.bloom4 + ",";
-						text12 = text12 + this.bloom5 + ",";
-						if (this.isBloomA)
+						text12 = text12 + bloom1 + ",";
+						text12 = text12 + bloom2 + ",";
+						text12 = text12 + bloom3 + ",";
+						text12 = text12 + bloom4 + ",";
+						text12 = text12 + bloom5 + ",";
+						if (isBloomA)
 						{
 							text12 += "1,";
 						}
@@ -2899,28 +2899,28 @@ namespace CM3D2.MultipleMaids.Plugin
 					{
 						text12 += "0,0,0,0,0,0,0,";
 					}
-					if (this.isBlur)
+					if (isBlur)
 					{
 						text12 += "1,";
-						text12 = text12 + this.blur1 + ",";
-						text12 = text12 + this.blur2 + ",";
-						text12 = text12 + this.blur3 + ",";
-						text12 = text12 + this.blur4 + ",";
+						text12 = text12 + blur1 + ",";
+						text12 = text12 + blur2 + ",";
+						text12 = text12 + blur3 + ",";
+						text12 = text12 + blur4 + ",";
 					}
 					else
 					{
 						text12 += "0,0,0,0,0,";
 					}
-					text12 = text12 + this.bokashi + ",";
-					text12 = text12 + this.kamiyure + ",";
-					if (this.isDepth)
+					text12 = text12 + bokashi + ",";
+					text12 = text12 + kamiyure + ",";
+					if (isDepth)
 					{
 						text12 += "1,";
-						text12 = text12 + this.depth1 + ",";
-						text12 = text12 + this.depth2 + ",";
-						text12 = text12 + this.depth3 + ",";
-						text12 = text12 + this.depth4 + ",";
-						if (this.isDepthA)
+						text12 = text12 + depth1 + ",";
+						text12 = text12 + depth2 + ",";
+						text12 = text12 + depth3 + ",";
+						text12 = text12 + depth4 + ",";
+						if (isDepthA)
 						{
 							text12 += "1,";
 						}
@@ -2933,22 +2933,22 @@ namespace CM3D2.MultipleMaids.Plugin
 					{
 						text12 += "0,0,0,0,0,0,";
 					}
-					if (this.isFog)
+					if (isFog)
 					{
 						text12 += "1,";
-						text12 = text12 + this.fog1 + ",";
-						text12 = text12 + this.fog2 + ",";
-						text12 = text12 + this.fog3 + ",";
-						text12 = text12 + this.fog4 + ",";
-						text12 = text12 + this.fog5 + ",";
-						text12 = text12 + this.fog6 + ",";
-						text12 = text12 + this.fog7 + ",";
+						text12 = text12 + fog1 + ",";
+						text12 = text12 + fog2 + ",";
+						text12 = text12 + fog3 + ",";
+						text12 = text12 + fog4 + ",";
+						text12 = text12 + fog5 + ",";
+						text12 = text12 + fog6 + ",";
+						text12 = text12 + fog7 + ",";
 					}
 					else
 					{
 						text12 += "0,0,0,0,0,0,0,0,";
 					}
-					if (this.isSepia)
+					if (isSepia)
 					{
 						text12 += "1";
 					}
@@ -2957,37 +2957,37 @@ namespace CM3D2.MultipleMaids.Plugin
 						text12 += "0";
 					}
 					string text13 = "_";
-					for (int l = 1; l < this.lightList.Count; l++)
+					for (int l = 1; l < lightList.Count; l++)
 					{
-						text13 = text13 + this.lightIndex[l] + ",";
-						text13 = text13 + this.lightColorR[l] + ",";
-						text13 = text13 + this.lightColorG[l] + ",";
-						text13 = text13 + this.lightColorB[l] + ",";
-						text13 = text13 + this.lightX[l] + ",";
-						text13 = text13 + this.lightY[l] + ",";
-						text13 = text13 + this.lightAkarusa[l] + ",";
-						text13 = text13 + this.lightRange[l] + ";";
+						text13 = text13 + lightIndex[l] + ",";
+						text13 = text13 + lightColorR[l] + ",";
+						text13 = text13 + lightColorG[l] + ",";
+						text13 = text13 + lightColorB[l] + ",";
+						text13 = text13 + lightX[l] + ",";
+						text13 = text13 + lightY[l] + ",";
+						text13 = text13 + lightAkarusa[l] + ",";
+						text13 = text13 + lightRange[l] + ";";
 					}
 					string text14 = "_";
-					for (int l = 0; l < this.doguBObject.Count; l++)
+					for (int l = 0; l < doguBObject.Count; l++)
 					{
-						text14 = text14 + this.doguBObject[l].name.Replace("_", " ") + ",";
+						text14 = text14 + doguBObject[l].name.Replace("_", " ") + ",";
 						text7 = text14;
 						array4 = new string[7];
 						array4[0] = text7;
 						string[] array188 = array4;
 						int num193 = 1;
-						num9 = this.doguBObject[l].transform.localEulerAngles.x;
+						num9 = doguBObject[l].transform.localEulerAngles.x;
 						array188[num193] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array189 = array4;
 						int num194 = 3;
-						num9 = this.doguBObject[l].transform.localEulerAngles.y;
+						num9 = doguBObject[l].transform.localEulerAngles.y;
 						array189[num194] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array190 = array4;
 						int num195 = 5;
-						num9 = this.doguBObject[l].transform.localEulerAngles.z;
+						num9 = doguBObject[l].transform.localEulerAngles.z;
 						array190[num195] = num9.ToString("0.###");
 						array4[6] = ",";
 						text14 = string.Concat(array4);
@@ -2996,17 +2996,17 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array191 = array4;
 						int num196 = 1;
-						num9 = this.doguBObject[l].transform.position.x;
+						num9 = doguBObject[l].transform.position.x;
 						array191[num196] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array192 = array4;
 						int num197 = 3;
-						num9 = this.doguBObject[l].transform.position.y;
+						num9 = doguBObject[l].transform.position.y;
 						array192[num197] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array193 = array4;
 						int num198 = 5;
-						num9 = this.doguBObject[l].transform.position.z;
+						num9 = doguBObject[l].transform.position.z;
 						array193[num198] = num9.ToString("0.###");
 						array4[6] = ",";
 						text14 = string.Concat(array4);
@@ -3015,31 +3015,31 @@ namespace CM3D2.MultipleMaids.Plugin
 						array4[0] = text7;
 						string[] array194 = array4;
 						int num199 = 1;
-						num9 = this.doguBObject[l].transform.localScale.x;
+						num9 = doguBObject[l].transform.localScale.x;
 						array194[num199] = num9.ToString("0.###");
 						array4[2] = ",";
 						string[] array195 = array4;
 						int num200 = 3;
-						num9 = this.doguBObject[l].transform.localScale.y;
+						num9 = doguBObject[l].transform.localScale.y;
 						array195[num200] = num9.ToString("0.###");
 						array4[4] = ",";
 						string[] array196 = array4;
 						int num201 = 5;
-						num9 = this.doguBObject[l].transform.localScale.z;
+						num9 = doguBObject[l].transform.localScale.z;
 						array196[num201] = num9.ToString("0.###");
 						text14 = string.Concat(array4);
 						text14 += ";";
 					}
 					string text15 = "_";
-					for (int l = 0; l < this.lightList.Count; l++)
+					for (int l = 0; l < lightList.Count; l++)
 					{
-						text15 = text15 + this.lightList[l].transform.position.x + ",";
-						text15 = text15 + this.lightList[l].transform.position.y + ",";
-						text15 = text15 + this.lightList[l].transform.position.z + ";";
+						text15 = text15 + lightList[l].transform.position.x + ",";
+						text15 = text15 + lightList[l].transform.position.y + ",";
+						text15 = text15 + lightList[l].transform.position.z + ";";
 					}
-					if (this.saveScene >= 10000)
+					if (saveScene >= 10000)
 					{
-						base.Preferences["scene"]["s" + this.saveScene].Value = string.Concat(new string[]
+						base.Preferences["scene"]["s" + saveScene].Value = string.Concat(new string[]
 						{
 							text5,
 							text,
@@ -3052,7 +3052,7 @@ namespace CM3D2.MultipleMaids.Plugin
 					}
 					else
 					{
-						this.saveData = string.Concat(new string[]
+						saveData = string.Concat(new string[]
 						{
 							text5,
 							text,
@@ -3062,33 +3062,33 @@ namespace CM3D2.MultipleMaids.Plugin
 							text15
 						});
 					}
-					this.saveScene = 0;
+					saveScene = 0;
 				}
-				for (int i2 = 0; i2 < this.maidCnt; i2++)
+				for (int i2 = 0; i2 < maidCnt; i2++)
 				{
-					if (this.haraCount[i2] > 0)
+					if (haraCount[i2] > 0)
 					{
-						this.haraCount[i2]--;
-						Transform transform2 = CMT.SearchObjName(this.maidArray[i2].body0.m_Bones.transform, "Bip01", true);
-						transform2.position = this.haraPosition[i2];
+						haraCount[i2]--;
+						Transform transform2 = CMT.SearchObjName(maidArray[i2].body0.m_Bones.transform, "Bip01", true);
+						transform2.position = haraPosition[i2];
 					}
-					if (this.isLoadFace[i2])
+					if (isLoadFace[i2])
 					{
-						this.isLoadFace[i2] = false;
-						TMorph morph = this.maidArray[i2].body0.Face.morph;
+						isLoadFace[i2] = false;
+						TMorph morph = maidArray[i2].body0.Face.morph;
 						float[] fieldValue = MultipleMaids.GetFieldValue<TMorph, float[]>(morph, "BlendValues");
 						fieldValue[(int)morph.hash["mouthuphalf"]] = fieldValue[(int)morph.hash["mouthuphalf"]] - 0.01f;
-						this.maidArray[i2].body0.Face.morph.FixBlendValues_Face();
+						maidArray[i2].body0.Face.morph.FixBlendValues_Face();
 					}
 				}
-				if (this.isScene)
+				if (isScene)
 				{
-					this.isScene = false;
+					isScene = false;
 					string path4 = string.Concat(new object[]
 					{
 						Path.GetFullPath(".\\"),
 						"Mod\\MultipleMaidsScene\\",
-						this.loadScene,
+						loadScene,
 						".png"
 					});
 					string text16;
@@ -3111,7 +3111,7 @@ namespace CM3D2.MultipleMaids.Plugin
 					}
 					else
 					{
-						text16 = base.Preferences["scene"]["s" + this.loadScene].Value;
+						text16 = base.Preferences["scene"]["s" + loadScene].Value;
 					}
 					string[] array198 = text16.Split(new char[]
 					{
@@ -3151,34 +3151,34 @@ namespace CM3D2.MultipleMaids.Plugin
 							';'
 						});
 					}
-					if (!int.TryParse(array200[2], out this.bgIndex))
+					if (!int.TryParse(array200[2], out bgIndex))
 					{
 						string text2 = array200[2].Replace(" ", "_");
-						for (int i2 = 0; i2 < this.bgArray.Length; i2++)
+						for (int i2 = 0; i2 < bgArray.Length; i2++)
 						{
-							if (text2 == this.bgArray[i2])
+							if (text2 == bgArray[i2])
 							{
-								this.bgIndex = i2;
+								bgIndex = i2;
 								break;
 							}
 						}
 					}
-					if (this.bgArray[this.bgIndex].Length == 36)
+					if (bgArray[bgIndex].Length == 36)
 					{
-						GameMain.Instance.BgMgr.ChangeBgMyRoom(this.bgArray[this.bgIndex]);
+						GameMain.Instance.BgMgr.ChangeBgMyRoom(bgArray[bgIndex]);
 					}
 					else
 					{
-						GameMain.Instance.BgMgr.ChangeBg(this.bgArray[this.bgIndex]);
+						GameMain.Instance.BgMgr.ChangeBg(bgArray[bgIndex]);
 					}
-					this.bgCombo.selectedItemIndex = this.bgIndex;
-					this.bg.localEulerAngles = new Vector3(float.Parse(array200[3]), float.Parse(array200[4]), float.Parse(array200[5]));
-					this.bg.position = new Vector3(float.Parse(array200[6]), float.Parse(array200[7]), float.Parse(array200[8]));
-					this.bg.localScale = new Vector3(float.Parse(array200[9]), float.Parse(array200[10]), float.Parse(array200[11]));
-					this.softG = new Vector3(float.Parse(array200[12]), float.Parse(array200[13]), float.Parse(array200[14]));
-					for (int i2 = 0; i2 < this.maidCnt; i2++)
+					bgCombo.selectedItemIndex = bgIndex;
+					bg.localEulerAngles = new Vector3(float.Parse(array200[3]), float.Parse(array200[4]), float.Parse(array200[5]));
+					bg.position = new Vector3(float.Parse(array200[6]), float.Parse(array200[7]), float.Parse(array200[8]));
+					bg.localScale = new Vector3(float.Parse(array200[9]), float.Parse(array200[10]), float.Parse(array200[11]));
+					softG = new Vector3(float.Parse(array200[12]), float.Parse(array200[13]), float.Parse(array200[14]));
+					for (int i2 = 0; i2 < maidCnt; i2++)
 					{
-						Maid maid = this.maidArray[i2];
+						Maid maid = maidArray[i2];
 						for (int j = 0; j < maid.body0.goSlot.Count; j++)
 						{
 							if (maid.body0.goSlot[j].obj != null)
@@ -3186,37 +3186,37 @@ namespace CM3D2.MultipleMaids.Plugin
 								DynamicBone component = maid.body0.goSlot[j].obj.GetComponent<DynamicBone>();
 								if (component != null && component.enabled)
 								{
-									component.m_Gravity = new Vector3(this.softG.x * 5f, (this.softG.y + 0.003f) * 5f, this.softG.z * 5f);
+									component.m_Gravity = new Vector3(softG.x * 5f, (softG.y + 0.003f) * 5f, softG.z * 5f);
 								}
 							}
 							List<THair1> fieldValue6 = MultipleMaids.GetFieldValue<TBoneHair_, List<THair1>>(maid.body0.goSlot[j].bonehair, "hair1list");
 							for (int k = 0; k < fieldValue6.Count; k++)
 							{
-								fieldValue6[k].SoftG = new Vector3(this.softG.x, this.softG.y + this.kamiyure, this.softG.z);
+								fieldValue6[k].SoftG = new Vector3(softG.x, softG.y + kamiyure, softG.z);
 							}
 						}
 					}
-					if (!this.kankyoLoadFlg)
+					if (!kankyoLoadFlg)
 					{
-						int num202 = this.bgmIndex;
-						this.bgmIndex = int.Parse(array200[15]);
-						if (num202 != this.bgmIndex)
+						int num202 = bgmIndex;
+						bgmIndex = int.Parse(array200[15]);
+						if (num202 != bgmIndex)
 						{
-							GameMain.Instance.SoundMgr.PlayBGM(this.bgmArray[this.bgmIndex] + ".ogg", 0f, true);
-							this.bgmCombo.selectedItemIndex = this.bgmIndex;
+							GameMain.Instance.SoundMgr.PlayBGM(bgmArray[bgmIndex] + ".ogg", 0f, true);
+							bgmCombo.selectedItemIndex = bgmIndex;
 						}
 					}
-					if (this.doguObject.Count > 0 && this.doguObject[this.doguSelectIndex] != null)
+					if (doguObject.Count > 0 && doguObject[doguSelectIndex] != null)
 					{
-						UnityEngine.Object.Destroy(this.doguObject[this.doguSelectIndex]);
-						this.doguObject.RemoveAt(this.doguSelectIndex);
-						this.doguIndex.RemoveAt(this.doguSelectIndex);
+						UnityEngine.Object.Destroy(doguObject[doguSelectIndex]);
+						doguObject.RemoveAt(doguSelectIndex);
+						doguIndex.RemoveAt(doguSelectIndex);
 					}
-					this.doguSelectIndex = 0;
+					doguSelectIndex = 0;
 					if (array200.Length > 16)
 					{
-						this.effectIndex = int.Parse(array200[16]);
-						if (!this.isVR)
+						effectIndex = int.Parse(array200[16]);
+						if (!isVR)
 						{
 							Vignetting component2 = GameMain.Instance.MainCamera.gameObject.GetComponent<Vignetting>();
 							component2.mode = 0;
@@ -3227,15 +3227,15 @@ namespace CM3D2.MultipleMaids.Plugin
 							component2.luminanceDependency = 0.494f;
 							component2.blurDistance = 1.71f;
 							component2.enabled = false;
-							if (this.kami)
+							if (kami)
 							{
-								this.kami.SetActive(false);
+								kami.SetActive(false);
 							}
-							if (this.effectIndex == 0)
+							if (effectIndex == 0)
 							{
 								component2.enabled = false;
 							}
-							if (this.effectIndex == 1)
+							if (effectIndex == 1)
 							{
 								component2.mode = 0;
 								component2.intensity = -1f;
@@ -3246,11 +3246,11 @@ namespace CM3D2.MultipleMaids.Plugin
 								component2.blurDistance = 0f;
 								component2.enabled = true;
 							}
-							if (this.effectIndex == 2)
+							if (effectIndex == 2)
 							{
 								component2.enabled = true;
 							}
-							if (this.effectIndex == 3)
+							if (effectIndex == 3)
 							{
 								component2.mode = 0;
 								component2.intensity = 9f;
@@ -3261,21 +3261,21 @@ namespace CM3D2.MultipleMaids.Plugin
 								component2.blurDistance = 0f;
 								component2.enabled = true;
 							}
-							if (this.effectIndex == 4)
+							if (effectIndex == 4)
 							{
 								UnityEngine.Object @object = Resources.Load("Prefab/p_kamihubuki_photo_ver");
-								this.kami = (GameObject)UnityEngine.Object.Instantiate(@object);
-								Vector3 localPosition = this.kami.transform.localPosition;
+								kami = (GameObject)UnityEngine.Object.Instantiate(@object);
+								Vector3 localPosition = kami.transform.localPosition;
 								localPosition.y = 3.5f;
-								this.kami.transform.localPosition = localPosition;
+								kami.transform.localPosition = localPosition;
 							}
-							if (this.effectIndex == 5)
+							if (effectIndex == 5)
 							{
 								UnityEngine.Object @object = Resources.Load("Prefab/p_kamihubuki_photo_ver");
-								this.kami = (GameObject)UnityEngine.Object.Instantiate(@object);
-								Vector3 localPosition = this.kami.transform.localPosition;
+								kami = (GameObject)UnityEngine.Object.Instantiate(@object);
+								Vector3 localPosition = kami.transform.localPosition;
 								localPosition.y = 3.5f;
-								this.kami.transform.localPosition = localPosition;
+								kami.transform.localPosition = localPosition;
 								component2.enabled = true;
 								component2.mode = 0;
 								component2.intensity = -2.5f;
@@ -3286,23 +3286,23 @@ namespace CM3D2.MultipleMaids.Plugin
 								component2.blurDistance = 0.8f;
 								component2.enabled = true;
 							}
-							if (this.effectIndex == 6)
+							if (effectIndex == 6)
 							{
-								this.kami.SetActive(false);
+								kami.SetActive(false);
 								UnityEngine.Object @object = Resources.Load("Prefab/p_powder_snow_photo_ver");
-								this.kami = (GameObject)UnityEngine.Object.Instantiate(@object);
-								Vector3 localPosition = this.kami.transform.localPosition;
+								kami = (GameObject)UnityEngine.Object.Instantiate(@object);
+								Vector3 localPosition = kami.transform.localPosition;
 								localPosition.y = 3.5f;
-								this.kami.transform.localPosition = localPosition;
+								kami.transform.localPosition = localPosition;
 							}
-							if (this.effectIndex == 7)
+							if (effectIndex == 7)
 							{
-								this.kami.SetActive(false);
+								kami.SetActive(false);
 								UnityEngine.Object @object = Resources.Load("Prefab/p_powder_snow_photo_ver");
-								this.kami = (GameObject)UnityEngine.Object.Instantiate(@object);
-								Vector3 localPosition = this.kami.transform.localPosition;
+								kami = (GameObject)UnityEngine.Object.Instantiate(@object);
+								Vector3 localPosition = kami.transform.localPosition;
 								localPosition.y = 3.5f;
-								this.kami.transform.localPosition = localPosition;
+								kami.transform.localPosition = localPosition;
 								component2.enabled = true;
 								component2.mode = 0;
 								component2.intensity = -2.5f;
@@ -3313,14 +3313,14 @@ namespace CM3D2.MultipleMaids.Plugin
 								component2.blurDistance = 0.8f;
 								component2.enabled = true;
 							}
-							if (this.effectIndex == 8)
+							if (effectIndex == 8)
 							{
-								this.kami.SetActive(false);
+								kami.SetActive(false);
 								UnityEngine.Object @object = Resources.Load("Prefab/p_powder_snow_photo_ver");
-								this.kami = (GameObject)UnityEngine.Object.Instantiate(@object);
-								Vector3 localPosition = this.kami.transform.localPosition;
+								kami = (GameObject)UnityEngine.Object.Instantiate(@object);
+								Vector3 localPosition = kami.transform.localPosition;
 								localPosition.y = 3.5f;
-								this.kami.transform.localPosition = localPosition;
+								kami.transform.localPosition = localPosition;
 								component2.mode = 0;
 								component2.intensity = 8f;
 								component2.chromaticAberration = 0f;
@@ -3331,137 +3331,137 @@ namespace CM3D2.MultipleMaids.Plugin
 								component2.enabled = true;
 							}
 						}
-						for (int l = 1; l < this.lightList.Count; l++)
+						for (int l = 1; l < lightList.Count; l++)
 						{
-							UnityEngine.Object.Destroy(this.lightList[l]);
+							UnityEngine.Object.Destroy(lightList[l]);
 						}
-						this.lightIndex = new List<int>();
-						this.lightIndex.Add(0);
-						this.lightColorR = new List<float>();
-						this.lightColorR.Add(1f);
-						this.lightColorG = new List<float>();
-						this.lightColorG.Add(1f);
-						this.lightColorB = new List<float>();
-						this.lightColorB.Add(1f);
-						this.lightX = new List<float>();
-						this.lightX.Add(40f);
-						this.lightY = new List<float>();
-						this.lightY.Add(180f);
-						this.lightAkarusa = new List<float>();
-						this.lightAkarusa.Add(0.95f);
-						this.lightKage = new List<float>();
-						this.lightKage.Add(0.098f);
-						this.lightRange = new List<float>();
-						this.lightRange.Add(50f);
-						this.lightCombo.selectedItemIndex = 0;
-						this.lightList = new List<GameObject>();
-						this.lightList.Add(GameMain.Instance.MainLight.gameObject);
-						this.lightComboList = new GUIContent[this.lightList.Count];
-						for (int l = 0; l < this.lightList.Count; l++)
+						lightIndex = new List<int>();
+						lightIndex.Add(0);
+						lightColorR = new List<float>();
+						lightColorR.Add(1f);
+						lightColorG = new List<float>();
+						lightColorG.Add(1f);
+						lightColorB = new List<float>();
+						lightColorB.Add(1f);
+						lightX = new List<float>();
+						lightX.Add(40f);
+						lightY = new List<float>();
+						lightY.Add(180f);
+						lightAkarusa = new List<float>();
+						lightAkarusa.Add(0.95f);
+						lightKage = new List<float>();
+						lightKage.Add(0.098f);
+						lightRange = new List<float>();
+						lightRange.Add(50f);
+						lightCombo.selectedItemIndex = 0;
+						lightList = new List<GameObject>();
+						lightList.Add(GameMain.Instance.MainLight.gameObject);
+						lightComboList = new GUIContent[lightList.Count];
+						for (int l = 0; l < lightList.Count; l++)
 						{
 							if (l == 0)
 							{
-								this.lightComboList[l] = new GUIContent("メイン");
+								lightComboList[l] = new GUIContent("メイン");
 							}
 							else
 							{
-								this.lightComboList[l] = new GUIContent("追加" + l);
+								lightComboList[l] = new GUIContent("追加" + l);
 							}
 						}
-						this.selectLightIndex = 0;
+						selectLightIndex = 0;
 						GameMain.Instance.MainLight.Reset();
 						GameMain.Instance.MainLight.SetIntensity(0.95f);
 						GameMain.Instance.MainLight.GetComponent<Light>().spotAngle = 50f;
 						GameMain.Instance.MainLight.GetComponent<Light>().range = 10f;
 						GameMain.Instance.MainLight.gameObject.transform.position = new Vector3(0f, 2f, 0f);
 						GameMain.Instance.MainLight.GetComponent<Light>().type = LightType.Directional;
-						this.bgObject.SetActive(true);
-						this.mainCamera.GetComponent<Camera>().backgroundColor = new Color(0f, 0f, 0f);
-						this.isIdx1 = false;
-						this.isIdx2 = false;
-						this.isIdx3 = false;
-						this.isIdx4 = false;
-						this.lightIndex[0] = int.Parse(array200[17]);
-						this.lightColorR[0] = float.Parse(array200[18]);
-						this.lightColorG[0] = float.Parse(array200[19]);
-						this.lightColorB[0] = float.Parse(array200[20]);
+						bgObject.SetActive(true);
+						mainCamera.GetComponent<Camera>().backgroundColor = new Color(0f, 0f, 0f);
+						isIdx1 = false;
+						isIdx2 = false;
+						isIdx3 = false;
+						isIdx4 = false;
+						lightIndex[0] = int.Parse(array200[17]);
+						lightColorR[0] = float.Parse(array200[18]);
+						lightColorG[0] = float.Parse(array200[19]);
+						lightColorB[0] = float.Parse(array200[20]);
 						GameMain.Instance.MainLight.Reset();
 						GameMain.Instance.MainLight.SetIntensity(0.95f);
 						GameMain.Instance.MainLight.GetComponent<Light>().spotAngle = 50f;
 						GameMain.Instance.MainLight.GetComponent<Light>().range = 10f;
 						GameMain.Instance.MainLight.gameObject.transform.position = new Vector3(0f, 2f, 0f);
-						if (this.lightIndex[0] == 0)
+						if (lightIndex[0] == 0)
 						{
 							GameMain.Instance.MainLight.GetComponent<Light>().type = LightType.Directional;
 						}
-						else if (this.lightIndex[0] == 1)
+						else if (lightIndex[0] == 1)
 						{
 							GameMain.Instance.MainLight.transform.eulerAngles += Vector3.right * 40f;
 							GameMain.Instance.MainLight.GetComponent<Light>().type = LightType.Spot;
 						}
-						else if (this.lightIndex[0] == 2)
+						else if (lightIndex[0] == 2)
 						{
 							GameMain.Instance.MainLight.GetComponent<Light>().type = LightType.Point;
 						}
-						else if (this.lightIndex[0] == 3)
+						else if (lightIndex[0] == 3)
 						{
 							GameMain.Instance.MainLight.GetComponent<Light>().type = LightType.Directional;
-							this.bgObject.SetActive(false);
+							bgObject.SetActive(false);
 						}
-						if (this.lightIndex[0] != 3)
+						if (lightIndex[0] != 3)
 						{
-							GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
-							this.bgObject.SetActive(true);
-							this.mainCamera.GetComponent<Camera>().backgroundColor = new Color(0f, 0f, 0f);
+							GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
+							bgObject.SetActive(true);
+							mainCamera.GetComponent<Camera>().backgroundColor = new Color(0f, 0f, 0f);
 						}
 						else
 						{
-							this.mainCamera.GetComponent<Camera>().backgroundColor = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+							mainCamera.GetComponent<Camera>().backgroundColor = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 						}
 						GameMain.Instance.MainLight.transform.eulerAngles = new Vector3(float.Parse(array200[21]), float.Parse(array200[22]), float.Parse(array200[23]));
 						GameMain.Instance.MainLight.GetComponent<Light>().intensity = float.Parse(array200[24]);
 						GameMain.Instance.MainLight.GetComponent<Light>().spotAngle = float.Parse(array200[25]);
 						GameMain.Instance.MainLight.GetComponent<Light>().range = float.Parse(array200[26]);
-						this.lightX = new List<float>();
-						this.lightX.Add(float.Parse(array200[21]));
-						this.lightY = new List<float>();
-						this.lightY.Add(float.Parse(array200[22]));
-						this.lightAkarusa = new List<float>();
-						this.lightAkarusa.Add(float.Parse(array200[24]));
-						this.lightKage = new List<float>();
-						this.lightKage.Add(0.098f);
-						this.lightRange = new List<float>();
-						this.lightRange.Add(float.Parse(array200[25]));
-						this.selectLightIndex = 0;
-						this.isIdx1 = false;
-						this.isIdx2 = false;
-						this.isIdx3 = false;
-						this.isIdx4 = false;
-						if (!this.kankyoLoadFlg)
+						lightX = new List<float>();
+						lightX.Add(float.Parse(array200[21]));
+						lightY = new List<float>();
+						lightY.Add(float.Parse(array200[22]));
+						lightAkarusa = new List<float>();
+						lightAkarusa.Add(float.Parse(array200[24]));
+						lightKage = new List<float>();
+						lightKage.Add(0.098f);
+						lightRange = new List<float>();
+						lightRange.Add(float.Parse(array200[25]));
+						selectLightIndex = 0;
+						isIdx1 = false;
+						isIdx2 = false;
+						isIdx3 = false;
+						isIdx4 = false;
+						if (!kankyoLoadFlg)
 						{
-							if (!this.isVR)
+							if (!isVR)
 							{
-								this.mainCamera.SetTargetPos(new Vector3(float.Parse(array200[27]), float.Parse(array200[28]), float.Parse(array200[29])), true);
-								this.mainCamera.SetDistance(float.Parse(array200[30]), true);
-								this.mainCamera.transform.eulerAngles = new Vector3(float.Parse(array200[31]), float.Parse(array200[32]), float.Parse(array200[33]));
+								mainCamera.SetTargetPos(new Vector3(float.Parse(array200[27]), float.Parse(array200[28]), float.Parse(array200[29])), true);
+								mainCamera.SetDistance(float.Parse(array200[30]), true);
+								mainCamera.transform.eulerAngles = new Vector3(float.Parse(array200[31]), float.Parse(array200[32]), float.Parse(array200[33]));
 								if (int.Parse(array200[34]) == 1)
 								{
-									this.inName = array200[35];
-									this.inText = array200[36];
-									this.inText = this.inText.Replace("&kaigyo", "\n");
-									this.isMessage = true;
-									this.bGuiMessage = false;
+									inName = array200[35];
+									inText = array200[36];
+									inText = inText.Replace("&kaigyo", "\n");
+									isMessage = true;
+									bGuiMessage = false;
 									GameObject gameObject = GameObject.Find("__GameMain__/SystemUI Root");
 									GameObject gameObject2 = gameObject.transform.Find("MessageWindowPanel").gameObject;
 									MessageWindowMgr messageWindowMgr = GameMain.Instance.ScriptMgr.adv_kag.MessageWindowMgr;
 									messageWindowMgr.OpenMessageWindowPanel();
 									MessageClass messageClass = new MessageClass(gameObject2, messageWindowMgr);
-									messageClass.SetText(this.inName, this.inText, "", 0);
+									messageClass.SetText(inName, inText, "", 0);
 									messageClass.FinishChAnime();
 								}
-								else if (this.isMessage)
+								else if (isMessage)
 								{
-									this.isMessage = false;
+									isMessage = false;
 									GameObject gameObject = GameObject.Find("__GameMain__/SystemUI Root");
 									GameObject gameObject2 = gameObject.transform.Find("MessageWindowPanel").gameObject;
 									MessageWindowMgr messageWindowMgr = GameMain.Instance.ScriptMgr.adv_kag.MessageWindowMgr;
@@ -3474,36 +3474,36 @@ namespace CM3D2.MultipleMaids.Plugin
 					{
 						if (array200[37] != "")
 						{
-							if (this.doguSelectIndex == this.doguObject.Count)
+							if (doguSelectIndex == doguObject.Count)
 							{
-								this.doguIndex.Add(0);
+								doguIndex.Add(0);
 							}
-							else if (this.doguObject.Count > 0 && this.doguObject[this.doguSelectIndex] != null)
+							else if (doguObject.Count > 0 && doguObject[doguSelectIndex] != null)
 							{
-								UnityEngine.Object.Destroy(this.doguObject[this.doguSelectIndex]);
-								this.doguObject.RemoveAt(this.doguSelectIndex);
+								UnityEngine.Object.Destroy(doguObject[doguSelectIndex]);
+								doguObject.RemoveAt(doguSelectIndex);
 							}
 							else
 							{
-								this.doguIndex.Add(0);
-								this.doguSelectIndex = this.doguIndex.Count - 1;
+								doguIndex.Add(0);
+								doguSelectIndex = doguIndex.Count - 1;
 							}
 							string text17 = array200[37].Replace(" ", "_");
-							for (int i2 = 0; i2 < this.doguArray.Length; i2++)
+							for (int i2 = 0; i2 < doguArray.Length; i2++)
 							{
-								if (text17 == this.doguArray[i2])
+								if (text17 == doguArray[i2])
 								{
-									this.doguIndex[this.doguSelectIndex] = i2;
+									doguIndex[doguSelectIndex] = i2;
 									break;
 								}
 							}
-							if (!this.doguArray[this.doguIndex[this.doguSelectIndex]].StartsWith("mirror"))
+							if (!doguArray[doguIndex[doguSelectIndex]].StartsWith("mirror"))
 							{
 								UnityEngine.Object @object = null;
 								GameObject gameObject3 = null;
 								for (int i2 = 0; i2 < 5; i2++)
 								{
-									@object = Resources.Load("Prefab/" + this.doguArray[this.doguIndex[this.doguSelectIndex]]);
+									@object = Resources.Load("Prefab/" + doguArray[doguIndex[doguSelectIndex]]);
 									if (@object == null)
 									{
 										GameObject gameObject4 = GameMain.Instance.BgMgr.CreateAssetBundle(text17);
@@ -3522,13 +3522,13 @@ namespace CM3D2.MultipleMaids.Plugin
 									}
 									List<int> list6;
 									int index;
-									(list6 = this.doguIndex)[index = this.doguSelectIndex] = list6[index] + 1;
+									(list6 = doguIndex)[index = doguSelectIndex] = list6[index] + 1;
 								}
 								if (gameObject3 == null)
 								{
 									gameObject3 = (UnityEngine.Object.Instantiate(@object) as GameObject);
 								}
-								this.doguObject.Add(gameObject3);
+								doguObject.Add(gameObject3);
 							}
 							else
 							{
@@ -3541,12 +3541,12 @@ namespace CM3D2.MultipleMaids.Plugin
 								component3.m_TextureSize = 2048;
 								component3.m_ClipPlaneOffset = 0f;
 								gameObject5.GetComponent<Renderer>().enabled = true;
-								this.doguObject.Add(gameObject5);
+								doguObject.Add(gameObject5);
 							}
 							Vector3 vector5 = Vector3.zero;
 							Vector3 zero = Vector3.zero;
 							zero.x = -90f;
-							switch (this.doguIndex[this.doguSelectIndex])
+							switch (doguIndex[doguSelectIndex])
 							{
 								case 1:
 									vector5.z = -0.5f;
@@ -3567,11 +3567,11 @@ namespace CM3D2.MultipleMaids.Plugin
 								case 6:
 									vector5.z = 0.6f;
 									zero.x = 0f;
-									this.doguObject[this.doguSelectIndex].transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
+									doguObject[doguSelectIndex].transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
 									goto IL_A298;
 								case 7:
 									vector5.z = 0.6f;
-									this.doguObject[this.doguSelectIndex].transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
+									doguObject[doguSelectIndex].transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
 									goto IL_A298;
 								case 8:
 									vector5.z = 0.5f;
@@ -3649,48 +3649,48 @@ namespace CM3D2.MultipleMaids.Plugin
 								case 30:
 									vector5.z = 0f;
 									zero.z = 0f;
-									this.doguObject[this.doguSelectIndex].transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+									doguObject[doguSelectIndex].transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
 									goto IL_A298;
 								case 31:
 									vector5.z = -0.6f;
 									vector5.y = 0.96f;
 									zero.z = 180f;
-									this.doguObject[this.doguSelectIndex].transform.localScale = new Vector3(0.2f, 0.4f, 0.2f);
+									doguObject[doguSelectIndex].transform.localScale = new Vector3(0.2f, 0.4f, 0.2f);
 									goto IL_A298;
 								case 32:
 									vector5.z = -0.6f;
 									vector5.y = 0.96f;
 									zero.z = 180f;
-									this.doguObject[this.doguSelectIndex].transform.localScale = new Vector3(0.1f, 0.4f, 0.2f);
+									doguObject[doguSelectIndex].transform.localScale = new Vector3(0.1f, 0.4f, 0.2f);
 									goto IL_A298;
 								case 33:
 									vector5.z = -0.6f;
 									vector5.y = 0.85f;
 									zero.z = 180f;
-									this.doguObject[this.doguSelectIndex].transform.localScale = new Vector3(0.03f, 0.18f, 0.124f);
+									doguObject[doguSelectIndex].transform.localScale = new Vector3(0.03f, 0.18f, 0.124f);
 									goto IL_A298;
 							}
 							vector5.z = 0.5f;
 						IL_A298:
-							this.doguObject[this.doguSelectIndex].transform.localPosition = vector5;
-							this.doguObject[this.doguSelectIndex].transform.localRotation = Quaternion.Euler(zero);
-							this.doguObject[this.doguSelectIndex].transform.localEulerAngles = new Vector3(float.Parse(array200[38]), float.Parse(array200[39]), float.Parse(array200[40]));
-							this.doguObject[this.doguSelectIndex].transform.position = new Vector3(float.Parse(array200[41]), float.Parse(array200[42]), float.Parse(array200[43]));
-							this.doguObject[this.doguSelectIndex].transform.localScale = new Vector3(float.Parse(array200[44]), float.Parse(array200[45]), float.Parse(array200[46]));
+							doguObject[doguSelectIndex].transform.localPosition = vector5;
+							doguObject[doguSelectIndex].transform.localRotation = Quaternion.Euler(zero);
+							doguObject[doguSelectIndex].transform.localEulerAngles = new Vector3(float.Parse(array200[38]), float.Parse(array200[39]), float.Parse(array200[40]));
+							doguObject[doguSelectIndex].transform.position = new Vector3(float.Parse(array200[41]), float.Parse(array200[42]), float.Parse(array200[43]));
+							doguObject[doguSelectIndex].transform.localScale = new Vector3(float.Parse(array200[44]), float.Parse(array200[45]), float.Parse(array200[46]));
 						}
 					}
-					if (!this.kankyoLoadFlg)
+					if (!kankyoLoadFlg)
 					{
 						for (int l = 0; l < array199.Length; l++)
 						{
-							if (this.maidCnt <= l)
+							if (maidCnt <= l)
 							{
 								break;
 							}
-							Maid maid = this.maidArray[l];
+							Maid maid = maidArray[l];
 							if (maid && maid.Visible)
 							{
-								this.SetIK(maid, l);
+								SetIK(maid, l);
 								Transform transform2 = CMT.SearchObjName(maid.body0.m_Bones.transform, "Bip01", true);
 								Transform transform5 = CMT.SearchObjName(maid.body0.m_Bones.transform, "Bip01 L Toe0", true);
 								Transform transform6 = CMT.SearchObjName(maid.body0.m_Bones.transform, "Bip01 R Toe0", true);
@@ -3720,17 +3720,17 @@ namespace CM3D2.MultipleMaids.Plugin
 									{
 										','
 									});
-									this.Finger[l, i2].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+									Finger[l, i2].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 								}
 								bool flag5 = false;
 								if (array205.Length == 64)
 								{
 									flag5 = true;
 								}
-								if (!this.isVR)
+								if (!isVR)
 								{
-									maid.body0.quaDefEyeL.eulerAngles = this.eyeL[(int)this.selectList[l]];
-									maid.body0.quaDefEyeR.eulerAngles = this.eyeR[(int)this.selectList[l]];
+									maid.body0.quaDefEyeL.eulerAngles = eyeL[(int)selectList[l]];
+									maid.body0.quaDefEyeR.eulerAngles = eyeR[(int)selectList[l]];
 								}
 								bool flag6 = false;
 								for (int k = 0; k < 3; k++)
@@ -3746,153 +3746,153 @@ namespace CM3D2.MultipleMaids.Plugin
 											case 40:
 												if (flag5)
 												{
-													this.Spine.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.Spine.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 41:
 												if (flag5)
 												{
-													this.Spine0a.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine0a.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.Spine0a.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine0a.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 42:
 												if (flag5)
 												{
-													this.Spine1.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine1.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.Spine1.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine1.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 43:
 												if (flag5)
 												{
-													this.Spine1a.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine1a.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.Spine1a.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine1a.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 44:
 												if (flag5)
 												{
-													this.Pelvis.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Pelvis.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.Pelvis.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Pelvis.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 45:
-												this.HandL1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												HandL1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 46:
 												if (flag5)
 												{
-													this.UpperArmL1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmL1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.UpperArmL1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmL1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 47:
 												if (flag5)
 												{
-													this.ForearmL1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmL1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.ForearmL1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmL1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 48:
-												this.HandR1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												HandR1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 49:
 												if (flag5)
 												{
-													this.UpperArmR1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmR1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.UpperArmR1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmR1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 50:
 												if (flag5)
 												{
-													this.ForearmR1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmR1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.ForearmR1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmR1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 51:
-												this.HandL2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												HandL2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 52:
 												if (flag5)
 												{
-													this.UpperArmL2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmL2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.UpperArmL2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmL2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 53:
 												if (flag5)
 												{
-													this.ForearmL2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmL2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.ForearmL2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmL2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 54:
-												this.HandR2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												HandR2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 55:
 												if (flag5)
 												{
-													this.UpperArmR2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmR2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.UpperArmR2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmR2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 56:
 												if (flag5)
 												{
-													this.ForearmR2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmR2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.ForearmR2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmR2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 57:
 												if (flag5)
 												{
-													this.Head.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Head.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.Head.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Head.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 58:
@@ -3907,12 +3907,12 @@ namespace CM3D2.MultipleMaids.Plugin
 											case 63:
 												if (k <= 0)
 												{
-													this.hanten[l] = false;
-													this.hantenn[l] = false;
+													hanten[l] = false;
+													hantenn[l] = false;
 													TMorph morph = maid.body0.Face.morph;
 													float[] fieldValue = MultipleMaids.GetFieldValue<TMorph, float[]>(morph, "BlendValues");
 													float[] fieldValue5 = MultipleMaids.GetFieldValue<TMorph, float[]>(morph, "BlendValuesBackup");
-													if (!this.isVR)
+													if (!isVR)
 													{
 														maid.boMabataki = false;
 													}
@@ -3989,7 +3989,7 @@ namespace CM3D2.MultipleMaids.Plugin
 													fieldValue[(int)morph.hash["mouthc"]] = float.Parse(array206[20]);
 													fieldValue[(int)morph.hash["mouthi"]] = float.Parse(array206[21]);
 													fieldValue[(int)morph.hash["mouthuphalf"]] = float.Parse(array206[22]) + 0.01f;
-													this.isLoadFace[l] = true;
+													isLoadFace[l] = true;
 													try
 													{
 														fieldValue[(int)morph.hash["tangopen"]] = float.Parse(array206[23]);
@@ -4096,54 +4096,54 @@ namespace CM3D2.MultipleMaids.Plugin
 															morph.boNoseFook = false;
 														}
 													}
-													this.isFace[l] = true;
-													this.isFaceInit = true;
+													isFace[l] = true;
+													isFaceInit = true;
 												}
 												break;
 											case 64:
 												if (k <= 0)
 												{
-													if (!this.isVR)
+													if (!isVR)
 													{
 														if (int.Parse(array206[0]) == 1)
 														{
-															this.isLook[l] = true;
-															this.lookX[l] = float.Parse(array206[1]);
-															this.lookY[l] = float.Parse(array206[2]);
-															if (maid.body0.offsetLookTarget.x != this.lookY[l])
+															isLook[l] = true;
+															lookX[l] = float.Parse(array206[1]);
+															lookY[l] = float.Parse(array206[2]);
+															if (maid.body0.offsetLookTarget.x != lookY[l])
 															{
-																if (this.isLock[l] && this.lookY[l] < 0f)
+																if (isLock[l] && lookY[l] < 0f)
 																{
-																	maid.body0.offsetLookTarget = new Vector3(this.lookY[l] * 0.6f, 1f, this.lookX[l]);
+																	maid.body0.offsetLookTarget = new Vector3(lookY[l] * 0.6f, 1f, lookX[l]);
 																}
 																else
 																{
-																	maid.body0.offsetLookTarget = new Vector3(this.lookY[l], 1f, this.lookX[l]);
+																	maid.body0.offsetLookTarget = new Vector3(lookY[l], 1f, lookX[l]);
 																}
 															}
-															if (this.lookX[l] != this.lookXn[l])
+															if (lookX[l] != lookXn[l])
 															{
-																this.lookXn[l] = this.lookX[l];
-																maid.body0.offsetLookTarget = new Vector3(this.lookY[l], 1f, this.lookX[l]);
+																lookXn[l] = lookX[l];
+																maid.body0.offsetLookTarget = new Vector3(lookY[l], 1f, lookX[l]);
 															}
-															if (this.lookY[l] != this.lookYn[l])
+															if (lookY[l] != lookYn[l])
 															{
-																this.lookYn[l] = this.lookY[l];
-																if (this.isLock[l] && this.lookY[l] < 0f)
+																lookYn[l] = lookY[l];
+																if (isLock[l] && lookY[l] < 0f)
 																{
-																	maid.body0.offsetLookTarget = new Vector3(this.lookY[l] * 0.6f, 1f, this.lookX[l]);
+																	maid.body0.offsetLookTarget = new Vector3(lookY[l] * 0.6f, 1f, lookX[l]);
 																}
 																else
 																{
-																	maid.body0.offsetLookTarget = new Vector3(this.lookY[l], 1f, this.lookX[l]);
+																	maid.body0.offsetLookTarget = new Vector3(lookY[l], 1f, lookX[l]);
 																}
 															}
 														}
 														else
 														{
-															this.isLook[l] = false;
+															isLook[l] = false;
 														}
-														if (this.isLook[l])
+														if (isLook[l])
 														{
 															maid.body0.trsLookTarget = GameMain.Instance.MainCamera.transform;
 															maid.body0.boHeadToCam = true;
@@ -4162,21 +4162,21 @@ namespace CM3D2.MultipleMaids.Plugin
 											case 65:
 												if (k <= 0)
 												{
-													if (this.itemIndex[l] != int.Parse(array206[0]))
+													if (itemIndex[l] != int.Parse(array206[0]))
 													{
-														this.itemIndex[l] = int.Parse(array206[0]);
-														if (this.itemIndex[l] == this.itemArray.Length - 1)
+														itemIndex[l] = int.Parse(array206[0]);
+														if (itemIndex[l] == itemArray.Length - 1)
 														{
-															this.itemIndex[l] = 0;
+															itemIndex[l] = 0;
 														}
 														string[] array207 = new string[2];
-														array207 = this.itemArray[this.itemIndex[l]].Split(new char[]
+														array207 = itemArray[itemIndex[l]].Split(new char[]
 														{
 														','
 														});
-														if (this.itemIndex[l] > 13)
+														if (itemIndex[l] > 13)
 														{
-															array207 = this.itemArray[this.itemIndex[l] + 1].Split(new char[]
+															array207 = itemArray[itemIndex[l] + 1].Split(new char[]
 															{
 															','
 															});
@@ -4185,7 +4185,7 @@ namespace CM3D2.MultipleMaids.Plugin
 														maid.DelProp(MPN.accvag, true);
 														maid.DelProp(MPN.accanl, true);
 														bool flag7 = false;
-														if (this.itemIndex[l] == 12 || this.itemIndex[l] == 13)
+														if (itemIndex[l] == 12 || itemIndex[l] == 13)
 														{
 															flag7 = true;
 														}
@@ -4198,34 +4198,34 @@ namespace CM3D2.MultipleMaids.Plugin
 														{
 															maid.SetProp(array207[0], array207[1], 0, true, false);
 														}
-														if (this.itemIndex[l] == 12)
+														if (itemIndex[l] == 12)
 														{
-															array207 = this.itemArray[this.itemIndex[l] - 1].Split(new char[]
+															array207 = itemArray[itemIndex[l] - 1].Split(new char[]
 															{
 															','
 															});
 															maid.SetProp(array207[0], array207[1], 0, true, false);
 														}
-														if (this.itemIndex[l] == 13)
+														if (itemIndex[l] == 13)
 														{
-															array207 = this.itemArray[this.itemIndex[l] + 1].Split(new char[]
+															array207 = itemArray[itemIndex[l] + 1].Split(new char[]
 															{
 															','
 															});
 															maid.SetProp(array207[0], array207[1], 0, true, false);
 														}
-														if (this.itemIndex[l] == 23)
+														if (itemIndex[l] == 23)
 														{
-															array207 = this.itemArray[this.itemIndex[l]].Split(new char[]
+															array207 = itemArray[itemIndex[l]].Split(new char[]
 															{
 															','
 															});
 															maid.SetProp(array207[0], array207[1], 0, true, false);
-															this.cafeFlg[l] = true;
+															cafeFlg[l] = true;
 														}
 														maid.AllProcPropSeqStart();
 													}
-													this.IK_hand = CMT.SearchObjName(maid.body0.m_Bones.transform, "_IK_handL", true);
+													IK_hand = CMT.SearchObjName(maid.body0.m_Bones.transform, "_IK_handL", true);
 												}
 												break;
 											case 66:
@@ -4243,17 +4243,17 @@ namespace CM3D2.MultipleMaids.Plugin
 											case 68:
 												if (array206.Length >= 2)
 												{
-													this.ClavicleL1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ClavicleL1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 69:
-												this.ClavicleR1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												ClavicleR1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 70:
 												if (int.Parse(array206[0]) == 1)
 												{
-													this.hanten[l] = true;
-													this.hantenn[l] = true;
+													hanten[l] = true;
+													hantenn[l] = true;
 												}
 												break;
 											case 71:
@@ -4327,128 +4327,128 @@ namespace CM3D2.MultipleMaids.Plugin
 													{
 														flag6 = true;
 													}
-													if (!this.isVR && flag6)
+													if (!isVR && flag6)
 													{
 														maid.body0.quaDefEyeL.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 													}
 													break;
 												}
 											case 91:
-												if (!this.isVR && flag6)
+												if (!isVR && flag6)
 												{
 													maid.body0.quaDefEyeR.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 92:
-												this.vIKMuneL[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
-												this.muneIKL[l] = true;
+												vIKMuneL[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												muneIKL[l] = true;
 												break;
 											case 93:
-												this.vIKMuneLSub[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												vIKMuneLSub[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 94:
-												this.vIKMuneR[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
-												this.muneIKR[l] = true;
+												vIKMuneR[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												muneIKR[l] = true;
 												break;
 											case 95:
-												this.vIKMuneRSub[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												vIKMuneRSub[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 96:
-												this.haraCount[l] = 2;
-												this.haraPosition[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												haraCount[l] = 2;
+												haraPosition[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												transform2.position = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 										}
 									}
 								}
-								this.isStop[l] = true;
-								this.isLock[l] = true;
+								isStop[l] = true;
+								isLock[l] = true;
 							}
 						}
 					}
-					this.isBloom = false;
-					this.bloom1 = 2.85f;
-					this.bloom2 = 3f;
-					this.bloom3 = 0f;
-					this.bloom4 = 0f;
-					this.bloom5 = 0f;
-					this.isBloomA = false;
-					this.isBlur = false;
-					this.blur1 = -3.98f;
-					this.blur4 = -0.75f;
-					this.blur2 = 0.9f;
-					this.blur3 = 4.19f;
-					this.bokashi = 0f;
-					this.kamiyure = 0f;
-					this.isDepth = false;
-					this.isDepthA = false;
-					this.depth1 = 3f;
-					this.depth2 = 0.1f;
-					this.depth3 = 15f;
-					this.depth4 = 3f;
-					this.isFog = false;
-					this.fog1 = 4f;
-					this.fog2 = 1f;
-					this.fog3 = 1f;
-					this.fog4 = 0f;
-					this.fog5 = 1f;
-					this.fog6 = 1f;
-					this.fog7 = 1f;
-					this.isSepia = false;
+					isBloom = false;
+					bloom1 = 2.85f;
+					bloom2 = 3f;
+					bloom3 = 0f;
+					bloom4 = 0f;
+					bloom5 = 0f;
+					isBloomA = false;
+					isBlur = false;
+					blur1 = -3.98f;
+					blur4 = -0.75f;
+					blur2 = 0.9f;
+					blur3 = 4.19f;
+					bokashi = 0f;
+					kamiyure = 0f;
+					isDepth = false;
+					isDepthA = false;
+					depth1 = 3f;
+					depth2 = 0.1f;
+					depth3 = 15f;
+					depth4 = 3f;
+					isFog = false;
+					fog1 = 4f;
+					fog2 = 1f;
+					fog3 = 1f;
+					fog4 = 0f;
+					fog5 = 1f;
+					fog6 = 1f;
+					fog7 = 1f;
+					isSepia = false;
 					if (array201 != null)
 					{
-						this.lightKage[0] = float.Parse(array201[0]);
+						lightKage[0] = float.Parse(array201[0]);
 						if (int.Parse(array201[1]) == 1)
 						{
-							this.isBloom = true;
-							this.bloom1 = float.Parse(array201[2]);
-							this.bloom2 = float.Parse(array201[3]);
-							this.bloom3 = float.Parse(array201[4]);
-							this.bloom4 = float.Parse(array201[5]);
-							this.bloom5 = float.Parse(array201[6]);
+							isBloom = true;
+							bloom1 = float.Parse(array201[2]);
+							bloom2 = float.Parse(array201[3]);
+							bloom3 = float.Parse(array201[4]);
+							bloom4 = float.Parse(array201[5]);
+							bloom5 = float.Parse(array201[6]);
 							if (int.Parse(array201[7]) == 1)
 							{
-								this.isBloomA = true;
+								isBloomA = true;
 							}
 						}
 						if (int.Parse(array201[8]) == 1)
 						{
-							this.isBlur = true;
-							this.blur1 = float.Parse(array201[9]);
-							this.blur2 = float.Parse(array201[10]);
-							this.blur3 = float.Parse(array201[11]);
-							this.blur4 = float.Parse(array201[12]);
+							isBlur = true;
+							blur1 = float.Parse(array201[9]);
+							blur2 = float.Parse(array201[10]);
+							blur3 = float.Parse(array201[11]);
+							blur4 = float.Parse(array201[12]);
 						}
-						this.bokashi = float.Parse(array201[13]);
-						this.kamiyure = float.Parse(array201[14]);
+						bokashi = float.Parse(array201[13]);
+						kamiyure = float.Parse(array201[14]);
 						if (array201.Length > 15)
 						{
 							if (int.Parse(array201[15]) == 1)
 							{
-								this.isDepth = true;
-								this.depth1 = float.Parse(array201[16]);
-								this.depth2 = float.Parse(array201[17]);
-								this.depth3 = float.Parse(array201[18]);
-								this.depth4 = float.Parse(array201[19]);
+								isDepth = true;
+								depth1 = float.Parse(array201[16]);
+								depth2 = float.Parse(array201[17]);
+								depth3 = float.Parse(array201[18]);
+								depth4 = float.Parse(array201[19]);
 								if (int.Parse(array201[20]) == 1)
 								{
-									this.isDepthA = true;
+									isDepthA = true;
 								}
 							}
 							if (int.Parse(array201[21]) == 1)
 							{
-								this.isFog = true;
-								this.fog1 = float.Parse(array201[22]);
-								this.fog2 = float.Parse(array201[23]);
-								this.fog3 = float.Parse(array201[24]);
-								this.fog4 = float.Parse(array201[25]);
-								this.fog5 = float.Parse(array201[26]);
-								this.fog6 = float.Parse(array201[27]);
-								this.fog7 = float.Parse(array201[28]);
+								isFog = true;
+								fog1 = float.Parse(array201[22]);
+								fog2 = float.Parse(array201[23]);
+								fog3 = float.Parse(array201[24]);
+								fog4 = float.Parse(array201[25]);
+								fog5 = float.Parse(array201[26]);
+								fog6 = float.Parse(array201[27]);
+								fog7 = float.Parse(array201[28]);
 							}
 							if (int.Parse(array201[29]) == 1)
 							{
-								this.isSepia = true;
+								isSepia = true;
 							}
 						}
 					}
@@ -4462,89 +4462,89 @@ namespace CM3D2.MultipleMaids.Plugin
 							});
 							GameObject gameObject6 = new GameObject("Light");
 							gameObject6.AddComponent<Light>();
-							this.lightList.Add(gameObject6);
-							this.lightIndex.Add(int.Parse(array206[0]));
-							this.lightColorR.Add(float.Parse(array206[1]));
-							this.lightColorG.Add(float.Parse(array206[2]));
-							this.lightColorB.Add(float.Parse(array206[3]));
-							this.lightX.Add(float.Parse(array206[4]));
-							this.lightY.Add(float.Parse(array206[5]));
-							this.lightAkarusa.Add(float.Parse(array206[6]));
-							this.lightRange.Add(float.Parse(array206[7]));
-							this.lightKage.Add(0.098f);
+							lightList.Add(gameObject6);
+							lightIndex.Add(int.Parse(array206[0]));
+							lightColorR.Add(float.Parse(array206[1]));
+							lightColorG.Add(float.Parse(array206[2]));
+							lightColorB.Add(float.Parse(array206[3]));
+							lightX.Add(float.Parse(array206[4]));
+							lightY.Add(float.Parse(array206[5]));
+							lightAkarusa.Add(float.Parse(array206[6]));
+							lightRange.Add(float.Parse(array206[7]));
+							lightKage.Add(0.098f);
 							gameObject6.transform.position = GameMain.Instance.MainLight.transform.position;
-							this.selectLightIndex = this.lightList.Count - 1;
-							this.lightComboList = new GUIContent[this.lightList.Count];
-							for (int k = 0; k < this.lightList.Count; k++)
+							selectLightIndex = lightList.Count - 1;
+							lightComboList = new GUIContent[lightList.Count];
+							for (int k = 0; k < lightList.Count; k++)
 							{
 								if (k == 0)
 								{
-									this.lightComboList[k] = new GUIContent("メイン");
+									lightComboList[k] = new GUIContent("メイン");
 								}
 								else
 								{
-									this.lightComboList[k] = new GUIContent("追加" + k);
+									lightComboList[k] = new GUIContent("追加" + k);
 								}
 							}
-							this.lightCombo.selectedItemIndex = this.selectLightIndex;
-							gameObject6.GetComponent<Light>().intensity = this.lightAkarusa[l];
-							gameObject6.GetComponent<Light>().spotAngle = this.lightRange[l];
-							gameObject6.GetComponent<Light>().range = this.lightRange[l] / 5f;
-							if (this.lightIndex[this.selectLightIndex] == 0)
+							lightCombo.selectedItemIndex = selectLightIndex;
+							gameObject6.GetComponent<Light>().intensity = lightAkarusa[l];
+							gameObject6.GetComponent<Light>().spotAngle = lightRange[l];
+							gameObject6.GetComponent<Light>().range = lightRange[l] / 5f;
+							if (lightIndex[selectLightIndex] == 0)
 							{
-								this.lightList[this.selectLightIndex].GetComponent<Light>().type = LightType.Directional;
+								lightList[selectLightIndex].GetComponent<Light>().type = LightType.Directional;
 							}
-							else if (this.lightIndex[this.selectLightIndex] == 1)
+							else if (lightIndex[selectLightIndex] == 1)
 							{
-								this.lightList[this.selectLightIndex].GetComponent<Light>().type = LightType.Spot;
+								lightList[selectLightIndex].GetComponent<Light>().type = LightType.Spot;
 							}
-							else if (this.lightIndex[this.selectLightIndex] == 2)
+							else if (lightIndex[selectLightIndex] == 2)
 							{
-								this.lightList[this.selectLightIndex].GetComponent<Light>().type = LightType.Point;
+								lightList[selectLightIndex].GetComponent<Light>().type = LightType.Point;
 							}
-							else if (this.lightIndex[this.selectLightIndex] == 3)
+							else if (lightIndex[selectLightIndex] == 3)
 							{
-								this.lightList[this.selectLightIndex].GetComponent<Light>().type = LightType.Directional;
-								this.lightList[this.selectLightIndex].SetActive(false);
+								lightList[selectLightIndex].GetComponent<Light>().type = LightType.Directional;
+								lightList[selectLightIndex].SetActive(false);
 							}
 						}
 					}
 					if (array204 != null)
 					{
-						for (int l = 0; l < this.lightList.Count; l++)
+						for (int l = 0; l < lightList.Count; l++)
 						{
 							string[] array206 = array204[l].Split(new char[]
 							{
 								','
 							});
-							this.lightList[l].transform.position = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
-							if (this.gLight[l] == null)
+							lightList[l].transform.position = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+							if (gLight[l] == null)
 							{
-								this.gLight[l] = GameObject.CreatePrimitive(PrimitiveType.Cube);
+								gLight[l] = GameObject.CreatePrimitive(PrimitiveType.Cube);
 								Material material2 = new Material(Shader.Find("Transparent/Diffuse"));
 								material2.color = new Color(0.5f, 0.5f, 1f, 0.8f);
-								this.gLight[l].GetComponent<Renderer>().material = material2;
-								this.gLight[l].layer = 8;
-								this.gLight[l].GetComponent<Renderer>().enabled = false;
-								this.gLight[l].SetActive(false);
-								this.gLight[l].transform.position = this.lightList[l].transform.position;
-								this.mLight[l] = this.gLight[l].AddComponent<MouseDrag6>();
-								this.mLight[l].obj = this.gLight[l];
-								this.mLight[l].maid = this.lightList[l].gameObject;
-								this.mLight[l].angles = this.lightList[l].transform.eulerAngles;
-								this.gLight[l].transform.localScale = new Vector3(0.12f, 0.12f, 0.12f);
-								this.mLight[l].ido = 1;
-								this.mLight[l].isScale = false;
+								gLight[l].GetComponent<Renderer>().material = material2;
+								gLight[l].layer = 8;
+								gLight[l].GetComponent<Renderer>().enabled = false;
+								gLight[l].SetActive(false);
+								gLight[l].transform.position = lightList[l].transform.position;
+								mLight[l] = gLight[l].AddComponent<MouseDrag6>();
+								mLight[l].obj = gLight[l];
+								mLight[l].maid = lightList[l].gameObject;
+								mLight[l].angles = lightList[l].transform.eulerAngles;
+								gLight[l].transform.localScale = new Vector3(0.12f, 0.12f, 0.12f);
+								mLight[l].ido = 1;
+								mLight[l].isScale = false;
 							}
 						}
 					}
 					if (array203 != null)
 					{
-						for (int l = 0; l < this.doguBObject.Count; l++)
+						for (int l = 0; l < doguBObject.Count; l++)
 						{
-							UnityEngine.Object.Destroy(this.doguBObject[l]);
+							UnityEngine.Object.Destroy(doguBObject[l]);
 						}
-						this.doguBObject = new List<GameObject>();
+						doguBObject = new List<GameObject>();
 						List<string> list4 = new List<string>();
 						for (int l = 0; l < array203.Length - 1; l++)
 						{
@@ -4574,9 +4574,9 @@ namespace CM3D2.MultipleMaids.Plugin
 										}
 										afileBase.Read(ref array208, afileBase.GetSize());
 									}
-									string[] array209 = MultipleMaids.ProcScriptBin(this.maidArray[0], array208, text18, false);
-									gameObject3 = ImportCM2.LoadSkinMesh_R(array209[0], array209, "", this.maidArray[0].body0.goSlot[8], 1);
-									this.doguBObject.Add(gameObject3);
+									string[] array209 = MultipleMaids.ProcScriptBin(maidArray[0], array208, text18, false);
+									gameObject3 = ImportCM2.LoadSkinMesh_R(array209[0], array209, "", maidArray[0].body0.goSlot[8], 1);
+									doguBObject.Add(gameObject3);
 									gameObject3.name = text18;
 									Vector3 vector5 = Vector3.zero;
 									Vector3 zero = Vector3.zero;
@@ -4636,7 +4636,7 @@ namespace CM3D2.MultipleMaids.Plugin
 											@object = Resources.Load(text17.Replace("BG_", "BG/"));
 										}
 										gameObject3 = (UnityEngine.Object.Instantiate(@object) as GameObject);
-										this.doguBObject.Add(gameObject3);
+										doguBObject.Add(gameObject3);
 									}
 									else if (text17.StartsWith("MYR_"))
 									{
@@ -4653,7 +4653,7 @@ namespace CM3D2.MultipleMaids.Plugin
 										gameObject7.transform.SetParent(gameObject4.transform, true);
 										gameObject4.transform.SetParent(gameObject.transform, false);
 										gameObject3 = gameObject4;
-										this.doguBObject.Add(gameObject3);
+										doguBObject.Add(gameObject3);
 									}
 									else if (text17.Contains("#"))
 									{
@@ -4675,11 +4675,11 @@ namespace CM3D2.MultipleMaids.Plugin
 											}
 										}
 										flag9 = true;
-										if (!this.parArray[this.parIndex].Contains("Odogu_"))
+										if (!parArray[parIndex].Contains("Odogu_"))
 										{
 											flag10 = true;
 										}
-										this.doguBObject.Add(gameObject3);
+										doguBObject.Add(gameObject3);
 									}
 									else if (!text17.StartsWith("mirror") && text17.IndexOf(":") < 0)
 									{
@@ -4706,7 +4706,7 @@ namespace CM3D2.MultipleMaids.Plugin
 										{
 											gameObject3 = (UnityEngine.Object.Instantiate(@object) as GameObject);
 										}
-										this.doguBObject.Add(gameObject3);
+										doguBObject.Add(gameObject3);
 									}
 									else if (text17.StartsWith("mirror"))
 									{
@@ -4720,7 +4720,7 @@ namespace CM3D2.MultipleMaids.Plugin
 										component3.m_ClipPlaneOffset = 0f;
 										gameObject5.GetComponent<Renderer>().enabled = true;
 										gameObject3 = gameObject5;
-										this.doguBObject.Add(gameObject3);
+										doguBObject.Add(gameObject3);
 									}
 									else
 									{
@@ -4747,7 +4747,7 @@ namespace CM3D2.MultipleMaids.Plugin
 											}
 											num205++;
 										}
-										this.doguBObject.Add(gameObject3);
+										doguBObject.Add(gameObject3);
 										gameObject3.transform.parent = null;
 										UnityEngine.Object.Destroy(gameObject8);
 										gameObject8.SetActive(false);
@@ -4884,64 +4884,64 @@ namespace CM3D2.MultipleMaids.Plugin
 							}
 							if (!flag8)
 							{
-								this.doguCnt = this.doguBObject.Count - 1;
-								this.gDogu[this.doguCnt] = GameObject.CreatePrimitive(PrimitiveType.Cube);
+								doguCnt = doguBObject.Count - 1;
+								gDogu[doguCnt] = GameObject.CreatePrimitive(PrimitiveType.Cube);
 								Vector3 localEulerAngles2 = gameObject3.transform.localEulerAngles;
 								gameObject3.transform.localEulerAngles = new Vector3(float.Parse(array206[1]), float.Parse(array206[2]), float.Parse(array206[3]));
 								gameObject3.transform.position = new Vector3(float.Parse(array206[4]), float.Parse(array206[5]), float.Parse(array206[6]));
-								this.gDogu[this.doguCnt].transform.localEulerAngles = new Vector3(float.Parse(array206[1]), float.Parse(array206[2]), float.Parse(array206[3]));
-								this.gDogu[this.doguCnt].transform.position = new Vector3(float.Parse(array206[4]), float.Parse(array206[5]), float.Parse(array206[6]));
-								this.gDogu[this.doguCnt].GetComponent<Renderer>().material = this.m_material;
-								this.gDogu[this.doguCnt].layer = 8;
-								this.gDogu[this.doguCnt].GetComponent<Renderer>().enabled = false;
-								this.gDogu[this.doguCnt].SetActive(false);
-								this.gDogu[this.doguCnt].transform.position = gameObject3.transform.position;
-								this.mDogu[this.doguCnt] = this.gDogu[this.doguCnt].AddComponent<MouseDrag6>();
-								this.mDogu[this.doguCnt].obj = this.gDogu[this.doguCnt];
-								this.mDogu[this.doguCnt].maid = gameObject3;
-								this.mDogu[this.doguCnt].angles = localEulerAngles2;
-								this.gDogu[this.doguCnt].transform.localScale = new Vector3(this.cubeSize, this.cubeSize, this.cubeSize);
-								this.mDogu[this.doguCnt].ido = 1;
-								this.mDogu[this.doguCnt].isScale = false;
+								gDogu[doguCnt].transform.localEulerAngles = new Vector3(float.Parse(array206[1]), float.Parse(array206[2]), float.Parse(array206[3]));
+								gDogu[doguCnt].transform.position = new Vector3(float.Parse(array206[4]), float.Parse(array206[5]), float.Parse(array206[6]));
+								gDogu[doguCnt].GetComponent<Renderer>().material = m_material;
+								gDogu[doguCnt].layer = 8;
+								gDogu[doguCnt].GetComponent<Renderer>().enabled = false;
+								gDogu[doguCnt].SetActive(false);
+								gDogu[doguCnt].transform.position = gameObject3.transform.position;
+								mDogu[doguCnt] = gDogu[doguCnt].AddComponent<MouseDrag6>();
+								mDogu[doguCnt].obj = gDogu[doguCnt];
+								mDogu[doguCnt].maid = gameObject3;
+								mDogu[doguCnt].angles = localEulerAngles2;
+								gDogu[doguCnt].transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
+								mDogu[doguCnt].ido = 1;
+								mDogu[doguCnt].isScale = false;
 								if (text17 == "Particle/pLineY")
 								{
-									this.mDogu[this.doguCnt].count = 180;
+									mDogu[doguCnt].count = 180;
 								}
 								if (text17 == "Particle/pLineP02")
 								{
-									this.mDogu[this.doguCnt].count = 115;
+									mDogu[doguCnt].count = 115;
 								}
 								if (gameObject3.name == "Particle/pLine_act2")
 								{
-									this.mDogu[this.doguCnt].count = 80;
+									mDogu[doguCnt].count = 80;
 									gameObject3.transform.localScale = new Vector3(3f, 3f, 3f);
 								}
 								if (gameObject3.name == "Particle/pHeart01")
 								{
-									this.mDogu[this.doguCnt].count = 80;
+									mDogu[doguCnt].count = 80;
 								}
 								if (text17 == "mirror1" || text17 == "mirror2" || text17 == "mirror3")
 								{
-									this.mDogu[this.doguCnt].isScale = true;
-									this.mDogu[this.doguCnt].isScale2 = true;
-									this.mDogu[this.doguCnt].scale2 = gameObject3.transform.localScale;
+									mDogu[doguCnt].isScale = true;
+									mDogu[doguCnt].isScale2 = true;
+									mDogu[doguCnt].scale2 = gameObject3.transform.localScale;
 									if (text17 == "mirror1")
 									{
-										this.mDogu[this.doguCnt].scale = new Vector3(gameObject3.transform.localScale.x * 5f, gameObject3.transform.localScale.y * 5f, gameObject3.transform.localScale.z * 5f);
+										mDogu[doguCnt].scale = new Vector3(gameObject3.transform.localScale.x * 5f, gameObject3.transform.localScale.y * 5f, gameObject3.transform.localScale.z * 5f);
 									}
 									if (text17 == "mirror2")
 									{
-										this.mDogu[this.doguCnt].scale = new Vector3(gameObject3.transform.localScale.x * 10f, gameObject3.transform.localScale.y * 10f, gameObject3.transform.localScale.z * 10f);
+										mDogu[doguCnt].scale = new Vector3(gameObject3.transform.localScale.x * 10f, gameObject3.transform.localScale.y * 10f, gameObject3.transform.localScale.z * 10f);
 									}
 									if (text17 == "mirror3")
 									{
-										this.mDogu[this.doguCnt].scale = new Vector3(gameObject3.transform.localScale.x * 33f, gameObject3.transform.localScale.y * 33f, gameObject3.transform.localScale.z * 33f);
+										mDogu[doguCnt].scale = new Vector3(gameObject3.transform.localScale.x * 33f, gameObject3.transform.localScale.y * 33f, gameObject3.transform.localScale.z * 33f);
 									}
 								}
 								if (text17 == "Odogu_XmasTreeMini_photo_ver" || text17 == "Odogu_KadomatsuMini_photo_ver")
 								{
-									this.mDogu[this.doguCnt].isScale2 = true;
-									this.mDogu[this.doguCnt].scale2 = gameObject3.transform.localScale;
+									mDogu[doguCnt].isScale2 = true;
+									mDogu[doguCnt].scale2 = gameObject3.transform.localScale;
 								}
 								gameObject3.transform.localScale = new Vector3(float.Parse(array206[7]), float.Parse(array206[8]), float.Parse(array206[9]));
 							}
@@ -4959,36 +4959,36 @@ namespace CM3D2.MultipleMaids.Plugin
 							}
 						}
 					}
-					this.loadScene = 0;
-					this.kankyoLoadFlg = false;
+					loadScene = 0;
+					kankyoLoadFlg = false;
 				}
-				for (int l = 0; l < this.maidCnt; l++)
+				for (int l = 0; l < maidCnt; l++)
 				{
-					if (this.loadPose[l] != "" && this.isLoadPose[l])
+					if (loadPose[l] != "" && isLoadPose[l])
 					{
-						IniKey iniKey3 = base.Preferences["pose"][this.loadPose[l]];
+						IniKey iniKey3 = base.Preferences["pose"][loadPose[l]];
 						if (iniKey3.Value == null || !(iniKey3.Value.ToString() != "") || !(iniKey3.Value.ToString() != "del"))
 						{
-							this.loadPose[l] = "";
-							this.isLoadPose[l] = false;
+							loadPose[l] = "";
+							isLoadPose[l] = false;
 						}
 						else
 						{
-							if (this.loadCount[l] > 4)
+							if (loadCount[l] > 4)
 							{
-								this.isLoadPose[l] = false;
-								this.loadPose[l] = "";
-								this.loadCount[l] = 0;
+								isLoadPose[l] = false;
+								loadPose[l] = "";
+								loadCount[l] = 0;
 							}
 							for (int k = 0; k < 10; k++)
 							{
 							}
-							this.loadCount[l]++;
-							Maid maid = this.maidArray[l];
-							this.isStop[l] = true;
+							loadCount[l]++;
+							Maid maid = maidArray[l];
+							isStop[l] = true;
 							if (maid && maid.Visible)
 							{
-								this.SetIK(maid, l);
+								SetIK(maid, l);
 								Transform transform2 = CMT.SearchObjName(maid.body0.m_Bones.transform, "Bip01", true);
 								Transform transform5 = CMT.SearchObjName(maid.body0.m_Bones.transform, "Bip01 L Toe0", true);
 								Transform transform6 = CMT.SearchObjName(maid.body0.m_Bones.transform, "Bip01 R Toe0", true);
@@ -5021,7 +5021,7 @@ namespace CM3D2.MultipleMaids.Plugin
 									{
 										','
 									});
-									this.Finger[l, i2].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+									Finger[l, i2].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 								}
 								bool flag5 = false;
 								if (array205.Length == 64)
@@ -5045,153 +5045,153 @@ namespace CM3D2.MultipleMaids.Plugin
 											case 40:
 												if (flag5)
 												{
-													this.Spine.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.Spine.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 41:
 												if (flag5)
 												{
-													this.Spine0a.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine0a.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.Spine0a.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine0a.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 42:
 												if (flag5)
 												{
-													this.Spine1.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine1.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.Spine1.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine1.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 43:
 												if (flag5)
 												{
-													this.Spine1a.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine1a.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.Spine1a.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Spine1a.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 44:
 												if (flag5)
 												{
-													this.Pelvis.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Pelvis.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.Pelvis.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Pelvis.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 45:
-												this.HandL1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												HandL1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 46:
 												if (flag5)
 												{
-													this.UpperArmL1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmL1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.UpperArmL1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmL1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 47:
 												if (flag5)
 												{
-													this.ForearmL1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmL1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.ForearmL1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmL1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 48:
-												this.HandR1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												HandR1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 49:
 												if (flag5)
 												{
-													this.UpperArmR1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmR1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.UpperArmR1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmR1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 50:
 												if (flag5)
 												{
-													this.ForearmR1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmR1[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.ForearmR1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmR1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 51:
-												this.HandL2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												HandL2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 52:
 												if (flag5)
 												{
-													this.UpperArmL2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmL2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.UpperArmL2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmL2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 53:
 												if (flag5)
 												{
-													this.ForearmL2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmL2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.ForearmL2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmL2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 54:
-												this.HandR2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												HandR2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 55:
 												if (flag5)
 												{
-													this.UpperArmR2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmR2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.UpperArmR2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													UpperArmR2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 56:
 												if (flag5)
 												{
-													this.ForearmR2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmR2[l].localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.ForearmR2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ForearmR2[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 57:
 												if (flag5)
 												{
-													this.Head.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Head.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												if (!flag5)
 												{
-													this.Head.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													Head.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 66:
@@ -5209,11 +5209,11 @@ namespace CM3D2.MultipleMaids.Plugin
 											case 68:
 												if (array206.Length >= 2)
 												{
-													this.ClavicleL1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+													ClavicleL1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												}
 												break;
 											case 69:
-												this.ClavicleR1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												ClavicleR1[l].eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 71:
 												transform2.eulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
@@ -5273,18 +5273,18 @@ namespace CM3D2.MultipleMaids.Plugin
 												transform22.localEulerAngles = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 92:
-												this.vIKMuneL[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
-												this.muneIKL[l] = true;
+												vIKMuneL[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												muneIKL[l] = true;
 												break;
 											case 93:
-												this.vIKMuneLSub[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												vIKMuneLSub[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 94:
-												this.vIKMuneR[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
-												this.muneIKR[l] = true;
+												vIKMuneR[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												muneIKR[l] = true;
 												break;
 											case 95:
-												this.vIKMuneRSub[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
+												vIKMuneRSub[l] = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
 												break;
 											case 96:
 												transform2.position = new Vector3(float.Parse(array206[0]), float.Parse(array206[1]), float.Parse(array206[2]));
@@ -5297,23 +5297,23 @@ namespace CM3D2.MultipleMaids.Plugin
 							}
 						}
 					}
-					if (this.loadPose[l] != "" && !this.isLoadPose[l])
+					if (loadPose[l] != "" && !isLoadPose[l])
 					{
-						IniKey iniKey3 = base.Preferences["pose"][this.loadPose[l]];
+						IniKey iniKey3 = base.Preferences["pose"][loadPose[l]];
 						if (iniKey3.Value != null && iniKey3.Value.ToString() != "" && iniKey3.Value.ToString() != "del")
 						{
-							this.isStop[l] = true;
+							isStop[l] = true;
 						}
-						this.isLoadPose[l] = true;
+						isLoadPose[l] = true;
 					}
 				}
-				if (this.loadScene > 0)
+				if (loadScene > 0)
 				{
 					string path4 = string.Concat(new object[]
 					{
 						Path.GetFullPath(".\\"),
 						"Mod\\MultipleMaidsScene\\",
-						this.loadScene,
+						loadScene,
 						".png"
 					});
 					string text20 = "";
@@ -5337,16 +5337,16 @@ namespace CM3D2.MultipleMaids.Plugin
 					}
 					else
 					{
-						iniKey2 = base.Preferences["scene"]["s" + this.loadScene];
+						iniKey2 = base.Preferences["scene"]["s" + loadScene];
 					}
 					if (text20 == "" && (iniKey2.Value == null || !(iniKey2.Value.ToString() != "")))
 					{
-						this.loadScene = 0;
+						loadScene = 0;
 					}
 					else
 					{
-						this.isScene = true;
-						if (!this.kankyoLoadFlg)
+						isScene = true;
+						if (!kankyoLoadFlg)
 						{
 							string text16 = text20;
 							if (text20 == "")
@@ -5364,11 +5364,11 @@ namespace CM3D2.MultipleMaids.Plugin
 							int i;
 							for (i = 0; i < array199.Length; i++)
 							{
-								if (this.maidCnt <= i)
+								if (maidCnt <= i)
 								{
 									break;
 								}
-								Maid maid = this.maidArray[i];
+								Maid maid = maidArray[i];
 								for (int k = 0; k < 10; k++)
 								{
 									maid.transform.RotateAround(maid.transform.position, Vector3.right, -maid.transform.rotation.eulerAngles.x);
@@ -5378,24 +5378,24 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									':'
 								});
-								if (!int.TryParse(array2[61], out this.poseIndex[i]))
+								if (!int.TryParse(array2[61], out poseIndex[i]))
 								{
 									string a2 = array2[61].Replace(" ", "_").Replace("|", ",");
-									for (int i2 = 0; i2 < this.poseArray.Length; i2++)
+									for (int i2 = 0; i2 < poseArray.Length; i2++)
 									{
-										if (a2 == this.poseArray[i2])
+										if (a2 == poseArray[i2])
 										{
-											this.poseIndex[i] = i2;
+											poseIndex[i] = i2;
 											break;
 										}
 									}
 								}
-								string[] array206 = this.poseArray[this.poseIndex[i]].Split(new char[]
+								string[] array206 = poseArray[poseIndex[i]].Split(new char[]
 								{
 									','
 								});
-								this.isStop[i] = true;
-								this.poseCount[i] = 20;
+								isStop[i] = true;
+								poseCount[i] = 20;
 								int num207;
 								if (array2[61].Contains("MultipleMaidsPose"))
 								{
@@ -5421,15 +5421,15 @@ namespace CM3D2.MultipleMaids.Plugin
 												if (text21 == array2[61].Replace("MultipleMaidsPose", ""))
 												{
 													url = files[num208];
-													for (int num209 = 0; num209 < this.poseArray.Length; num209++)
+													for (int num209 = 0; num209 < poseArray.Length; num209++)
 													{
-														string b = this.poseArray[num209].Replace("\u3000", "").Split(new char[]
+														string b = poseArray[num209].Replace("\u3000", "").Split(new char[]
 														{
 															'/'
 														})[0];
 														if (text21 == b)
 														{
-															this.poseIndex[i] = num209;
+															poseIndex[i] = num209;
 														}
 													}
 													break;
@@ -5477,43 +5477,43 @@ namespace CM3D2.MultipleMaids.Plugin
 								}
 								else if (array206[0].StartsWith("p") && int.TryParse(array206[0].Substring(1), out num207))
 								{
-									this.loadPose[i] = array206[0];
+									loadPose[i] = array206[0];
 								}
 								else if (!array206[0].StartsWith("dance_"))
 								{
-									this.maidArray[i].CrossFade(array206[0] + ".anm", false, true, false, 0f, 1f);
+									maidArray[i].CrossFade(array206[0] + ".anm", false, true, false, 0f, 1f);
 								}
 								else
 								{
-									if (!this.maidArray[i].body0.m_Bones.GetComponent<Animation>().GetClip(array206[0] + ".anm"))
+									if (!maidArray[i].body0.m_Bones.GetComponent<Animation>().GetClip(array206[0] + ".anm"))
 									{
-										this.maidArray[i].body0.LoadAnime(array206[0] + ".anm", GameUty.FileSystem, array206[0] + ".anm", false, false);
+										maidArray[i].body0.LoadAnime(array206[0] + ".anm", GameUty.FileSystem, array206[0] + ".anm", false, false);
 									}
-									this.maidArray[i].body0.m_Bones.GetComponent<Animation>().Play(array206[0] + ".anm");
+									maidArray[i].body0.m_Bones.GetComponent<Animation>().Play(array206[0] + ".anm");
 								}
 								if (array206.Length > 1)
 								{
-									this.maidArray[i].body0.m_Bones.GetComponent<Animation>()[array206[0] + ".anm"].time = float.Parse(array206[1]);
-									this.isStop[i] = true;
+									maidArray[i].body0.m_Bones.GetComponent<Animation>()[array206[0] + ".anm"].time = float.Parse(array206[1]);
+									isStop[i] = true;
 									if (array206.Length > 2)
 									{
-										Transform transform29 = CMT.SearchObjName(this.maidArray[i].body0.m_Bones.transform, "Bip01", true);
-										this.isPoseIti[i] = true;
-										this.poseIti[i] = this.maidArray[i].transform.position;
-										this.maidArray[i].transform.position = new Vector3(100f, 100f, 100f);
+										Transform transform29 = CMT.SearchObjName(maidArray[i].body0.m_Bones.transform, "Bip01", true);
+										isPoseIti[i] = true;
+										poseIti[i] = maidArray[i].transform.position;
+										maidArray[i].transform.position = new Vector3(100f, 100f, 100f);
 									}
 								}
-								this.faceIndex[i] = int.Parse(array2[62]);
-								if (this.faceIndex[i] < this.faceArray.Length)
+								faceIndex[i] = int.Parse(array2[62]);
+								if (faceIndex[i] < faceArray.Length)
 								{
-									maid.FaceAnime(this.faceArray[this.faceIndex[i]], 0.01f, 0);
+									maid.FaceAnime(faceArray[faceIndex[i]], 0.01f, 0);
 								}
 								else
 								{
-									this.faceIndex[i] = 0;
+									faceIndex[i] = 0;
 								}
 								TMorph morph = maid.body0.Face.morph;
-								if (!this.isVR)
+								if (!isVR)
 								{
 									maid.boMabataki = false;
 									morph.EyeMabataki = 0f;
@@ -5523,18 +5523,18 @@ namespace CM3D2.MultipleMaids.Plugin
 						}
 					}
 				}
-				if (this.allowUpdate || this.sceneLevel == 14 || this.sceneLevel == 24)
+				if (allowUpdate || sceneLevel == 14 || sceneLevel == 24)
 				{
-					if (this.isF6 && !this.cameraObj && !this.isVR)
+					if (isF6 && !cameraObj && !isVR)
 					{
-						this.cameraObj = new GameObject("subCamera");
-						this.subcamera = this.cameraObj.AddComponent<Camera>();
-						this.subcamera.CopyFrom(Camera.main);
-						this.cameraObj.SetActive(true);
-						this.subcamera.clearFlags = CameraClearFlags.Depth;
-						this.subcamera.cullingMask = 256;
-						this.subcamera.depth = 1f;
-						this.subcamera.transform.parent = this.mainCamera.transform;
+						cameraObj = new GameObject("subCamera");
+						subcamera = cameraObj.AddComponent<Camera>();
+						subcamera.CopyFrom(Camera.main);
+						cameraObj.SetActive(true);
+						subcamera.clearFlags = CameraClearFlags.Depth;
+						subcamera.cullingMask = 256;
+						subcamera.depth = 1f;
+						subcamera.transform.parent = mainCamera.transform;
 						float item = 2f;
 						if (Application.unityVersion.StartsWith("4"))
 						{
@@ -5542,16 +5542,16 @@ namespace CM3D2.MultipleMaids.Plugin
 						}
 						GameObject gameObject6 = new GameObject("Light");
 						gameObject6.AddComponent<Light>();
-						this.lightList.Add(gameObject6);
-						this.lightColorR.Add(1f);
-						this.lightColorG.Add(1f);
-						this.lightColorB.Add(1f);
-						this.lightIndex.Add(0);
-						this.lightX.Add(40f);
-						this.lightY.Add(180f);
-						this.lightAkarusa.Add(item);
-						this.lightKage.Add(0.098f);
-						this.lightRange.Add(50f);
+						lightList.Add(gameObject6);
+						lightColorR.Add(1f);
+						lightColorG.Add(1f);
+						lightColorB.Add(1f);
+						lightIndex.Add(0);
+						lightX.Add(40f);
+						lightY.Add(180f);
+						lightAkarusa.Add(item);
+						lightKage.Add(0.098f);
+						lightRange.Add(50f);
 						gameObject6.transform.position = GameMain.Instance.MainLight.transform.position;
 						gameObject6.GetComponent<Light>().intensity = 2f;
 						gameObject6.GetComponent<Light>().spotAngle = 50f;
@@ -5560,256 +5560,256 @@ namespace CM3D2.MultipleMaids.Plugin
 						gameObject6.GetComponent<Light>().color = new Color(0.5f, 1f, 0f);
 						gameObject6.GetComponent<Light>().cullingMask = 256;
 					}
-					if (!this.isF6S || !this.getModKeyPressing(MultipleMaids.modKey.Shift) || !Input.GetKeyDown(KeyCode.F6))
+					if (!isF6S || !getModKeyPressing(MultipleMaids.modKey.Shift) || !Input.GetKeyDown(KeyCode.F6))
 					{
-						if (this.isF6S || !this.getModKeyPressing(MultipleMaids.modKey.Shift) || !Input.GetKeyDown(KeyCode.F6))
+						if (isF6S || !getModKeyPressing(MultipleMaids.modKey.Shift) || !Input.GetKeyDown(KeyCode.F6))
 						{
-							if (!this.isF6 && Input.GetKeyDown(KeyCode.F6) && this.sceneLevel != 5 && this.sceneLevel != 3 && !this.isVR && this.maidArray[0] && this.maidArray[0].Visible)
+							if (!isF6 && Input.GetKeyDown(KeyCode.F6) && sceneLevel != 5 && sceneLevel != 3 && !isVR && maidArray[0] && maidArray[0].Visible)
 							{
-								this.isF6 = true;
-								this.bGui = true;
-								this.isFaceInit = true;
-								this.isGuiInit = true;
-								this.maidArray[0].boMabataki = false;
-								this.selectMaidIndex = 0;
-								this.maidCnt = 1;
-								this.isFace[0] = true;
-								this.faceFlg = true;
-								this.kankyoFlg = false;
+								isF6 = true;
+								bGui = true;
+								isFaceInit = true;
+								isGuiInit = true;
+								maidArray[0].boMabataki = false;
+								selectMaidIndex = 0;
+								maidCnt = 1;
+								isFace[0] = true;
+								faceFlg = true;
+								kankyoFlg = false;
 								string text2 = GameMain.Instance.BgMgr.GetBGName();
 								int l = 0;
-								foreach (string text3 in this.bgArray)
+								foreach (string text3 in bgArray)
 								{
 									if (text3 == text2)
 									{
-										this.bgIndex = l;
-										this.bgIndex6 = l;
+										bgIndex = l;
+										bgIndex6 = l;
 										break;
 									}
 									l++;
 								}
-								this.bgCombo.selectedItemIndex = this.bgIndex6;
-								this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
-								this.lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
+								bgCombo.selectedItemIndex = bgIndex6;
+								lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+								lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
 							}
-							else if (!this.isF6 && Input.GetKeyDown(KeyCode.F7) && this.sceneLevel != 5 && this.sceneLevel != 3 && !this.isVR && this.maidArray[0] && this.maidArray[0].Visible)
+							else if (!isF6 && Input.GetKeyDown(KeyCode.F7) && sceneLevel != 5 && sceneLevel != 3 && !isVR && maidArray[0] && maidArray[0].Visible)
 							{
-								this.isF6 = true;
-								this.bGui = true;
-								this.isGuiInit = true;
-								this.selectMaidIndex = 0;
-								this.maidCnt = 1;
-								this.isFace[0] = false;
-								this.faceFlg = false;
-								this.kankyoFlg = true;
+								isF6 = true;
+								bGui = true;
+								isGuiInit = true;
+								selectMaidIndex = 0;
+								maidCnt = 1;
+								isFace[0] = false;
+								faceFlg = false;
+								kankyoFlg = true;
 								string text2 = GameMain.Instance.BgMgr.GetBGName();
 								int l = 0;
-								foreach (string text3 in this.bgArray)
+								foreach (string text3 in bgArray)
 								{
 									if (text3 == text2)
 									{
-										this.bgIndex = l;
-										this.bgIndex6 = l;
+										bgIndex = l;
+										bgIndex6 = l;
 										break;
 									}
 									l++;
 								}
-								this.bgmCombo.selectedItemIndex = this.bgmIndex;
-								this.bgCombo.selectedItemIndex = this.bgIndex6;
-								this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
-								this.lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
-								this.lightX6 = this.lightX[0];
-								this.lightY6 = this.lightY[0];
+								bgmCombo.selectedItemIndex = bgmIndex;
+								bgCombo.selectedItemIndex = bgIndex6;
+								lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+								lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
+								lightX6 = lightX[0];
+								lightY6 = lightY[0];
 							}
-							else if ((this.isVR && Input.GetKey(KeyCode.F7) && Input.GetKeyDown(KeyCode.BackQuote)) || (this.isF6 && (Input.GetKeyDown(KeyCode.F6) || Input.GetKeyDown(KeyCode.F7))))
+							else if ((isVR && Input.GetKey(KeyCode.F7) && Input.GetKeyDown(KeyCode.BackQuote)) || (isF6 && (Input.GetKeyDown(KeyCode.F6) || Input.GetKeyDown(KeyCode.F7))))
 							{
-								this.isF6 = false;
-								this.bGui = false;
-								this.maidArray[0].boMabataki = true;
-								this.bgIndex = this.bgIndex6;
-								this.bg.localScale = new Vector3(1f, 1f, 1f);
-								if (!this.isVR)
+								isF6 = false;
+								bGui = false;
+								maidArray[0].boMabataki = true;
+								bgIndex = bgIndex6;
+								bg.localScale = new Vector3(1f, 1f, 1f);
+								if (!isVR)
 								{
-									Bloom fieldValue7 = MultipleMaids.GetFieldValue<CameraMain, Bloom>(this.mainCamera, "m_gcBloom");
+									Bloom fieldValue7 = MultipleMaids.GetFieldValue<CameraMain, Bloom>(mainCamera, "m_gcBloom");
 									fieldValue7.enabled = true;
 									fieldValue7.bloomIntensity = 2.85f;
 									fieldValue7.hdr = 0;
 									fieldValue7.bloomThreshholdColor = new Color(1f, 1f, 1f);
 									fieldValue7.bloomBlurIterations = 3;
 								}
-								else if (this.bgArray[this.bgIndex].Length == 36)
+								else if (bgArray[bgIndex].Length == 36)
 								{
-									GameMain.Instance.BgMgr.ChangeBgMyRoom(this.bgArray[this.bgIndex]);
+									GameMain.Instance.BgMgr.ChangeBgMyRoom(bgArray[bgIndex]);
 								}
 								else
 								{
-									GameMain.Instance.BgMgr.ChangeBg(this.bgArray[this.bgIndex]);
+									GameMain.Instance.BgMgr.ChangeBg(bgArray[bgIndex]);
 								}
-								this.mainCamera.GetComponent<Camera>().backgroundColor = new Color(0f, 0f, 0f);
-								this.maidCnt = 0;
-								this.wearIndex = 0;
-								this.faceFlg = false;
-								this.faceFlg2 = false;
-								this.sceneFlg = false;
-								this.poseFlg = false;
-								this.kankyoFlg = false;
-								this.kankyo2Flg = false;
-								this.unLockFlg = false;
-								this.ikMaid = 0;
-								this.ikBui = 0;
-								this.isNamida = false;
-								this.isTear1 = false;
-								this.isTear2 = false;
-								this.isTear3 = false;
-								this.isShock = false;
-								this.isYodare = false;
-								this.isHoho = false;
-								this.isHoho2 = false;
-								this.isHohos = false;
-								this.isHohol = false;
-								this.isToothoff = false;
-								this.isNosefook = false;
-								this.isFaceInit = false;
-								this.isPoseInit = false;
-								this.isWear = true;
-								this.isSkirt = true;
-								this.isBra = true;
-								this.isPanz = true;
-								this.isHeadset = true;
-								this.isAccUde = true;
-								this.isStkg = true;
-								this.isShoes = true;
-								this.isGlove = true;
-								this.isMegane = true;
-								this.isAccSenaka = true;
-								this.isPanel = true;
-								this.isBloom = false;
-								this.isBloomA = false;
-								this.isBlur = false;
-								this.isBlur2 = false;
-								this.bloom1 = 2.85f;
-								this.bloom2 = 3f;
-								this.bloom3 = 0f;
-								this.bloom4 = 0f;
-								this.bloom5 = 0f;
-								this.blur1 = -3.98f;
-								this.blur4 = -0.75f;
-								this.blur2 = 0.9f;
-								this.blur3 = 4.19f;
-								this.bokashi = 0f;
-								this.kamiyure = 0f;
-								this.isDepth = false;
-								this.isDepthA = false;
-								this.depth1 = 3f;
-								this.depth2 = 0.1f;
-								this.depth3 = 15f;
-								this.depth4 = 2.5f;
-								this.isFog = false;
-								this.fog1 = 4f;
-								this.fog2 = 1f;
-								this.fog3 = 1f;
-								this.fog4 = 0f;
-								this.fog5 = 1f;
-								this.fog6 = 1f;
-								this.fog7 = 1f;
-								this.isSepia = false;
-								this.isBloomS = true;
-								this.isDepthS = false;
-								this.isBlurS = false;
-								this.isFogS = false;
-								if (this.depth_field_ != null)
+								mainCamera.GetComponent<Camera>().backgroundColor = new Color(0f, 0f, 0f);
+								maidCnt = 0;
+								wearIndex = 0;
+								faceFlg = false;
+								faceFlg2 = false;
+								sceneFlg = false;
+								poseFlg = false;
+								kankyoFlg = false;
+								kankyo2Flg = false;
+								unLockFlg = false;
+								ikMaid = 0;
+								ikBui = 0;
+								isNamida = false;
+								isTear1 = false;
+								isTear2 = false;
+								isTear3 = false;
+								isShock = false;
+								isYodare = false;
+								isHoho = false;
+								isHoho2 = false;
+								isHohos = false;
+								isHohol = false;
+								isToothoff = false;
+								isNosefook = false;
+								isFaceInit = false;
+								isPoseInit = false;
+								isWear = true;
+								isSkirt = true;
+								isBra = true;
+								isPanz = true;
+								isHeadset = true;
+								isAccUde = true;
+								isStkg = true;
+								isShoes = true;
+								isGlove = true;
+								isMegane = true;
+								isAccSenaka = true;
+								isPanel = true;
+								isBloom = false;
+								isBloomA = false;
+								isBlur = false;
+								isBlur2 = false;
+								bloom1 = 2.85f;
+								bloom2 = 3f;
+								bloom3 = 0f;
+								bloom4 = 0f;
+								bloom5 = 0f;
+								blur1 = -3.98f;
+								blur4 = -0.75f;
+								blur2 = 0.9f;
+								blur3 = 4.19f;
+								bokashi = 0f;
+								kamiyure = 0f;
+								isDepth = false;
+								isDepthA = false;
+								depth1 = 3f;
+								depth2 = 0.1f;
+								depth3 = 15f;
+								depth4 = 2.5f;
+								isFog = false;
+								fog1 = 4f;
+								fog2 = 1f;
+								fog3 = 1f;
+								fog4 = 0f;
+								fog5 = 1f;
+								fog6 = 1f;
+								fog7 = 1f;
+								isSepia = false;
+								isBloomS = true;
+								isDepthS = false;
+								isBlurS = false;
+								isFogS = false;
+								if (depth_field_ != null)
 								{
-									this.depth_field_.enabled = false;
+									depth_field_.enabled = false;
 								}
-								if (this.fog_ != null)
+								if (fog_ != null)
 								{
-									this.fog_.enabled = false;
+									fog_.enabled = false;
 								}
-								if (this.sepia_tone_ != null)
+								if (sepia_tone_ != null)
 								{
-									this.sepia_tone_.enabled = false;
+									sepia_tone_.enabled = false;
 								}
-								this.isCube = false;
-								this.isCube2 = true;
-								this.isCube3 = false;
-								this.isCube4 = true;
-								this.effectIndex = 0;
-								this.selectMaidIndex = 0;
-								this.copyIndex = 0;
-								this.selectLightIndex = 0;
-								this.parIndex = 0;
-								this.isEditNo = 0;
-								this.editSelectMaid = null;
+								isCube = false;
+								isCube2 = true;
+								isCube3 = false;
+								isCube4 = true;
+								effectIndex = 0;
+								selectMaidIndex = 0;
+								copyIndex = 0;
+								selectLightIndex = 0;
+								parIndex = 0;
+								isEditNo = 0;
+								editSelectMaid = null;
 								for (int i2 = 0; i2 < 10; i2++)
 								{
-									this.date[i2] = "";
-									this.ninzu[i2] = "";
+									date[i2] = "";
+									ninzu[i2] = "";
 								}
-								if (this.kami)
+								if (kami)
 								{
-									this.kami.SetActive(false);
+									kami.SetActive(false);
 								}
-								this.lightIndex = new List<int>();
-								this.lightIndex.Add(0);
-								this.lightColorR = new List<float>();
-								this.lightColorR.Add(1f);
-								this.lightColorG = new List<float>();
-								this.lightColorG.Add(1f);
-								this.lightColorB = new List<float>();
-								this.lightColorB.Add(1f);
-								this.lightX = new List<float>();
-								this.lightX.Add(this.lightX6);
-								this.lightY = new List<float>();
-								this.lightY.Add(this.lightY6);
-								this.lightAkarusa = new List<float>();
-								this.lightAkarusa.Add(0.95f);
-								this.lightKage = new List<float>();
-								this.lightKage.Add(0.098f);
-								this.lightRange = new List<float>();
-								this.lightRange.Add(50f);
-								this.isIdx1 = false;
-								this.isIdx2 = false;
-								this.isIdx3 = false;
-								this.isIdx4 = false;
-								this.bgObject.SetActive(true);
+								lightIndex = new List<int>();
+								lightIndex.Add(0);
+								lightColorR = new List<float>();
+								lightColorR.Add(1f);
+								lightColorG = new List<float>();
+								lightColorG.Add(1f);
+								lightColorB = new List<float>();
+								lightColorB.Add(1f);
+								lightX = new List<float>();
+								lightX.Add(lightX6);
+								lightY = new List<float>();
+								lightY.Add(lightY6);
+								lightAkarusa = new List<float>();
+								lightAkarusa.Add(0.95f);
+								lightKage = new List<float>();
+								lightKage.Add(0.098f);
+								lightRange = new List<float>();
+								lightRange.Add(50f);
+								isIdx1 = false;
+								isIdx2 = false;
+								isIdx3 = false;
+								isIdx4 = false;
+								bgObject.SetActive(true);
 								GameMain.Instance.MainLight.Reset();
 								GameMain.Instance.MainLight.SetIntensity(0.95f);
 								GameMain.Instance.MainLight.GetComponent<Light>().spotAngle = 30f;
 								GameMain.Instance.MainLight.GetComponent<Light>().range = 10f;
 								GameMain.Instance.MainLight.gameObject.transform.position = new Vector3(0f, 2f, 0f);
 								GameMain.Instance.MainLight.GetComponent<Light>().type = LightType.Directional;
-								GameMain.Instance.MainLight.transform.eulerAngles = new Vector3(this.lightX6, this.lightY6, GameMain.Instance.MainLight.transform.eulerAngles.z);
-								for (int l = 0; l < this.doguBObject.Count; l++)
+								GameMain.Instance.MainLight.transform.eulerAngles = new Vector3(lightX6, lightY6, GameMain.Instance.MainLight.transform.eulerAngles.z);
+								for (int l = 0; l < doguBObject.Count; l++)
 								{
-									UnityEngine.Object.Destroy(this.doguBObject[l]);
+									UnityEngine.Object.Destroy(doguBObject[l]);
 								}
-								this.doguBObject.Clear();
-								this.parIndex = 0;
-								for (int l = 0; l < this.doguCombo.Length; l++)
+								doguBObject.Clear();
+								parIndex = 0;
+								for (int l = 0; l < doguCombo.Length; l++)
 								{
-									this.doguCombo[l] = new ComboBox2();
-									this.doguCombo[l].selectedItemIndex = 0;
+									doguCombo[l] = new ComboBox2();
+									doguCombo[l].selectedItemIndex = 0;
 								}
-								this.parCombo.selectedItemIndex = 0;
-								for (int l = 1; l < this.lightList.Count; l++)
+								parCombo.selectedItemIndex = 0;
+								for (int l = 1; l < lightList.Count; l++)
 								{
-									UnityEngine.Object.Destroy(this.lightList[l]);
+									UnityEngine.Object.Destroy(lightList[l]);
 								}
-								this.lightList = new List<GameObject>();
-								this.lightList.Add(GameMain.Instance.MainLight.gameObject);
-								this.lightComboList = new GUIContent[this.lightList.Count];
-								this.lightComboList[0] = new GUIContent("メイン");
-								this.lightCombo.selectedItemIndex = 0;
-								this.selectLightIndex = 0;
-								GameMain.Instance.BgMgr.ChangeBg(this.bgArray[this.bgIndex6]);
-								this.bgCombo.selectedItemIndex = this.bgIndex6;
-								this.bgCombo2.selectedItemIndex = 0;
-								this.itemCombo2.selectedItemIndex = 0;
-								this.myCombo.selectedItemIndex = 0;
-								this.slotCombo.selectedItemIndex = 0;
-								this.sortList.Clear();
-								this.scrollPos = new Vector2(0f, 0f);
-								if (!this.isVR)
+								lightList = new List<GameObject>();
+								lightList.Add(GameMain.Instance.MainLight.gameObject);
+								lightComboList = new GUIContent[lightList.Count];
+								lightComboList[0] = new GUIContent("メイン");
+								lightCombo.selectedItemIndex = 0;
+								selectLightIndex = 0;
+								GameMain.Instance.BgMgr.ChangeBg(bgArray[bgIndex6]);
+								bgCombo.selectedItemIndex = bgIndex6;
+								bgCombo2.selectedItemIndex = 0;
+								itemCombo2.selectedItemIndex = 0;
+								myCombo.selectedItemIndex = 0;
+								slotCombo.selectedItemIndex = 0;
+								sortList.Clear();
+								scrollPos = new Vector2(0f, 0f);
+								if (!isVR)
 								{
 									Vignetting component2 = GameMain.Instance.MainCamera.gameObject.GetComponent<Vignetting>();
 									component2.mode = 0;
@@ -5821,29 +5821,29 @@ namespace CM3D2.MultipleMaids.Plugin
 									component2.blurDistance = 1.71f;
 									component2.enabled = false;
 								}
-								this.doguIndex.Clear();
-								this.doguSelectIndex = 0;
-								for (int i2 = 0; i2 < this.doguObject.Count; i2++)
+								doguIndex.Clear();
+								doguSelectIndex = 0;
+								for (int i2 = 0; i2 < doguObject.Count; i2++)
 								{
-									if (this.doguObject[i2] != null)
+									if (doguObject[i2] != null)
 									{
-										UnityEngine.Object.Destroy(this.doguObject[i2]);
-										this.doguObject[i2] = null;
+										UnityEngine.Object.Destroy(doguObject[i2]);
+										doguObject[i2] = null;
 									}
 								}
-								this.doguObject.Clear();
+								doguObject.Clear();
 							}
 						}
 					}
-					for (int l = 0; l < this.maidCnt; l++)
+					for (int l = 0; l < maidCnt; l++)
 					{
-						if (this.maidArray[l] && this.maidArray[l].Visible)
+						if (maidArray[l] && maidArray[l].Visible)
 						{
-							Maid maid = this.maidArray[l];
-							if (this.isLook[l] != this.isLookn[l])
+							Maid maid = maidArray[l];
+							if (isLook[l] != isLookn[l])
 							{
-								this.isLookn[l] = this.isLook[l];
-								if (this.isLook[l])
+								isLookn[l] = isLook[l];
+								if (isLook[l])
 								{
 									maid.body0.trsLookTarget = GameMain.Instance.MainCamera.transform;
 									maid.body0.boHeadToCam = true;
@@ -5859,67 +5859,67 @@ namespace CM3D2.MultipleMaids.Plugin
 							}
 						}
 					}
-					if (this.maidArray[this.selectMaidIndex] && this.maidArray[this.selectMaidIndex].Visible)
+					if (maidArray[selectMaidIndex] && maidArray[selectMaidIndex].Visible)
 					{
-						if ((!this.faceFlg && !this.poseFlg && !this.sceneFlg && !this.kankyoFlg && !this.kankyo2Flg) || this.sceneFlg || this.kankyoFlg || this.kankyo2Flg)
+						if ((!faceFlg && !poseFlg && !sceneFlg && !kankyoFlg && !kankyo2Flg) || sceneFlg || kankyoFlg || kankyo2Flg)
 						{
-							for (int k = 0; k < this.maidCnt; k++)
+							for (int k = 0; k < maidCnt; k++)
 							{
-								if (this.maidArray[k] && !this.maidArray[k].boMabataki)
+								if (maidArray[k] && !maidArray[k].boMabataki)
 								{
-									this.maidArray[k].body0.Face.morph.FixBlendValues_Face();
+									maidArray[k].body0.Face.morph.FixBlendValues_Face();
 								}
 							}
 						}
 					}
-					if (this.maidArray[this.selectMaidIndex] && this.maidArray[this.selectMaidIndex].Visible && this.poseFlg)
+					if (maidArray[selectMaidIndex] && maidArray[selectMaidIndex].Visible && poseFlg)
 					{
-						if (this.isPoseInit)
+						if (isPoseInit)
 						{
-							if (!this.isDanceChu)
+							if (!isDanceChu)
 							{
-								Maid maid = this.maidArray[this.selectMaidIndex];
-								this.isPoseInit = false;
+								Maid maid = maidArray[selectMaidIndex];
+								isPoseInit = false;
 								if (maid.body0.GetMask(TBody.SlotID.wear) || maid.body0.GetMask(TBody.SlotID.mizugi) || maid.body0.GetMask(TBody.SlotID.onepiece))
 								{
-									this.isWear = true;
+									isWear = true;
 								}
 								else
 								{
-									this.isWear = false;
+									isWear = false;
 								}
-								this.isSkirt = maid.body0.GetMask(TBody.SlotID.skirt);
-								this.isBra = maid.body0.GetMask(TBody.SlotID.bra);
-								this.isPanz = maid.body0.GetMask(TBody.SlotID.panz);
-								this.isMaid = maid.body0.GetMask(TBody.SlotID.body);
+								isSkirt = maid.body0.GetMask(TBody.SlotID.skirt);
+								isBra = maid.body0.GetMask(TBody.SlotID.bra);
+								isPanz = maid.body0.GetMask(TBody.SlotID.panz);
+								isMaid = maid.body0.GetMask(TBody.SlotID.body);
 								if (maid.body0.GetMask(TBody.SlotID.headset) || maid.body0.GetMask(TBody.SlotID.accHat) || maid.body0.GetMask(TBody.SlotID.accHead) || maid.body0.GetMask(TBody.SlotID.accKamiSubL) || maid.body0.GetMask(TBody.SlotID.accKamiSubR) || maid.body0.GetMask(TBody.SlotID.accKami_1_) || maid.body0.GetMask(TBody.SlotID.accKami_2_) || maid.body0.GetMask(TBody.SlotID.accKami_3_))
 								{
-									this.isHeadset = true;
+									isHeadset = true;
 								}
 								else
 								{
-									this.isHeadset = false;
+									isHeadset = false;
 								}
-								this.isAccUde = maid.body0.GetMask(TBody.SlotID.accUde);
-								this.isStkg = maid.body0.GetMask(TBody.SlotID.stkg);
-								this.isShoes = maid.body0.GetMask(TBody.SlotID.shoes);
-								this.isGlove = maid.body0.GetMask(TBody.SlotID.glove);
-								this.isMegane = maid.body0.GetMask(TBody.SlotID.megane);
-								this.isAccSenaka = maid.body0.GetMask(TBody.SlotID.accSenaka);
-								TMorph morph = this.maidArray[this.selectMaidIndex].body0.Face.morph;
+								isAccUde = maid.body0.GetMask(TBody.SlotID.accUde);
+								isStkg = maid.body0.GetMask(TBody.SlotID.stkg);
+								isShoes = maid.body0.GetMask(TBody.SlotID.shoes);
+								isGlove = maid.body0.GetMask(TBody.SlotID.glove);
+								isMegane = maid.body0.GetMask(TBody.SlotID.megane);
+								isAccSenaka = maid.body0.GetMask(TBody.SlotID.accSenaka);
+								TMorph morph = maidArray[selectMaidIndex].body0.Face.morph;
 								float[] fieldValue = MultipleMaids.GetFieldValue<TMorph, float[]>(morph, "BlendValues");
 								float[] fieldValue5 = MultipleMaids.GetFieldValue<TMorph, float[]>(morph, "BlendValuesBackup");
 								if (morph.bodyskin.PartsVersion < 120)
 								{
-									this.eyeclose = fieldValue5[(int)morph.hash["eyeclose"]];
-									this.eyeclose2 = fieldValue5[(int)morph.hash["eyeclose2"]];
-									this.eyeclose3 = fieldValue5[(int)morph.hash["eyeclose3"]];
-									this.eyeclose6 = fieldValue5[(int)morph.hash["eyeclose6"]];
-									this.eyeclose5 = fieldValue5[(int)morph.hash["eyeclose5"]];
+									eyeclose = fieldValue5[(int)morph.hash["eyeclose"]];
+									eyeclose2 = fieldValue5[(int)morph.hash["eyeclose2"]];
+									eyeclose3 = fieldValue5[(int)morph.hash["eyeclose3"]];
+									eyeclose6 = fieldValue5[(int)morph.hash["eyeclose6"]];
+									eyeclose5 = fieldValue5[(int)morph.hash["eyeclose5"]];
 									if (morph.hash["eyeclose7"] != null)
 									{
-										this.eyeclose7 = fieldValue5[(int)morph.hash["eyeclose7"]];
-										this.eyeclose8 = fieldValue5[(int)morph.hash["eyeclose8"]];
+										eyeclose7 = fieldValue5[(int)morph.hash["eyeclose7"]];
+										eyeclose8 = fieldValue5[(int)morph.hash["eyeclose8"]];
 									}
 								}
 								else
@@ -5933,296 +5933,296 @@ namespace CM3D2.MultipleMaids.Plugin
 									{
 										num102 = 2;
 									}
-									this.eyeclose = fieldValue5[(int)morph.hash["eyeclose1" + TMorph.crcFaceTypesStr[num102]]];
-									this.eyeclose2 = fieldValue5[(int)morph.hash["eyeclose2" + TMorph.crcFaceTypesStr[num102]]];
-									this.eyeclose3 = fieldValue[(int)morph.hash["eyeclose3"]];
-									this.eyeclose6 = fieldValue5[(int)morph.hash["eyeclose6" + TMorph.crcFaceTypesStr[num102]]];
-									this.eyeclose5 = fieldValue5[(int)morph.hash["eyeclose5" + TMorph.crcFaceTypesStr[num102]]];
-									this.eyeclose8 = fieldValue5[(int)morph.hash["eyeclose8" + TMorph.crcFaceTypesStr[num102]]];
-									this.eyeclose7 = fieldValue5[(int)morph.hash["eyeclose7" + TMorph.crcFaceTypesStr[num102]]];
+									eyeclose = fieldValue5[(int)morph.hash["eyeclose1" + TMorph.crcFaceTypesStr[num102]]];
+									eyeclose2 = fieldValue5[(int)morph.hash["eyeclose2" + TMorph.crcFaceTypesStr[num102]]];
+									eyeclose3 = fieldValue[(int)morph.hash["eyeclose3"]];
+									eyeclose6 = fieldValue5[(int)morph.hash["eyeclose6" + TMorph.crcFaceTypesStr[num102]]];
+									eyeclose5 = fieldValue5[(int)morph.hash["eyeclose5" + TMorph.crcFaceTypesStr[num102]]];
+									eyeclose8 = fieldValue5[(int)morph.hash["eyeclose8" + TMorph.crcFaceTypesStr[num102]]];
+									eyeclose7 = fieldValue5[(int)morph.hash["eyeclose7" + TMorph.crcFaceTypesStr[num102]]];
 								}
-								this.hitomih = fieldValue[(int)morph.hash["hitomih"]];
-								this.hitomis = fieldValue[(int)morph.hash["hitomis"]];
-								this.mayuha = fieldValue[(int)morph.hash["mayuha"]];
-								this.mayuup = fieldValue[(int)morph.hash["mayuup"]];
-								this.mayuv = fieldValue[(int)morph.hash["mayuv"]];
-								this.mayuvhalf = fieldValue[(int)morph.hash["mayuvhalf"]];
-								this.moutha = fieldValue[(int)morph.hash["moutha"]];
-								this.mouths = fieldValue[(int)morph.hash["mouths"]];
-								this.mouthdw = fieldValue[(int)morph.hash["mouthdw"]];
-								this.mouthup = fieldValue[(int)morph.hash["mouthup"]];
-								this.tangout = fieldValue[(int)morph.hash["tangout"]];
-								this.tangup = fieldValue[(int)morph.hash["tangup"]];
-								this.eyebig = fieldValue[(int)morph.hash["eyebig"]];
-								this.mayuw = fieldValue[(int)morph.hash["mayuw"]];
-								this.mouthhe = fieldValue[(int)morph.hash["mouthhe"]];
-								this.mouthc = fieldValue[(int)morph.hash["mouthc"]];
-								this.mouthi = fieldValue[(int)morph.hash["mouthi"]];
-								this.mouthuphalf = fieldValue[(int)morph.hash["mouthuphalf"]];
+								hitomih = fieldValue[(int)morph.hash["hitomih"]];
+								hitomis = fieldValue[(int)morph.hash["hitomis"]];
+								mayuha = fieldValue[(int)morph.hash["mayuha"]];
+								mayuup = fieldValue[(int)morph.hash["mayuup"]];
+								mayuv = fieldValue[(int)morph.hash["mayuv"]];
+								mayuvhalf = fieldValue[(int)morph.hash["mayuvhalf"]];
+								moutha = fieldValue[(int)morph.hash["moutha"]];
+								mouths = fieldValue[(int)morph.hash["mouths"]];
+								mouthdw = fieldValue[(int)morph.hash["mouthdw"]];
+								mouthup = fieldValue[(int)morph.hash["mouthup"]];
+								tangout = fieldValue[(int)morph.hash["tangout"]];
+								tangup = fieldValue[(int)morph.hash["tangup"]];
+								eyebig = fieldValue[(int)morph.hash["eyebig"]];
+								mayuw = fieldValue[(int)morph.hash["mayuw"]];
+								mouthhe = fieldValue[(int)morph.hash["mouthhe"]];
+								mouthc = fieldValue[(int)morph.hash["mouthc"]];
+								mouthi = fieldValue[(int)morph.hash["mouthi"]];
+								mouthuphalf = fieldValue[(int)morph.hash["mouthuphalf"]];
 								try
 								{
-									this.tangopen = fieldValue[(int)morph.hash["tangopen"]];
+									tangopen = fieldValue[(int)morph.hash["tangopen"]];
 								}
 								catch
 								{
 								}
 								if (fieldValue[(int)morph.hash["namida"]] > 0f)
 								{
-									this.isNamida = true;
+									isNamida = true;
 								}
 								else
 								{
-									this.isNamida = false;
+									isNamida = false;
 								}
 								if (fieldValue[(int)morph.hash["tear1"]] > 0f)
 								{
-									this.isTear1 = true;
+									isTear1 = true;
 								}
 								else
 								{
-									this.isTear1 = false;
+									isTear1 = false;
 								}
 								if (fieldValue[(int)morph.hash["tear2"]] > 0f)
 								{
-									this.isTear2 = true;
+									isTear2 = true;
 								}
 								else
 								{
-									this.isTear2 = false;
+									isTear2 = false;
 								}
 								if (fieldValue[(int)morph.hash["tear3"]] > 0f)
 								{
-									this.isTear3 = true;
+									isTear3 = true;
 								}
 								else
 								{
-									this.isTear3 = false;
+									isTear3 = false;
 								}
 								if (fieldValue[(int)morph.hash["shock"]] > 0f)
 								{
-									this.isShock = true;
+									isShock = true;
 								}
 								else
 								{
-									this.isShock = false;
+									isShock = false;
 								}
 								if (fieldValue[(int)morph.hash["yodare"]] > 0f)
 								{
-									this.isYodare = true;
+									isYodare = true;
 								}
 								else
 								{
-									this.isYodare = false;
+									isYodare = false;
 								}
 								if (fieldValue[(int)morph.hash["hoho"]] > 0f)
 								{
-									this.isHoho = true;
+									isHoho = true;
 								}
 								else
 								{
-									this.isHoho = false;
+									isHoho = false;
 								}
 								if (fieldValue[(int)morph.hash["hoho2"]] > 0f)
 								{
-									this.isHoho2 = true;
+									isHoho2 = true;
 								}
 								else
 								{
-									this.isHoho2 = false;
+									isHoho2 = false;
 								}
 								if (fieldValue[(int)morph.hash["hohos"]] > 0f)
 								{
-									this.isHohos = true;
+									isHohos = true;
 								}
 								else
 								{
-									this.isHohos = false;
+									isHohos = false;
 								}
 								if (fieldValue[(int)morph.hash["hohol"]] > 0f)
 								{
-									this.isHohol = true;
+									isHohol = true;
 								}
 								else
 								{
-									this.isHohol = false;
+									isHohol = false;
 								}
 								if (fieldValue[(int)morph.hash["toothoff"]] > 0f)
 								{
-									this.isToothoff = true;
+									isToothoff = true;
 								}
 								else
 								{
-									this.isToothoff = false;
+									isToothoff = false;
 								}
 								if (fieldValue[(int)morph.hash["nosefook"]] > 0f)
 								{
-									this.isNosefook = true;
+									isNosefook = true;
 								}
 								else
 								{
-									this.isNosefook = false;
+									isNosefook = false;
 								}
 							}
 						}
 						else
 						{
-							Maid maid = this.maidArray[this.selectMaidIndex];
-							if (maid.body0.GetMask(TBody.SlotID.wear) != this.isWear)
+							Maid maid = maidArray[selectMaidIndex];
+							if (maid.body0.GetMask(TBody.SlotID.wear) != isWear)
 							{
-								maid.body0.SetMask(TBody.SlotID.wear, this.isWear);
+								maid.body0.SetMask(TBody.SlotID.wear, isWear);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.mizugi) != this.isWear)
+							if (maid.body0.GetMask(TBody.SlotID.mizugi) != isWear)
 							{
-								maid.body0.SetMask(TBody.SlotID.mizugi, this.isWear);
+								maid.body0.SetMask(TBody.SlotID.mizugi, isWear);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.onepiece) != this.isWear)
+							if (maid.body0.GetMask(TBody.SlotID.onepiece) != isWear)
 							{
-								maid.body0.SetMask(TBody.SlotID.onepiece, this.isWear);
+								maid.body0.SetMask(TBody.SlotID.onepiece, isWear);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.skirt) != this.isSkirt)
+							if (maid.body0.GetMask(TBody.SlotID.skirt) != isSkirt)
 							{
-								maid.body0.SetMask(TBody.SlotID.skirt, this.isSkirt);
+								maid.body0.SetMask(TBody.SlotID.skirt, isSkirt);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.bra) != this.isBra)
+							if (maid.body0.GetMask(TBody.SlotID.bra) != isBra)
 							{
-								maid.body0.SetMask(TBody.SlotID.bra, this.isBra);
+								maid.body0.SetMask(TBody.SlotID.bra, isBra);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.panz) != this.isPanz)
+							if (maid.body0.GetMask(TBody.SlotID.panz) != isPanz)
 							{
-								maid.body0.SetMask(TBody.SlotID.panz, this.isPanz);
+								maid.body0.SetMask(TBody.SlotID.panz, isPanz);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.headset) != this.isHeadset)
+							if (maid.body0.GetMask(TBody.SlotID.headset) != isHeadset)
 							{
-								maid.body0.SetMask(TBody.SlotID.headset, this.isHeadset);
+								maid.body0.SetMask(TBody.SlotID.headset, isHeadset);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.accHat) != this.isHeadset)
+							if (maid.body0.GetMask(TBody.SlotID.accHat) != isHeadset)
 							{
-								maid.body0.SetMask(TBody.SlotID.accHat, this.isHeadset);
+								maid.body0.SetMask(TBody.SlotID.accHat, isHeadset);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.accHead) != this.isHeadset)
+							if (maid.body0.GetMask(TBody.SlotID.accHead) != isHeadset)
 							{
-								maid.body0.SetMask(TBody.SlotID.accHead, this.isHeadset);
+								maid.body0.SetMask(TBody.SlotID.accHead, isHeadset);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.accKamiSubL) != this.isHeadset)
+							if (maid.body0.GetMask(TBody.SlotID.accKamiSubL) != isHeadset)
 							{
-								maid.body0.SetMask(TBody.SlotID.accKamiSubL, this.isHeadset);
+								maid.body0.SetMask(TBody.SlotID.accKamiSubL, isHeadset);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.accKamiSubR) != this.isHeadset)
+							if (maid.body0.GetMask(TBody.SlotID.accKamiSubR) != isHeadset)
 							{
-								maid.body0.SetMask(TBody.SlotID.accKamiSubR, this.isHeadset);
+								maid.body0.SetMask(TBody.SlotID.accKamiSubR, isHeadset);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.accKami_1_) != this.isHeadset)
+							if (maid.body0.GetMask(TBody.SlotID.accKami_1_) != isHeadset)
 							{
-								maid.body0.SetMask(TBody.SlotID.accKami_1_, this.isHeadset);
+								maid.body0.SetMask(TBody.SlotID.accKami_1_, isHeadset);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.accKami_2_) != this.isHeadset)
+							if (maid.body0.GetMask(TBody.SlotID.accKami_2_) != isHeadset)
 							{
-								maid.body0.SetMask(TBody.SlotID.accKami_2_, this.isHeadset);
+								maid.body0.SetMask(TBody.SlotID.accKami_2_, isHeadset);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.accKami_3_) != this.isHeadset)
+							if (maid.body0.GetMask(TBody.SlotID.accKami_3_) != isHeadset)
 							{
-								maid.body0.SetMask(TBody.SlotID.accKami_3_, this.isHeadset);
+								maid.body0.SetMask(TBody.SlotID.accKami_3_, isHeadset);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.accUde) != this.isAccUde)
+							if (maid.body0.GetMask(TBody.SlotID.accUde) != isAccUde)
 							{
-								maid.body0.SetMask(TBody.SlotID.accUde, this.isAccUde);
+								maid.body0.SetMask(TBody.SlotID.accUde, isAccUde);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.stkg) != this.isStkg)
+							if (maid.body0.GetMask(TBody.SlotID.stkg) != isStkg)
 							{
-								maid.body0.SetMask(TBody.SlotID.stkg, this.isStkg);
+								maid.body0.SetMask(TBody.SlotID.stkg, isStkg);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.shoes) != this.isShoes)
+							if (maid.body0.GetMask(TBody.SlotID.shoes) != isShoes)
 							{
-								maid.body0.SetMask(TBody.SlotID.shoes, this.isShoes);
+								maid.body0.SetMask(TBody.SlotID.shoes, isShoes);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.glove) != this.isGlove)
+							if (maid.body0.GetMask(TBody.SlotID.glove) != isGlove)
 							{
-								maid.body0.SetMask(TBody.SlotID.glove, this.isGlove);
+								maid.body0.SetMask(TBody.SlotID.glove, isGlove);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.megane) != this.isMegane)
+							if (maid.body0.GetMask(TBody.SlotID.megane) != isMegane)
 							{
-								maid.body0.SetMask(TBody.SlotID.megane, this.isMegane);
+								maid.body0.SetMask(TBody.SlotID.megane, isMegane);
 							}
-							if (maid.body0.GetMask(TBody.SlotID.accSenaka) != this.isAccSenaka)
+							if (maid.body0.GetMask(TBody.SlotID.accSenaka) != isAccSenaka)
 							{
-								maid.body0.SetMask(TBody.SlotID.accSenaka, this.isAccSenaka);
+								maid.body0.SetMask(TBody.SlotID.accSenaka, isAccSenaka);
 							}
-							if (this.mekure1[this.selectMaidIndex] != this.mekure1n[this.selectMaidIndex])
+							if (mekure1[selectMaidIndex] != mekure1n[selectMaidIndex])
 							{
-								this.mekure1n[this.selectMaidIndex] = this.mekure1[this.selectMaidIndex];
-								if (this.mekure1[this.selectMaidIndex])
+								mekure1n[selectMaidIndex] = mekure1[selectMaidIndex];
+								if (mekure1[selectMaidIndex])
 								{
 									maid.ItemChangeTemp("skirt", "めくれスカート");
 									maid.ItemChangeTemp("onepiece", "めくれスカート");
-									this.mekure2[this.selectMaidIndex] = false;
-									this.mekure2n[this.selectMaidIndex] = false;
+									mekure2[selectMaidIndex] = false;
+									mekure2n[selectMaidIndex] = false;
 								}
 								else
 								{
-									this.ResetProp(maid, MPN.skirt);
-									this.ResetProp(maid, MPN.onepiece);
+									ResetProp(maid, MPN.skirt);
+									ResetProp(maid, MPN.onepiece);
 								}
 								maid.AllProcPropSeqStart();
 							}
-							if (this.mekure2[this.selectMaidIndex] != this.mekure2n[this.selectMaidIndex])
+							if (mekure2[selectMaidIndex] != mekure2n[selectMaidIndex])
 							{
-								this.mekure2n[this.selectMaidIndex] = this.mekure2[this.selectMaidIndex];
-								if (this.mekure2[this.selectMaidIndex])
+								mekure2n[selectMaidIndex] = mekure2[selectMaidIndex];
+								if (mekure2[selectMaidIndex])
 								{
 									maid.ItemChangeTemp("skirt", "めくれスカート後ろ");
 									maid.ItemChangeTemp("onepiece", "めくれスカート後ろ");
-									this.mekure1[this.selectMaidIndex] = false;
-									this.mekure1n[this.selectMaidIndex] = false;
+									mekure1[selectMaidIndex] = false;
+									mekure1n[selectMaidIndex] = false;
 								}
 								else
 								{
-									this.ResetProp(maid, MPN.skirt);
-									this.ResetProp(maid, MPN.onepiece);
+									ResetProp(maid, MPN.skirt);
+									ResetProp(maid, MPN.onepiece);
 								}
 								maid.AllProcPropSeqStart();
 							}
-							if (this.zurasi[this.selectMaidIndex] != this.zurasin[this.selectMaidIndex])
+							if (zurasi[selectMaidIndex] != zurasin[selectMaidIndex])
 							{
-								this.zurasin[this.selectMaidIndex] = this.zurasi[this.selectMaidIndex];
-								if (this.zurasi[this.selectMaidIndex])
+								zurasin[selectMaidIndex] = zurasi[selectMaidIndex];
+								if (zurasi[selectMaidIndex])
 								{
 									maid.ItemChangeTemp("panz", "パンツずらし");
 									maid.ItemChangeTemp("mizugi", "パンツずらし");
 								}
 								else
 								{
-									this.ResetProp(maid, MPN.panz);
-									this.ResetProp(maid, MPN.mizugi);
+									ResetProp(maid, MPN.panz);
+									ResetProp(maid, MPN.mizugi);
 								}
 								maid.AllProcPropSeqStart();
 							}
-							if (!this.isDanceChu)
+							if (!isDanceChu)
 							{
-								if (maid.body0.GetMask(0) != this.isMaid)
+								if (maid.body0.GetMask(0) != isMaid)
 								{
 									Hashtable fieldValue4 = MultipleMaids.GetFieldValue<TBody, Hashtable>(maid.body0, "m_hFoceHide");
-									fieldValue4[0] = this.isMaid;
-									fieldValue4[1] = this.isMaid;
-									fieldValue4[2] = this.isMaid;
-									fieldValue4[3] = this.isMaid;
-									fieldValue4[4] = this.isMaid;
-									fieldValue4[5] = this.isMaid;
-									fieldValue4[6] = this.isMaid;
-									fieldValue4[18] = this.isMaid;
-									fieldValue4[39] = this.isMaid;
-									fieldValue4[56] = this.isMaid;
-									fieldValue4[57] = this.isMaid;
+									fieldValue4[0] = isMaid;
+									fieldValue4[1] = isMaid;
+									fieldValue4[2] = isMaid;
+									fieldValue4[3] = isMaid;
+									fieldValue4[4] = isMaid;
+									fieldValue4[5] = isMaid;
+									fieldValue4[6] = isMaid;
+									fieldValue4[18] = isMaid;
+									fieldValue4[39] = isMaid;
+									fieldValue4[56] = isMaid;
+									fieldValue4[57] = isMaid;
 									if (maid.body0.goSlot[19].m_strModelFileName.Contains("melala_body"))
 									{
-										fieldValue4[19] = this.isMaid;
+										fieldValue4[19] = isMaid;
 									}
 									maid.body0.FixMaskFlag();
 									maid.body0.FixVisibleFlag(false);
 								}
-								if (this.isLook[this.selectMaidIndex] != this.isLookn[this.selectMaidIndex])
+								if (isLook[selectMaidIndex] != isLookn[selectMaidIndex])
 								{
-									this.isLookn[this.selectMaidIndex] = this.isLook[this.selectMaidIndex];
-									if (this.isLook[this.selectMaidIndex])
+									isLookn[selectMaidIndex] = isLook[selectMaidIndex];
+									if (isLook[selectMaidIndex])
 									{
 										maid.body0.trsLookTarget = GameMain.Instance.MainCamera.transform;
 										maid.body0.boHeadToCam = true;
@@ -6236,114 +6236,114 @@ namespace CM3D2.MultipleMaids.Plugin
 										maid.body0.boEyeToCam = true;
 									}
 								}
-								if (this.isLook[this.selectMaidIndex])
+								if (isLook[selectMaidIndex])
 								{
-									if (maid.body0.offsetLookTarget.x != this.lookY[this.selectMaidIndex])
+									if (maid.body0.offsetLookTarget.x != lookY[selectMaidIndex])
 									{
-										if (this.isLock[this.selectMaidIndex] && this.lookY[this.selectMaidIndex] < 0f)
+										if (isLock[selectMaidIndex] && lookY[selectMaidIndex] < 0f)
 										{
-											maid.body0.offsetLookTarget = new Vector3(this.lookY[this.selectMaidIndex] * 0.6f, 1f, this.lookX[this.selectMaidIndex]);
+											maid.body0.offsetLookTarget = new Vector3(lookY[selectMaidIndex] * 0.6f, 1f, lookX[selectMaidIndex]);
 										}
 										else
 										{
-											maid.body0.offsetLookTarget = new Vector3(this.lookY[this.selectMaidIndex], 1f, this.lookX[this.selectMaidIndex]);
+											maid.body0.offsetLookTarget = new Vector3(lookY[selectMaidIndex], 1f, lookX[selectMaidIndex]);
 										}
 									}
-									if (this.lookX[this.selectMaidIndex] != this.lookXn[this.selectMaidIndex])
+									if (lookX[selectMaidIndex] != lookXn[selectMaidIndex])
 									{
-										this.lookXn[this.selectMaidIndex] = this.lookX[this.selectMaidIndex];
-										maid.body0.offsetLookTarget = new Vector3(this.lookY[this.selectMaidIndex], 1f, this.lookX[this.selectMaidIndex]);
+										lookXn[selectMaidIndex] = lookX[selectMaidIndex];
+										maid.body0.offsetLookTarget = new Vector3(lookY[selectMaidIndex], 1f, lookX[selectMaidIndex]);
 									}
-									if (this.lookY[this.selectMaidIndex] != this.lookYn[this.selectMaidIndex])
+									if (lookY[selectMaidIndex] != lookYn[selectMaidIndex])
 									{
-										this.lookYn[this.selectMaidIndex] = this.lookY[this.selectMaidIndex];
-										if (this.isLock[this.selectMaidIndex] && this.lookY[this.selectMaidIndex] < 0f)
+										lookYn[selectMaidIndex] = lookY[selectMaidIndex];
+										if (isLock[selectMaidIndex] && lookY[selectMaidIndex] < 0f)
 										{
-											maid.body0.offsetLookTarget = new Vector3(this.lookY[this.selectMaidIndex] * 0.6f, 1f, this.lookX[this.selectMaidIndex]);
+											maid.body0.offsetLookTarget = new Vector3(lookY[selectMaidIndex] * 0.6f, 1f, lookX[selectMaidIndex]);
 										}
 										else
 										{
-											maid.body0.offsetLookTarget = new Vector3(this.lookY[this.selectMaidIndex], 1f, this.lookX[this.selectMaidIndex]);
+											maid.body0.offsetLookTarget = new Vector3(lookY[selectMaidIndex], 1f, lookX[selectMaidIndex]);
 										}
 									}
 								}
-								if (this.isHanten)
+								if (isHanten)
 								{
-									this.isHanten = false;
-									this.SetHanten(maid, this.selectMaidIndex);
+									isHanten = false;
+									SetHanten(maid, selectMaidIndex);
 								}
-								if (this.hanten[this.selectMaidIndex] != this.hantenn[this.selectMaidIndex])
+								if (hanten[selectMaidIndex] != hantenn[selectMaidIndex])
 								{
-									this.hantenn[this.selectMaidIndex] = this.hanten[this.selectMaidIndex];
-									this.isStop[this.selectMaidIndex] = true;
-									this.isLock[this.selectMaidIndex] = true;
-									this.isHanten = true;
+									hantenn[selectMaidIndex] = hanten[selectMaidIndex];
+									isStop[selectMaidIndex] = true;
+									isLock[selectMaidIndex] = true;
+									isHanten = true;
 								}
-								if (this.voice1[this.selectMaidIndex] != this.voice1n[this.selectMaidIndex])
+								if (voice1[selectMaidIndex] != voice1n[selectMaidIndex])
 								{
-									this.voice1n[this.selectMaidIndex] = this.voice1[this.selectMaidIndex];
-									if (this.voice1[this.selectMaidIndex])
+									voice1n[selectMaidIndex] = voice1[selectMaidIndex];
+									if (voice1[selectMaidIndex])
 									{
-										this.zFlg[this.selectMaidIndex] = true;
-										this.xFlg[this.selectMaidIndex] = false;
-										this.voice2[this.selectMaidIndex] = false;
-										this.voice2n[this.selectMaidIndex] = false;
+										zFlg[selectMaidIndex] = true;
+										xFlg[selectMaidIndex] = false;
+										voice2[selectMaidIndex] = false;
+										voice2n[selectMaidIndex] = false;
 									}
 									else
 									{
-										this.zFlg[this.selectMaidIndex] = false;
+										zFlg[selectMaidIndex] = false;
 									}
 								}
-								if (this.voice2[this.selectMaidIndex] != this.voice2n[this.selectMaidIndex])
+								if (voice2[selectMaidIndex] != voice2n[selectMaidIndex])
 								{
-									this.voice2n[this.selectMaidIndex] = this.voice2[this.selectMaidIndex];
-									if (this.voice2[this.selectMaidIndex])
+									voice2n[selectMaidIndex] = voice2[selectMaidIndex];
+									if (voice2[selectMaidIndex])
 									{
-										this.xFlg[this.selectMaidIndex] = true;
-										this.zFlg[this.selectMaidIndex] = false;
-										this.voice1[this.selectMaidIndex] = false;
-										this.voice1n[this.selectMaidIndex] = false;
+										xFlg[selectMaidIndex] = true;
+										zFlg[selectMaidIndex] = false;
+										voice1[selectMaidIndex] = false;
+										voice1n[selectMaidIndex] = false;
 									}
 									else
 									{
-										this.xFlg[this.selectMaidIndex] = false;
+										xFlg[selectMaidIndex] = false;
 									}
 								}
-								for (int k = 0; k < this.maidCnt; k++)
+								for (int k = 0; k < maidCnt; k++)
 								{
-									if (!this.maidArray[k].boMabataki)
+									if (!maidArray[k].boMabataki)
 									{
-										this.maidArray[k].body0.Face.morph.FixBlendValues_Face();
+										maidArray[k].body0.Face.morph.FixBlendValues_Face();
 									}
 								}
 							}
 						}
 					}
-					if (this.maidArray[this.selectMaidIndex] && this.maidArray[this.selectMaidIndex].Visible && (this.isF6 || (this.okFlg && this.faceFlg)))
+					if (maidArray[selectMaidIndex] && maidArray[selectMaidIndex].Visible && (isF6 || (okFlg && faceFlg)))
 					{
-						if (this.isFaceInit)
+						if (isFaceInit)
 						{
-							if (!this.isDanceChu)
+							if (!isDanceChu)
 							{
-								TMorph morph = this.maidArray[this.selectMaidIndex].body0.Face.morph;
+								TMorph morph = maidArray[selectMaidIndex].body0.Face.morph;
 								float[] fieldValue = MultipleMaids.GetFieldValue<TMorph, float[]>(morph, "BlendValues");
 								float[] fieldValue5 = MultipleMaids.GetFieldValue<TMorph, float[]>(morph, "BlendValuesBackup");
-								Maid maid = this.maidArray[this.selectMaidIndex];
-								this.maidArray[this.selectMaidIndex].boMabataki = false;
+								Maid maid = maidArray[selectMaidIndex];
+								maidArray[selectMaidIndex].boMabataki = false;
 								morph.EyeMabataki = 0f;
-								this.isFaceInit = false;
-								this.maidArray[this.selectMaidIndex].body0.Face.morph.FixBlendValues_Face();
+								isFaceInit = false;
+								maidArray[selectMaidIndex].body0.Face.morph.FixBlendValues_Face();
 								if (morph.bodyskin.PartsVersion < 120)
 								{
-									this.eyeclose = fieldValue5[(int)morph.hash["eyeclose"]];
-									this.eyeclose2 = fieldValue5[(int)morph.hash["eyeclose2"]];
-									this.eyeclose3 = fieldValue5[(int)morph.hash["eyeclose3"]];
-									this.eyeclose6 = fieldValue5[(int)morph.hash["eyeclose6"]];
-									this.eyeclose5 = fieldValue5[(int)morph.hash["eyeclose5"]];
+									eyeclose = fieldValue5[(int)morph.hash["eyeclose"]];
+									eyeclose2 = fieldValue5[(int)morph.hash["eyeclose2"]];
+									eyeclose3 = fieldValue5[(int)morph.hash["eyeclose3"]];
+									eyeclose6 = fieldValue5[(int)morph.hash["eyeclose6"]];
+									eyeclose5 = fieldValue5[(int)morph.hash["eyeclose5"]];
 									if (morph.hash["eyeclose7"] != null)
 									{
-										this.eyeclose7 = fieldValue5[(int)morph.hash["eyeclose7"]];
-										this.eyeclose8 = fieldValue5[(int)morph.hash["eyeclose8"]];
+										eyeclose7 = fieldValue5[(int)morph.hash["eyeclose7"]];
+										eyeclose8 = fieldValue5[(int)morph.hash["eyeclose8"]];
 									}
 								}
 								else
@@ -6357,317 +6357,317 @@ namespace CM3D2.MultipleMaids.Plugin
 									{
 										num102 = 2;
 									}
-									this.eyeclose = fieldValue5[(int)morph.hash["eyeclose1" + TMorph.crcFaceTypesStr[num102]]];
-									this.eyeclose2 = fieldValue5[(int)morph.hash["eyeclose2" + TMorph.crcFaceTypesStr[num102]]];
-									this.eyeclose3 = fieldValue[(int)morph.hash["eyeclose3"]];
-									this.eyeclose6 = fieldValue5[(int)morph.hash["eyeclose6" + TMorph.crcFaceTypesStr[num102]]];
-									this.eyeclose5 = fieldValue5[(int)morph.hash["eyeclose5" + TMorph.crcFaceTypesStr[num102]]];
-									this.eyeclose8 = fieldValue5[(int)morph.hash["eyeclose8" + TMorph.crcFaceTypesStr[num102]]];
-									this.eyeclose7 = fieldValue5[(int)morph.hash["eyeclose7" + TMorph.crcFaceTypesStr[num102]]];
+									eyeclose = fieldValue5[(int)morph.hash["eyeclose1" + TMorph.crcFaceTypesStr[num102]]];
+									eyeclose2 = fieldValue5[(int)morph.hash["eyeclose2" + TMorph.crcFaceTypesStr[num102]]];
+									eyeclose3 = fieldValue[(int)morph.hash["eyeclose3"]];
+									eyeclose6 = fieldValue5[(int)morph.hash["eyeclose6" + TMorph.crcFaceTypesStr[num102]]];
+									eyeclose5 = fieldValue5[(int)morph.hash["eyeclose5" + TMorph.crcFaceTypesStr[num102]]];
+									eyeclose8 = fieldValue5[(int)morph.hash["eyeclose8" + TMorph.crcFaceTypesStr[num102]]];
+									eyeclose7 = fieldValue5[(int)morph.hash["eyeclose7" + TMorph.crcFaceTypesStr[num102]]];
 								}
-								this.hitomih = fieldValue[(int)morph.hash["hitomih"]];
-								this.hitomis = fieldValue[(int)morph.hash["hitomis"]];
-								this.mayuha = fieldValue[(int)morph.hash["mayuha"]];
-								this.mayuup = fieldValue[(int)morph.hash["mayuup"]];
-								this.mayuv = fieldValue[(int)morph.hash["mayuv"]];
-								this.mayuvhalf = fieldValue[(int)morph.hash["mayuvhalf"]];
-								this.moutha = fieldValue[(int)morph.hash["moutha"]];
-								this.mouths = fieldValue[(int)morph.hash["mouths"]];
-								this.mouthdw = fieldValue[(int)morph.hash["mouthdw"]];
-								this.mouthup = fieldValue[(int)morph.hash["mouthup"]];
-								this.tangout = fieldValue[(int)morph.hash["tangout"]];
-								this.tangup = fieldValue[(int)morph.hash["tangup"]];
-								this.eyebig = fieldValue[(int)morph.hash["eyebig"]];
-								this.mayuw = fieldValue[(int)morph.hash["mayuw"]];
-								this.mouthhe = fieldValue[(int)morph.hash["mouthhe"]];
-								this.mouthc = fieldValue[(int)morph.hash["mouthc"]];
-								this.mouthi = fieldValue[(int)morph.hash["mouthi"]];
-								this.mouthuphalf = fieldValue[(int)morph.hash["mouthuphalf"]];
+								hitomih = fieldValue[(int)morph.hash["hitomih"]];
+								hitomis = fieldValue[(int)morph.hash["hitomis"]];
+								mayuha = fieldValue[(int)morph.hash["mayuha"]];
+								mayuup = fieldValue[(int)morph.hash["mayuup"]];
+								mayuv = fieldValue[(int)morph.hash["mayuv"]];
+								mayuvhalf = fieldValue[(int)morph.hash["mayuvhalf"]];
+								moutha = fieldValue[(int)morph.hash["moutha"]];
+								mouths = fieldValue[(int)morph.hash["mouths"]];
+								mouthdw = fieldValue[(int)morph.hash["mouthdw"]];
+								mouthup = fieldValue[(int)morph.hash["mouthup"]];
+								tangout = fieldValue[(int)morph.hash["tangout"]];
+								tangup = fieldValue[(int)morph.hash["tangup"]];
+								eyebig = fieldValue[(int)morph.hash["eyebig"]];
+								mayuw = fieldValue[(int)morph.hash["mayuw"]];
+								mouthhe = fieldValue[(int)morph.hash["mouthhe"]];
+								mouthc = fieldValue[(int)morph.hash["mouthc"]];
+								mouthi = fieldValue[(int)morph.hash["mouthi"]];
+								mouthuphalf = fieldValue[(int)morph.hash["mouthuphalf"]];
 								try
 								{
-									this.tangopen = fieldValue[(int)morph.hash["tangopen"]];
+									tangopen = fieldValue[(int)morph.hash["tangopen"]];
 								}
 								catch
 								{
 								}
 								if (maid.body0.GetMask(TBody.SlotID.wear) || maid.body0.GetMask(TBody.SlotID.mizugi) || maid.body0.GetMask(TBody.SlotID.onepiece))
 								{
-									this.isWear = true;
+									isWear = true;
 								}
 								else
 								{
-									this.isWear = false;
+									isWear = false;
 								}
-								this.isSkirt = maid.body0.GetMask(TBody.SlotID.skirt);
-								this.isBra = maid.body0.GetMask(TBody.SlotID.bra);
-								this.isPanz = maid.body0.GetMask(TBody.SlotID.panz);
+								isSkirt = maid.body0.GetMask(TBody.SlotID.skirt);
+								isBra = maid.body0.GetMask(TBody.SlotID.bra);
+								isPanz = maid.body0.GetMask(TBody.SlotID.panz);
 								if (maid.body0.GetMask(TBody.SlotID.headset) || maid.body0.GetMask(TBody.SlotID.accHat) || maid.body0.GetMask(TBody.SlotID.accHead) || maid.body0.GetMask(TBody.SlotID.accKamiSubL) || maid.body0.GetMask(TBody.SlotID.accKamiSubR) || maid.body0.GetMask(TBody.SlotID.accKami_1_) || maid.body0.GetMask(TBody.SlotID.accKami_2_) || maid.body0.GetMask(TBody.SlotID.accKami_3_))
 								{
-									this.isHeadset = true;
+									isHeadset = true;
 								}
 								else
 								{
-									this.isHeadset = false;
+									isHeadset = false;
 								}
-								this.isAccUde = maid.body0.GetMask(TBody.SlotID.accUde);
-								this.isStkg = maid.body0.GetMask(TBody.SlotID.stkg);
-								this.isShoes = maid.body0.GetMask(TBody.SlotID.shoes);
-								this.isGlove = maid.body0.GetMask(TBody.SlotID.glove);
-								this.isMegane = maid.body0.GetMask(TBody.SlotID.megane);
-								this.isAccSenaka = maid.body0.GetMask(TBody.SlotID.accSenaka);
+								isAccUde = maid.body0.GetMask(TBody.SlotID.accUde);
+								isStkg = maid.body0.GetMask(TBody.SlotID.stkg);
+								isShoes = maid.body0.GetMask(TBody.SlotID.shoes);
+								isGlove = maid.body0.GetMask(TBody.SlotID.glove);
+								isMegane = maid.body0.GetMask(TBody.SlotID.megane);
+								isAccSenaka = maid.body0.GetMask(TBody.SlotID.accSenaka);
 								if (fieldValue[(int)morph.hash["namida"]] > 0f)
 								{
-									this.isNamida = true;
+									isNamida = true;
 								}
 								else
 								{
-									this.isNamida = false;
+									isNamida = false;
 								}
 								if (fieldValue[(int)morph.hash["tear1"]] > 0f)
 								{
-									this.isTear1 = true;
+									isTear1 = true;
 								}
 								else
 								{
-									this.isTear1 = false;
+									isTear1 = false;
 								}
 								if (fieldValue[(int)morph.hash["tear2"]] > 0f)
 								{
-									this.isTear2 = true;
+									isTear2 = true;
 								}
 								else
 								{
-									this.isTear2 = false;
+									isTear2 = false;
 								}
 								if (fieldValue[(int)morph.hash["tear3"]] > 0f)
 								{
-									this.isTear3 = true;
+									isTear3 = true;
 								}
 								else
 								{
-									this.isTear3 = false;
+									isTear3 = false;
 								}
 								if (fieldValue[(int)morph.hash["shock"]] > 0f)
 								{
-									this.isShock = true;
+									isShock = true;
 								}
 								else
 								{
-									this.isShock = false;
+									isShock = false;
 								}
 								if (fieldValue[(int)morph.hash["yodare"]] > 0f)
 								{
-									this.isYodare = true;
+									isYodare = true;
 								}
 								else
 								{
-									this.isYodare = false;
+									isYodare = false;
 								}
 								if (fieldValue[(int)morph.hash["hoho"]] > 0f)
 								{
-									this.isHoho = true;
+									isHoho = true;
 								}
 								else
 								{
-									this.isHoho = false;
+									isHoho = false;
 								}
 								if (fieldValue[(int)morph.hash["hoho2"]] > 0f)
 								{
-									this.isHoho2 = true;
+									isHoho2 = true;
 								}
 								else
 								{
-									this.isHoho2 = false;
+									isHoho2 = false;
 								}
 								if (fieldValue[(int)morph.hash["hohos"]] > 0f)
 								{
-									this.isHohos = true;
+									isHohos = true;
 								}
 								else
 								{
-									this.isHohos = false;
+									isHohos = false;
 								}
 								if (fieldValue[(int)morph.hash["hohol"]] > 0f)
 								{
-									this.isHohol = true;
+									isHohol = true;
 								}
 								else
 								{
-									this.isHohol = false;
+									isHohol = false;
 								}
 								if (fieldValue[(int)morph.hash["toothoff"]] > 0f)
 								{
-									this.isToothoff = true;
+									isToothoff = true;
 								}
 								else
 								{
-									this.isToothoff = false;
+									isToothoff = false;
 								}
 								if (fieldValue[(int)morph.hash["nosefook"]] > 0f)
 								{
-									this.isNosefook = true;
+									isNosefook = true;
 								}
 								else
 								{
-									this.isNosefook = false;
+									isNosefook = false;
 								}
 							}
 						}
 						else
 						{
-							Maid maid = this.maidArray[this.selectMaidIndex];
-							if (!this.yotogiFlg && this.sceneLevel != 5 && this.sceneLevel != 3)
+							Maid maid = maidArray[selectMaidIndex];
+							if (!yotogiFlg && sceneLevel != 5 && sceneLevel != 3)
 							{
-								if (maid.body0.GetMask(TBody.SlotID.wear) != this.isWear)
+								if (maid.body0.GetMask(TBody.SlotID.wear) != isWear)
 								{
-									maid.body0.SetMask(TBody.SlotID.wear, this.isWear);
+									maid.body0.SetMask(TBody.SlotID.wear, isWear);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.mizugi) != this.isWear)
+								if (maid.body0.GetMask(TBody.SlotID.mizugi) != isWear)
 								{
-									maid.body0.SetMask(TBody.SlotID.mizugi, this.isWear);
+									maid.body0.SetMask(TBody.SlotID.mizugi, isWear);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.onepiece) != this.isWear)
+								if (maid.body0.GetMask(TBody.SlotID.onepiece) != isWear)
 								{
-									maid.body0.SetMask(TBody.SlotID.onepiece, this.isWear);
+									maid.body0.SetMask(TBody.SlotID.onepiece, isWear);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.skirt) != this.isSkirt)
+								if (maid.body0.GetMask(TBody.SlotID.skirt) != isSkirt)
 								{
-									maid.body0.SetMask(TBody.SlotID.skirt, this.isSkirt);
+									maid.body0.SetMask(TBody.SlotID.skirt, isSkirt);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.bra) != this.isBra)
+								if (maid.body0.GetMask(TBody.SlotID.bra) != isBra)
 								{
-									maid.body0.SetMask(TBody.SlotID.bra, this.isBra);
+									maid.body0.SetMask(TBody.SlotID.bra, isBra);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.panz) != this.isPanz)
+								if (maid.body0.GetMask(TBody.SlotID.panz) != isPanz)
 								{
-									maid.body0.SetMask(TBody.SlotID.panz, this.isPanz);
+									maid.body0.SetMask(TBody.SlotID.panz, isPanz);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.headset) != this.isHeadset)
+								if (maid.body0.GetMask(TBody.SlotID.headset) != isHeadset)
 								{
-									maid.body0.SetMask(TBody.SlotID.headset, this.isHeadset);
+									maid.body0.SetMask(TBody.SlotID.headset, isHeadset);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.accHat) != this.isHeadset)
+								if (maid.body0.GetMask(TBody.SlotID.accHat) != isHeadset)
 								{
-									maid.body0.SetMask(TBody.SlotID.accHat, this.isHeadset);
+									maid.body0.SetMask(TBody.SlotID.accHat, isHeadset);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.accHead) != this.isHeadset)
+								if (maid.body0.GetMask(TBody.SlotID.accHead) != isHeadset)
 								{
-									maid.body0.SetMask(TBody.SlotID.accHead, this.isHeadset);
+									maid.body0.SetMask(TBody.SlotID.accHead, isHeadset);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.accKamiSubL) != this.isHeadset)
+								if (maid.body0.GetMask(TBody.SlotID.accKamiSubL) != isHeadset)
 								{
-									maid.body0.SetMask(TBody.SlotID.accKamiSubL, this.isHeadset);
+									maid.body0.SetMask(TBody.SlotID.accKamiSubL, isHeadset);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.accKamiSubR) != this.isHeadset)
+								if (maid.body0.GetMask(TBody.SlotID.accKamiSubR) != isHeadset)
 								{
-									maid.body0.SetMask(TBody.SlotID.accKamiSubR, this.isHeadset);
+									maid.body0.SetMask(TBody.SlotID.accKamiSubR, isHeadset);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.accKami_1_) != this.isHeadset)
+								if (maid.body0.GetMask(TBody.SlotID.accKami_1_) != isHeadset)
 								{
-									maid.body0.SetMask(TBody.SlotID.accKami_1_, this.isHeadset);
+									maid.body0.SetMask(TBody.SlotID.accKami_1_, isHeadset);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.accKami_2_) != this.isHeadset)
+								if (maid.body0.GetMask(TBody.SlotID.accKami_2_) != isHeadset)
 								{
-									maid.body0.SetMask(TBody.SlotID.accKami_2_, this.isHeadset);
+									maid.body0.SetMask(TBody.SlotID.accKami_2_, isHeadset);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.accKami_3_) != this.isHeadset)
+								if (maid.body0.GetMask(TBody.SlotID.accKami_3_) != isHeadset)
 								{
-									maid.body0.SetMask(TBody.SlotID.accKami_3_, this.isHeadset);
+									maid.body0.SetMask(TBody.SlotID.accKami_3_, isHeadset);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.accUde) != this.isAccUde)
+								if (maid.body0.GetMask(TBody.SlotID.accUde) != isAccUde)
 								{
-									maid.body0.SetMask(TBody.SlotID.accUde, this.isAccUde);
+									maid.body0.SetMask(TBody.SlotID.accUde, isAccUde);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.stkg) != this.isStkg)
+								if (maid.body0.GetMask(TBody.SlotID.stkg) != isStkg)
 								{
-									maid.body0.SetMask(TBody.SlotID.stkg, this.isStkg);
+									maid.body0.SetMask(TBody.SlotID.stkg, isStkg);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.shoes) != this.isShoes)
+								if (maid.body0.GetMask(TBody.SlotID.shoes) != isShoes)
 								{
-									maid.body0.SetMask(TBody.SlotID.shoes, this.isShoes);
+									maid.body0.SetMask(TBody.SlotID.shoes, isShoes);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.glove) != this.isGlove)
+								if (maid.body0.GetMask(TBody.SlotID.glove) != isGlove)
 								{
-									maid.body0.SetMask(TBody.SlotID.glove, this.isGlove);
+									maid.body0.SetMask(TBody.SlotID.glove, isGlove);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.megane) != this.isMegane)
+								if (maid.body0.GetMask(TBody.SlotID.megane) != isMegane)
 								{
-									maid.body0.SetMask(TBody.SlotID.megane, this.isMegane);
+									maid.body0.SetMask(TBody.SlotID.megane, isMegane);
 								}
-								if (maid.body0.GetMask(TBody.SlotID.accSenaka) != this.isAccSenaka)
+								if (maid.body0.GetMask(TBody.SlotID.accSenaka) != isAccSenaka)
 								{
-									maid.body0.SetMask(TBody.SlotID.accSenaka, this.isAccSenaka);
+									maid.body0.SetMask(TBody.SlotID.accSenaka, isAccSenaka);
 								}
-								if (this.mekure1[this.selectMaidIndex] != this.mekure1n[this.selectMaidIndex])
+								if (mekure1[selectMaidIndex] != mekure1n[selectMaidIndex])
 								{
-									this.mekure1n[this.selectMaidIndex] = this.mekure1[this.selectMaidIndex];
-									if (this.mekure1[this.selectMaidIndex])
+									mekure1n[selectMaidIndex] = mekure1[selectMaidIndex];
+									if (mekure1[selectMaidIndex])
 									{
 										maid.ItemChangeTemp("skirt", "めくれスカート");
 										maid.ItemChangeTemp("onepiece", "めくれスカート");
-										this.mekure2[this.selectMaidIndex] = false;
-										this.mekure2n[this.selectMaidIndex] = false;
+										mekure2[selectMaidIndex] = false;
+										mekure2n[selectMaidIndex] = false;
 									}
 									else
 									{
-										this.ResetProp(maid, MPN.skirt);
-										this.ResetProp(maid, MPN.onepiece);
+										ResetProp(maid, MPN.skirt);
+										ResetProp(maid, MPN.onepiece);
 									}
 									maid.AllProcPropSeqStart();
 								}
-								if (this.mekure2[this.selectMaidIndex] != this.mekure2n[this.selectMaidIndex])
+								if (mekure2[selectMaidIndex] != mekure2n[selectMaidIndex])
 								{
-									this.mekure2n[this.selectMaidIndex] = this.mekure2[this.selectMaidIndex];
-									if (this.mekure2[this.selectMaidIndex])
+									mekure2n[selectMaidIndex] = mekure2[selectMaidIndex];
+									if (mekure2[selectMaidIndex])
 									{
 										maid.ItemChangeTemp("skirt", "めくれスカート後ろ");
 										maid.ItemChangeTemp("onepiece", "めくれスカート後ろ");
-										this.mekure1[this.selectMaidIndex] = false;
-										this.mekure1n[this.selectMaidIndex] = false;
+										mekure1[selectMaidIndex] = false;
+										mekure1n[selectMaidIndex] = false;
 									}
 									else
 									{
-										this.ResetProp(maid, MPN.skirt);
-										this.ResetProp(maid, MPN.onepiece);
+										ResetProp(maid, MPN.skirt);
+										ResetProp(maid, MPN.onepiece);
 									}
 									maid.AllProcPropSeqStart();
 								}
-								if (this.zurasi[this.selectMaidIndex] != this.zurasin[this.selectMaidIndex])
+								if (zurasi[selectMaidIndex] != zurasin[selectMaidIndex])
 								{
-									this.zurasin[this.selectMaidIndex] = this.zurasi[this.selectMaidIndex];
-									if (this.zurasi[this.selectMaidIndex])
+									zurasin[selectMaidIndex] = zurasi[selectMaidIndex];
+									if (zurasi[selectMaidIndex])
 									{
 										maid.ItemChangeTemp("panz", "パンツずらし");
 										maid.ItemChangeTemp("mizugi", "パンツずらし");
 									}
 									else
 									{
-										this.ResetProp(maid, MPN.panz);
-										this.ResetProp(maid, MPN.mizugi);
+										ResetProp(maid, MPN.panz);
+										ResetProp(maid, MPN.mizugi);
 									}
 									maid.AllProcPropSeqStart();
 								}
 							}
-							if (!this.isDanceChu)
+							if (!isDanceChu)
 							{
-								TMorph morph = this.maidArray[this.selectMaidIndex].body0.Face.morph;
+								TMorph morph = maidArray[selectMaidIndex].body0.Face.morph;
 								float[] fieldValue = MultipleMaids.GetFieldValue<TMorph, float[]>(morph, "BlendValues");
 								float[] fieldValue5 = MultipleMaids.GetFieldValue<TMorph, float[]>(morph, "BlendValuesBackup");
 								if (morph.bodyskin.PartsVersion < 120)
 								{
-									fieldValue5[(int)morph.hash["eyeclose"]] = this.eyeclose;
-									fieldValue5[(int)morph.hash["eyeclose2"]] = this.eyeclose2;
-									if (this.eyeclose3 > 1f)
+									fieldValue5[(int)morph.hash["eyeclose"]] = eyeclose;
+									fieldValue5[(int)morph.hash["eyeclose2"]] = eyeclose2;
+									if (eyeclose3 > 1f)
 									{
-										this.eyeclose3 = 1f;
+										eyeclose3 = 1f;
 									}
-									fieldValue5[(int)morph.hash["eyeclose3"]] = this.eyeclose3;
-									fieldValue5[(int)morph.hash["eyeclose6"]] = this.eyeclose6;
-									fieldValue5[(int)morph.hash["eyeclose5"]] = this.eyeclose5;
+									fieldValue5[(int)morph.hash["eyeclose3"]] = eyeclose3;
+									fieldValue5[(int)morph.hash["eyeclose6"]] = eyeclose6;
+									fieldValue5[(int)morph.hash["eyeclose5"]] = eyeclose5;
 									if (morph.hash["eyeclose7"] != null)
 									{
-										fieldValue5[(int)morph.hash["eyeclose7"]] = this.eyeclose7;
-										fieldValue5[(int)morph.hash["eyeclose8"]] = this.eyeclose8;
+										fieldValue5[(int)morph.hash["eyeclose7"]] = eyeclose7;
+										fieldValue5[(int)morph.hash["eyeclose8"]] = eyeclose8;
 									}
 								}
 								else
@@ -6681,50 +6681,50 @@ namespace CM3D2.MultipleMaids.Plugin
 									{
 										num102 = 2;
 									}
-									fieldValue5[(int)morph.hash["eyeclose1" + TMorph.crcFaceTypesStr[num102]]] = this.eyeclose;
-									fieldValue5[(int)morph.hash["eyeclose2" + TMorph.crcFaceTypesStr[num102]]] = this.eyeclose2;
-									fieldValue5[(int)morph.hash["eyeclose5" + TMorph.crcFaceTypesStr[num102]]] = this.eyeclose5;
-									fieldValue5[(int)morph.hash["eyeclose6" + TMorph.crcFaceTypesStr[num102]]] = this.eyeclose6;
-									fieldValue5[(int)morph.hash["eyeclose7" + TMorph.crcFaceTypesStr[num102]]] = this.eyeclose7;
-									fieldValue5[(int)morph.hash["eyeclose8" + TMorph.crcFaceTypesStr[num102]]] = this.eyeclose8;
-									fieldValue[(int)morph.hash["eyeclose3"]] = this.eyeclose3;
+									fieldValue5[(int)morph.hash["eyeclose1" + TMorph.crcFaceTypesStr[num102]]] = eyeclose;
+									fieldValue5[(int)morph.hash["eyeclose2" + TMorph.crcFaceTypesStr[num102]]] = eyeclose2;
+									fieldValue5[(int)morph.hash["eyeclose5" + TMorph.crcFaceTypesStr[num102]]] = eyeclose5;
+									fieldValue5[(int)morph.hash["eyeclose6" + TMorph.crcFaceTypesStr[num102]]] = eyeclose6;
+									fieldValue5[(int)morph.hash["eyeclose7" + TMorph.crcFaceTypesStr[num102]]] = eyeclose7;
+									fieldValue5[(int)morph.hash["eyeclose8" + TMorph.crcFaceTypesStr[num102]]] = eyeclose8;
+									fieldValue[(int)morph.hash["eyeclose3"]] = eyeclose3;
 								}
-								fieldValue[(int)morph.hash["hitomih"]] = this.hitomih;
-								fieldValue[(int)morph.hash["hitomis"]] = this.hitomis;
-								fieldValue[(int)morph.hash["mayuha"]] = this.mayuha;
-								fieldValue[(int)morph.hash["mayuup"]] = this.mayuup;
-								fieldValue[(int)morph.hash["mayuv"]] = this.mayuv;
-								fieldValue[(int)morph.hash["mayuvhalf"]] = this.mayuvhalf;
-								fieldValue[(int)morph.hash["tangout"]] = this.tangout;
-								fieldValue[(int)morph.hash["tangup"]] = this.tangup;
+								fieldValue[(int)morph.hash["hitomih"]] = hitomih;
+								fieldValue[(int)morph.hash["hitomis"]] = hitomis;
+								fieldValue[(int)morph.hash["mayuha"]] = mayuha;
+								fieldValue[(int)morph.hash["mayuup"]] = mayuup;
+								fieldValue[(int)morph.hash["mayuv"]] = mayuv;
+								fieldValue[(int)morph.hash["mayuvhalf"]] = mayuvhalf;
+								fieldValue[(int)morph.hash["tangout"]] = tangout;
+								fieldValue[(int)morph.hash["tangup"]] = tangup;
 								if (morph.bodyskin.PartsVersion < 120)
 								{
-									if (this.eyebig > 1f)
+									if (eyebig > 1f)
 									{
-										this.eyebig = 1f;
+										eyebig = 1f;
 									}
 								}
-								fieldValue[(int)morph.hash["eyebig"]] = this.eyebig;
-								fieldValue[(int)morph.hash["mayuw"]] = this.mayuw;
+								fieldValue[(int)morph.hash["eyebig"]] = eyebig;
+								fieldValue[(int)morph.hash["mayuw"]] = mayuw;
 								try
 								{
-									fieldValue[(int)morph.hash["tangopen"]] = this.tangopen;
+									fieldValue[(int)morph.hash["tangopen"]] = tangopen;
 								}
 								catch
 								{
 								}
-								if (!this.isDanceChu)
+								if (!isDanceChu)
 								{
-									fieldValue[(int)morph.hash["moutha"]] = this.moutha;
-									fieldValue[(int)morph.hash["mouths"]] = this.mouths;
-									fieldValue[(int)morph.hash["mouthdw"]] = this.mouthdw;
-									fieldValue[(int)morph.hash["mouthup"]] = this.mouthup;
-									fieldValue[(int)morph.hash["mouthhe"]] = this.mouthhe;
-									fieldValue[(int)morph.hash["mouthc"]] = this.mouthc;
-									fieldValue[(int)morph.hash["mouthi"]] = this.mouthi;
-									fieldValue[(int)morph.hash["mouthuphalf"]] = this.mouthuphalf;
+									fieldValue[(int)morph.hash["moutha"]] = moutha;
+									fieldValue[(int)morph.hash["mouths"]] = mouths;
+									fieldValue[(int)morph.hash["mouthdw"]] = mouthdw;
+									fieldValue[(int)morph.hash["mouthup"]] = mouthup;
+									fieldValue[(int)morph.hash["mouthhe"]] = mouthhe;
+									fieldValue[(int)morph.hash["mouthc"]] = mouthc;
+									fieldValue[(int)morph.hash["mouthi"]] = mouthi;
+									fieldValue[(int)morph.hash["mouthuphalf"]] = mouthuphalf;
 								}
-								if (this.isNamida)
+								if (isNamida)
 								{
 									fieldValue[(int)morph.hash["namida"]] = 1f;
 								}
@@ -6732,7 +6732,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									fieldValue[(int)morph.hash["namida"]] = 0f;
 								}
-								if (this.isTear1)
+								if (isTear1)
 								{
 									fieldValue[(int)morph.hash["tear1"]] = 1f;
 								}
@@ -6740,7 +6740,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									fieldValue[(int)morph.hash["tear1"]] = 0f;
 								}
-								if (this.isTear2)
+								if (isTear2)
 								{
 									fieldValue[(int)morph.hash["tear2"]] = 1f;
 								}
@@ -6748,7 +6748,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									fieldValue[(int)morph.hash["tear2"]] = 0f;
 								}
-								if (this.isTear3)
+								if (isTear3)
 								{
 									fieldValue[(int)morph.hash["tear3"]] = 1f;
 								}
@@ -6756,7 +6756,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									fieldValue[(int)morph.hash["tear3"]] = 0f;
 								}
-								if (this.isShock)
+								if (isShock)
 								{
 									fieldValue[(int)morph.hash["shock"]] = 1f;
 								}
@@ -6764,7 +6764,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									fieldValue[(int)morph.hash["shock"]] = 0f;
 								}
-								if (this.isYodare)
+								if (isYodare)
 								{
 									fieldValue[(int)morph.hash["yodare"]] = 1f;
 								}
@@ -6772,7 +6772,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									fieldValue[(int)morph.hash["yodare"]] = 0f;
 								}
-								if (this.isHoho)
+								if (isHoho)
 								{
 									fieldValue[(int)morph.hash["hoho"]] = 0.5f;
 								}
@@ -6780,7 +6780,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									fieldValue[(int)morph.hash["hoho"]] = 0f;
 								}
-								if (this.isHoho2)
+								if (isHoho2)
 								{
 									fieldValue[(int)morph.hash["hoho2"]] = 0.5f;
 								}
@@ -6788,7 +6788,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									fieldValue[(int)morph.hash["hoho2"]] = 0f;
 								}
-								if (this.isHohos)
+								if (isHohos)
 								{
 									fieldValue[(int)morph.hash["hohos"]] = 1f;
 								}
@@ -6796,7 +6796,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									fieldValue[(int)morph.hash["hohos"]] = 0f;
 								}
-								if (this.isHohol)
+								if (isHohol)
 								{
 									fieldValue[(int)morph.hash["hohol"]] = 1f;
 								}
@@ -6804,7 +6804,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									fieldValue[(int)morph.hash["hohol"]] = 0f;
 								}
-								if (this.isToothoff)
+								if (isToothoff)
 								{
 									fieldValue[(int)morph.hash["toothoff"]] = 1f;
 								}
@@ -6812,7 +6812,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									fieldValue[(int)morph.hash["toothoff"]] = 0f;
 								}
-								if (this.isNosefook)
+								if (isNosefook)
 								{
 									morph.boNoseFook = true;
 								}
@@ -6820,67 +6820,67 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									morph.boNoseFook = false;
 								}
-								for (int k = 0; k < this.maidCnt; k++)
+								for (int k = 0; k < maidCnt; k++)
 								{
-									this.maidArray[k].body0.Face.morph.FixBlendValues_Face();
+									maidArray[k].body0.Face.morph.FixBlendValues_Face();
 								}
 							}
 						}
 					}
-					if (this.isF6 && !this.okFlg && ((!this.escFlg && Input.GetKeyDown(KeyCode.Escape)) || Input.GetKeyDown(KeyCode.Tab)))
+					if (isF6 && !okFlg && ((!escFlg && Input.GetKeyDown(KeyCode.Escape)) || Input.GetKeyDown(KeyCode.Tab)))
 					{
-						this.bGui = !this.bGui;
+						bGui = !bGui;
 					}
-					if (this.isF6 && this.maidArray[0] != null && this.maidArray[0].Visible)
+					if (isF6 && maidArray[0] != null && maidArray[0].Visible)
 					{
 						int l;
 						for (l = 0; l < 999; l++)
 						{
-							if (this.gDogu[l] != null)
+							if (gDogu[l] != null)
 							{
-								this.gDogu[l].GetComponent<Renderer>().enabled = false;
-								this.gDogu[l].SetActive(false);
-								if (this.mDogu[l].del)
+								gDogu[l].GetComponent<Renderer>().enabled = false;
+								gDogu[l].SetActive(false);
+								if (mDogu[l].del)
 								{
-									this.mDogu[l].del = false;
-									UnityEngine.Object.Destroy(this.doguBObject[l]);
-									this.doguBObject.RemoveAt(l);
+									mDogu[l].del = false;
+									UnityEngine.Object.Destroy(doguBObject[l]);
+									doguBObject.RemoveAt(l);
 								}
-								else if (this.mDogu[l].copy)
+								else if (mDogu[l].copy)
 								{
-									this.mDogu[l].copy = false;
-									GameObject gameObject3 = UnityEngine.Object.Instantiate<GameObject>(this.doguBObject[l]);
+									mDogu[l].copy = false;
+									GameObject gameObject3 = UnityEngine.Object.Instantiate<GameObject>(doguBObject[l]);
 									gameObject3.transform.Translate(-0.3f, 0f, 0f);
-									this.doguBObject.Add(gameObject3);
-									gameObject3.name = this.doguBObject[l].name;
-									this.doguCnt = this.doguBObject.Count - 1;
-									this.gDogu[this.doguCnt] = GameObject.CreatePrimitive(PrimitiveType.Cube);
-									this.gDogu[this.doguCnt].GetComponent<Renderer>().material = this.m_material;
-									this.gDogu[this.doguCnt].layer = 8;
-									this.gDogu[this.doguCnt].GetComponent<Renderer>().enabled = false;
-									this.gDogu[this.doguCnt].SetActive(false);
-									this.gDogu[this.doguCnt].transform.position = gameObject3.transform.position;
-									this.mDogu[this.doguCnt] = this.gDogu[this.doguCnt].AddComponent<MouseDrag6>();
-									this.mDogu[this.doguCnt].isScale = false;
-									this.mDogu[this.doguCnt].obj = this.gDogu[this.doguCnt];
-									this.mDogu[this.doguCnt].maid = gameObject3;
-									this.mDogu[this.doguCnt].angles = gameObject3.transform.eulerAngles;
-									this.gDogu[this.doguCnt].transform.localScale = new Vector3(this.cubeSize, this.cubeSize, this.cubeSize);
-									this.mDogu[this.doguCnt].ido = 1;
+									doguBObject.Add(gameObject3);
+									gameObject3.name = doguBObject[l].name;
+									doguCnt = doguBObject.Count - 1;
+									gDogu[doguCnt] = GameObject.CreatePrimitive(PrimitiveType.Cube);
+									gDogu[doguCnt].GetComponent<Renderer>().material = m_material;
+									gDogu[doguCnt].layer = 8;
+									gDogu[doguCnt].GetComponent<Renderer>().enabled = false;
+									gDogu[doguCnt].SetActive(false);
+									gDogu[doguCnt].transform.position = gameObject3.transform.position;
+									mDogu[doguCnt] = gDogu[doguCnt].AddComponent<MouseDrag6>();
+									mDogu[doguCnt].isScale = false;
+									mDogu[doguCnt].obj = gDogu[doguCnt];
+									mDogu[doguCnt].maid = gameObject3;
+									mDogu[doguCnt].angles = gameObject3.transform.eulerAngles;
+									gDogu[doguCnt].transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
+									mDogu[doguCnt].ido = 1;
 								}
-								else if (this.mDogu[l].count > 0)
+								else if (mDogu[l].count > 0)
 								{
-									this.mDogu[l].count--;
-									if (this.doguBObject.Count > l && this.doguBObject[l] != null && this.doguBObject[l].name.StartsWith("Particle/p"))
+									mDogu[l].count--;
+									if (doguBObject.Count > l && doguBObject[l] != null && doguBObject[l].name.StartsWith("Particle/p"))
 									{
-										if (this.mDogu[l].count == 1)
+										if (mDogu[l].count == 1)
 										{
-											this.doguBObject[l].SetActive(false);
+											doguBObject[l].SetActive(false);
 										}
-										if (this.mDogu[l].count == 0)
+										if (mDogu[l].count == 0)
 										{
-											this.doguBObject[l].SetActive(true);
-											string text19 = this.doguBObject[l].name;
+											doguBObject[l].SetActive(true);
+											string text19 = doguBObject[l].name;
 											if (text19 != null)
 											{
 												if (!(text19 == "Particle/pLineY"))
@@ -6891,22 +6891,22 @@ namespace CM3D2.MultipleMaids.Plugin
 														{
 															if (text19 == "Particle/pHeart01")
 															{
-																this.mDogu[l].count = 77;
+																mDogu[l].count = 77;
 															}
 														}
 														else
 														{
-															this.mDogu[l].count = 90;
+															mDogu[l].count = 90;
 														}
 													}
 													else
 													{
-														this.mDogu[l].count = 115;
+														mDogu[l].count = 115;
 													}
 												}
 												else
 												{
-													this.mDogu[l].count = 180;
+													mDogu[l].count = 180;
 												}
 											}
 										}
@@ -6914,325 +6914,325 @@ namespace CM3D2.MultipleMaids.Plugin
 								}
 							}
 						}
-						if (Input.GetKey(KeyCode.Z) && this.getModKeyPressing(MultipleMaids.modKey.Shift))
+						if (Input.GetKey(KeyCode.Z) && getModKeyPressing(MultipleMaids.modKey.Shift))
 						{
-							this.ikMode2 = 11;
+							ikMode2 = 11;
 						}
-						else if (Input.GetKey(KeyCode.Z) && this.getModKeyPressing(MultipleMaids.modKey.Ctrl))
+						else if (Input.GetKey(KeyCode.Z) && getModKeyPressing(MultipleMaids.modKey.Ctrl))
 						{
-							this.ikMode2 = 12;
+							ikMode2 = 12;
 						}
-						else if (Input.GetKey(KeyCode.X) && this.getModKeyPressing(MultipleMaids.modKey.Shift))
+						else if (Input.GetKey(KeyCode.X) && getModKeyPressing(MultipleMaids.modKey.Shift))
 						{
-							this.ikMode2 = 14;
+							ikMode2 = 14;
 						}
 						else if (Input.GetKey(KeyCode.X))
 						{
-							this.ikMode2 = 9;
+							ikMode2 = 9;
 						}
 						else if (Input.GetKey(KeyCode.Z))
 						{
-							this.ikMode2 = 10;
+							ikMode2 = 10;
 						}
 						else if (Input.GetKey(KeyCode.C))
 						{
-							this.ikMode2 = 13;
+							ikMode2 = 13;
 						}
 						else if (Input.GetKey(KeyCode.D))
 						{
-							this.ikMode2 = 15;
+							ikMode2 = 15;
 						}
 						else if (Input.GetKey(KeyCode.V))
 						{
-							this.ikMode2 = 16;
+							ikMode2 = 16;
 						}
 						else
 						{
-							this.ikMode2 = 0;
+							ikMode2 = 0;
 						}
-						if (this.gBg != null)
+						if (gBg != null)
 						{
-							if (!this.isCube3)
+							if (!isCube3)
 							{
-								this.gBg.GetComponent<Renderer>().enabled = false;
-								this.gBg.SetActive(false);
+								gBg.GetComponent<Renderer>().enabled = false;
+								gBg.SetActive(false);
 							}
 							else
 							{
-								if (this.ikMode2 > 0 && this.ikMode2 != 15 && this.ikMode2 != 16)
+								if (ikMode2 > 0 && ikMode2 != 15 && ikMode2 != 16)
 								{
-									this.gBg.GetComponent<Renderer>().enabled = true;
-									this.gBg.SetActive(true);
+									gBg.GetComponent<Renderer>().enabled = true;
+									gBg.SetActive(true);
 								}
 								else
 								{
-									this.gBg.GetComponent<Renderer>().enabled = false;
-									this.gBg.SetActive(false);
+									gBg.GetComponent<Renderer>().enabled = false;
+									gBg.SetActive(false);
 								}
-								if (this.ikMode2 == 10 || this.ikMode2 == 11 || this.ikMode2 == 12)
+								if (ikMode2 == 10 || ikMode2 == 11 || ikMode2 == 12)
 								{
-									this.gBg.GetComponent<Renderer>().material.color = new Color(0.4f, 0.4f, 1f, 0.5f);
+									gBg.GetComponent<Renderer>().material.color = new Color(0.4f, 0.4f, 1f, 0.5f);
 								}
-								if (this.ikMode2 == 9 || this.ikMode2 == 14)
+								if (ikMode2 == 9 || ikMode2 == 14)
 								{
-									this.gBg.GetComponent<Renderer>().material.color = new Color(0.3f, 0.7f, 0.3f, 0.5f);
-									this.mBg.Update();
+									gBg.GetComponent<Renderer>().material.color = new Color(0.3f, 0.7f, 0.3f, 0.5f);
+									mBg.Update();
 								}
-								if (this.ikMode2 == 13)
+								if (ikMode2 == 13)
 								{
-									this.gBg.GetComponent<Renderer>().material.color = new Color(0.7f, 0.7f, 0.3f, 0.5f);
-									this.mBg.Update();
+									gBg.GetComponent<Renderer>().material.color = new Color(0.7f, 0.7f, 0.3f, 0.5f);
+									mBg.Update();
 								}
-								if (this.ikMode2 == 13)
+								if (ikMode2 == 13)
 								{
-									if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 13 && this.gBg)
+									if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 13 && gBg)
 									{
-										this.mBg.ido = 5;
-										this.mBg.reset = true;
+										mBg.ido = 5;
+										mBg.reset = true;
 									}
 									else
 									{
-										this.gBg.transform.position = this.bg.position;
-										this.gBg.transform.eulerAngles = this.bg.eulerAngles;
-										this.mBg.maid = this.bgObject;
-										this.mBg.ido = 5;
+										gBg.transform.position = bg.position;
+										gBg.transform.eulerAngles = bg.eulerAngles;
+										mBg.maid = bgObject;
+										mBg.ido = 5;
 									}
 								}
-								else if (this.ikMode2 == 11)
+								else if (ikMode2 == 11)
 								{
-									if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 11 && this.gBg)
+									if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 11 && gBg)
 									{
-										this.mBg.ido = 3;
-										this.mBg.reset = true;
+										mBg.ido = 3;
+										mBg.reset = true;
 									}
 									else
 									{
-										this.gBg.transform.position = this.bg.position;
-										this.gBg.transform.eulerAngles = this.bg.eulerAngles;
-										this.mBg.maid = this.bgObject;
-										this.mBg.ido = 3;
+										gBg.transform.position = bg.position;
+										gBg.transform.eulerAngles = bg.eulerAngles;
+										mBg.maid = bgObject;
+										mBg.ido = 3;
 									}
 								}
-								else if (this.ikMode2 == 12)
+								else if (ikMode2 == 12)
 								{
-									if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 12 && this.gBg)
+									if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 12 && gBg)
 									{
-										this.mBg.ido = 2;
-										this.mBg.reset = true;
+										mBg.ido = 2;
+										mBg.reset = true;
 									}
 									else
 									{
-										this.gBg.transform.position = this.bg.position;
-										this.gBg.transform.eulerAngles = this.bg.eulerAngles;
-										this.mBg.maid = this.bgObject;
-										this.mBg.ido = 2;
+										gBg.transform.position = bg.position;
+										gBg.transform.eulerAngles = bg.eulerAngles;
+										mBg.maid = bgObject;
+										mBg.ido = 2;
 									}
 								}
-								else if (this.ikMode2 == 10)
+								else if (ikMode2 == 10)
 								{
-									if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 10 && this.gBg)
+									if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 10 && gBg)
 									{
-										this.mBg.ido = 1;
-										this.mBg.reset = true;
+										mBg.ido = 1;
+										mBg.reset = true;
 									}
 									else
 									{
-										this.gBg.transform.position = this.bg.position;
-										this.gBg.transform.eulerAngles = this.bg.eulerAngles;
-										this.mBg.maid = this.bgObject;
-										this.mBg.ido = 1;
+										gBg.transform.position = bg.position;
+										gBg.transform.eulerAngles = bg.eulerAngles;
+										mBg.maid = bgObject;
+										mBg.ido = 1;
 									}
 								}
-								else if (this.ikMode2 == 9)
+								else if (ikMode2 == 9)
 								{
-									if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 9 && this.gBg)
+									if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 9 && gBg)
 									{
-										this.mBg.ido = 4;
-										this.mBg.reset = true;
+										mBg.ido = 4;
+										mBg.reset = true;
 									}
 									else
 									{
-										this.gBg.transform.position = this.bg.position;
-										this.gBg.transform.eulerAngles = this.bg.eulerAngles;
-										this.mBg.maid = this.bgObject;
-										this.mBg.ido = 4;
+										gBg.transform.position = bg.position;
+										gBg.transform.eulerAngles = bg.eulerAngles;
+										mBg.maid = bgObject;
+										mBg.ido = 4;
 									}
 								}
-								else if (this.ikMode2 == 14)
+								else if (ikMode2 == 14)
 								{
-									if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 14 && this.gBg)
+									if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 14 && gBg)
 									{
-										this.mBg.ido = 6;
-										this.mBg.reset = true;
+										mBg.ido = 6;
+										mBg.reset = true;
 									}
 									else
 									{
-										this.gBg.transform.position = this.bg.position;
-										this.gBg.transform.eulerAngles = this.bg.eulerAngles;
-										this.mBg.maid = this.bgObject;
-										this.mBg.ido = 6;
+										gBg.transform.position = bg.position;
+										gBg.transform.eulerAngles = bg.eulerAngles;
+										mBg.maid = bgObject;
+										mBg.ido = 6;
 									}
 								}
 							}
 						}
 						l = 0;
-						while (l < this.lightIndex.Count)
+						while (l < lightIndex.Count)
 						{
-							if (this.gLight[0] == null)
+							if (gLight[0] == null)
 							{
-								this.gLight[0] = GameObject.CreatePrimitive(PrimitiveType.Cube);
+								gLight[0] = GameObject.CreatePrimitive(PrimitiveType.Cube);
 								Material material2 = new Material(Shader.Find("Transparent/Diffuse"));
 								material2.color = new Color(0.5f, 0.5f, 1f, 0.8f);
-								this.gLight[0].GetComponent<Renderer>().material = material2;
-								this.gLight[0].layer = 8;
-								this.gLight[0].GetComponent<Renderer>().enabled = false;
-								this.gLight[0].SetActive(false);
-								this.gLight[0].transform.position = GameMain.Instance.MainLight.transform.position;
-								this.mLight[0] = this.gLight[0].AddComponent<MouseDrag6>();
-								this.mLight[0].obj = this.gLight[0];
-								this.mLight[0].maid = GameMain.Instance.MainLight.gameObject;
-								this.mLight[0].angles = GameMain.Instance.MainLight.gameObject.transform.eulerAngles;
-								this.gLight[0].transform.localScale = new Vector3(0.12f, 0.12f, 0.12f);
-								this.mLight[0].ido = 1;
-								this.mLight[0].isScale = false;
+								gLight[0].GetComponent<Renderer>().material = material2;
+								gLight[0].layer = 8;
+								gLight[0].GetComponent<Renderer>().enabled = false;
+								gLight[0].SetActive(false);
+								gLight[0].transform.position = GameMain.Instance.MainLight.transform.position;
+								mLight[0] = gLight[0].AddComponent<MouseDrag6>();
+								mLight[0].obj = gLight[0];
+								mLight[0].maid = GameMain.Instance.MainLight.gameObject;
+								mLight[0].angles = GameMain.Instance.MainLight.gameObject.transform.eulerAngles;
+								gLight[0].transform.localScale = new Vector3(0.12f, 0.12f, 0.12f);
+								mLight[0].ido = 1;
+								mLight[0].isScale = false;
 							}
-							if (this.gLight[l] != null)
+							if (gLight[l] != null)
 							{
-								if (!this.isCube4)
+								if (!isCube4)
 								{
-									this.gLight[l].GetComponent<Renderer>().enabled = false;
-									this.gLight[l].SetActive(false);
+									gLight[l].GetComponent<Renderer>().enabled = false;
+									gLight[l].SetActive(false);
 								}
-								else if (this.lightList[l].GetComponent<Light>().type == LightType.Spot || this.lightList[l].GetComponent<Light>().type == LightType.Point)
+								else if (lightList[l].GetComponent<Light>().type == LightType.Spot || lightList[l].GetComponent<Light>().type == LightType.Point)
 								{
-									if (this.ikMode2 > 0 && this.ikMode2 != 15)
+									if (ikMode2 > 0 && ikMode2 != 15)
 									{
-										this.gLight[l].GetComponent<Renderer>().enabled = true;
-										this.gLight[l].SetActive(true);
+										gLight[l].GetComponent<Renderer>().enabled = true;
+										gLight[l].SetActive(true);
 									}
 									else
 									{
-										this.gLight[l].GetComponent<Renderer>().enabled = false;
-										this.gLight[l].SetActive(false);
-										this.mLight[l].isAlt = false;
+										gLight[l].GetComponent<Renderer>().enabled = false;
+										gLight[l].SetActive(false);
+										mLight[l].isAlt = false;
 									}
-									if (this.ikMode2 == 10 || this.ikMode2 == 11 || this.ikMode2 == 12)
+									if (ikMode2 == 10 || ikMode2 == 11 || ikMode2 == 12)
 									{
-										this.gLight[l].GetComponent<Renderer>().material.color = new Color(0.4f, 0.4f, 1f, 0.5f);
-										if (this.mLight[l].isAlt)
+										gLight[l].GetComponent<Renderer>().material.color = new Color(0.4f, 0.4f, 1f, 0.5f);
+										if (mLight[l].isAlt)
 										{
-											this.gLight[l].GetComponent<Renderer>().material.color = new Color(0.6f, 0.6f, 1f, 0.5f);
+											gLight[l].GetComponent<Renderer>().material.color = new Color(0.6f, 0.6f, 1f, 0.5f);
 										}
 									}
-									if (this.ikMode2 == 9 || this.ikMode2 == 14)
+									if (ikMode2 == 9 || ikMode2 == 14)
 									{
-										this.gLight[l].GetComponent<Renderer>().material.color = new Color(0.3f, 0.7f, 0.3f, 0.5f);
-										this.mLight[l].Update();
+										gLight[l].GetComponent<Renderer>().material.color = new Color(0.3f, 0.7f, 0.3f, 0.5f);
+										mLight[l].Update();
 									}
-									if (this.ikMode2 == 13)
+									if (ikMode2 == 13)
 									{
-										this.gLight[l].GetComponent<Renderer>().material.color = new Color(0.7f, 0.7f, 0.3f, 0.5f);
-										this.mLight[l].Update();
+										gLight[l].GetComponent<Renderer>().material.color = new Color(0.7f, 0.7f, 0.3f, 0.5f);
+										mLight[l].Update();
 									}
-									if (this.ikMode2 == 13)
+									if (ikMode2 == 13)
 									{
-										if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 13 && this.gLight[l])
+										if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 13 && gLight[l])
 										{
-											this.mLight[l].ido = 15;
-											this.mLight[l].reset = true;
+											mLight[l].ido = 15;
+											mLight[l].reset = true;
 										}
 										else
 										{
-											if (this.lightList[l].transform.localScale.x == 1f)
+											if (lightList[l].transform.localScale.x == 1f)
 											{
-												this.lightList[l].transform.localScale = new Vector3(this.lightRange[l], this.lightRange[l], this.lightRange[l]);
+												lightList[l].transform.localScale = new Vector3(lightRange[l], lightRange[l], lightRange[l]);
 											}
-											this.lightRange[l] = this.lightList[l].transform.localScale.x;
-											this.gLight[l].transform.position = this.lightList[l].transform.position;
-											this.gLight[l].transform.eulerAngles = this.lightList[l].transform.eulerAngles;
-											this.mLight[l].maid = this.lightList[l];
-											this.mLight[l].ido = 15;
+											lightRange[l] = lightList[l].transform.localScale.x;
+											gLight[l].transform.position = lightList[l].transform.position;
+											gLight[l].transform.eulerAngles = lightList[l].transform.eulerAngles;
+											mLight[l].maid = lightList[l];
+											mLight[l].ido = 15;
 										}
 									}
-									else if (this.ikMode2 == 11)
+									else if (ikMode2 == 11)
 									{
-										if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 11 && this.gLight[l])
+										if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 11 && gLight[l])
 										{
-											this.mLight[l].ido = 3;
-											this.mLight[l].reset = true;
+											mLight[l].ido = 3;
+											mLight[l].reset = true;
 										}
 										else
 										{
-											this.gLight[l].transform.position = this.lightList[l].transform.position;
-											this.gLight[l].transform.eulerAngles = this.lightList[l].transform.eulerAngles;
-											this.lightX[l] = this.gLight[l].transform.eulerAngles.x;
-											this.lightY[l] = this.gLight[l].transform.eulerAngles.y;
-											this.mLight[l].maid = this.lightList[l];
-											this.mLight[l].ido = 3;
+											gLight[l].transform.position = lightList[l].transform.position;
+											gLight[l].transform.eulerAngles = lightList[l].transform.eulerAngles;
+											lightX[l] = gLight[l].transform.eulerAngles.x;
+											lightY[l] = gLight[l].transform.eulerAngles.y;
+											mLight[l].maid = lightList[l];
+											mLight[l].ido = 3;
 										}
 									}
-									else if (this.ikMode2 == 12)
+									else if (ikMode2 == 12)
 									{
-										if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 12 && this.gLight[l])
+										if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 12 && gLight[l])
 										{
-											this.mLight[l].ido = 2;
-											this.mLight[l].reset = true;
+											mLight[l].ido = 2;
+											mLight[l].reset = true;
 										}
 										else
 										{
-											this.gLight[l].transform.position = this.lightList[l].transform.position;
-											this.gLight[l].transform.eulerAngles = this.lightList[l].transform.eulerAngles;
-											this.mLight[l].maid = this.lightList[l];
-											this.mLight[l].ido = 2;
+											gLight[l].transform.position = lightList[l].transform.position;
+											gLight[l].transform.eulerAngles = lightList[l].transform.eulerAngles;
+											mLight[l].maid = lightList[l];
+											mLight[l].ido = 2;
 										}
 									}
-									else if (this.ikMode2 == 10)
+									else if (ikMode2 == 10)
 									{
-										if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 10 && this.gLight[l])
+										if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 10 && gLight[l])
 										{
-											this.mLight[l].ido = 1;
-											this.mLight[l].reset = true;
+											mLight[l].ido = 1;
+											mLight[l].reset = true;
 										}
 										else
 										{
-											this.gLight[l].transform.position = this.lightList[l].transform.position;
-											this.gLight[l].transform.eulerAngles = this.lightList[l].transform.eulerAngles;
-											this.mLight[l].maid = this.lightList[l];
-											this.mLight[l].ido = 1;
+											gLight[l].transform.position = lightList[l].transform.position;
+											gLight[l].transform.eulerAngles = lightList[l].transform.eulerAngles;
+											mLight[l].maid = lightList[l];
+											mLight[l].ido = 1;
 										}
 									}
-									else if (this.ikMode2 == 9)
+									else if (ikMode2 == 9)
 									{
-										if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 9 && this.gLight[l])
+										if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 9 && gLight[l])
 										{
-											this.mLight[l].ido = 4;
-											this.mLight[l].reset = true;
+											mLight[l].ido = 4;
+											mLight[l].reset = true;
 										}
 										else
 										{
-											this.gLight[l].transform.position = this.lightList[l].transform.position;
-											this.gLight[l].transform.eulerAngles = this.lightList[l].transform.eulerAngles;
-											this.lightX[l] = this.gLight[l].transform.eulerAngles.x;
-											this.lightY[l] = this.gLight[l].transform.eulerAngles.y;
-											this.mLight[l].maid = this.lightList[l];
-											this.mLight[l].ido = 4;
+											gLight[l].transform.position = lightList[l].transform.position;
+											gLight[l].transform.eulerAngles = lightList[l].transform.eulerAngles;
+											lightX[l] = gLight[l].transform.eulerAngles.x;
+											lightY[l] = gLight[l].transform.eulerAngles.y;
+											mLight[l].maid = lightList[l];
+											mLight[l].ido = 4;
 										}
 									}
-									else if (this.ikMode2 == 14)
+									else if (ikMode2 == 14)
 									{
-										if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 14 && this.gLight[l])
+										if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 14 && gLight[l])
 										{
-											this.mLight[l].ido = 6;
-											this.mLight[l].reset = true;
+											mLight[l].ido = 6;
+											mLight[l].reset = true;
 										}
 										else
 										{
-											this.gLight[l].transform.position = this.lightList[l].transform.position;
-											this.gLight[l].transform.eulerAngles = this.lightList[l].transform.eulerAngles;
-											this.lightX[l] = this.gLight[l].transform.eulerAngles.x;
-											this.lightY[l] = this.gLight[l].transform.eulerAngles.y;
-											this.mLight[l].maid = this.lightList[l];
-											this.mLight[l].ido = 6;
+											gLight[l].transform.position = lightList[l].transform.position;
+											gLight[l].transform.eulerAngles = lightList[l].transform.eulerAngles;
+											lightX[l] = gLight[l].transform.eulerAngles.x;
+											lightY[l] = gLight[l].transform.eulerAngles.y;
+											mLight[l].maid = lightList[l];
+											mLight[l].ido = 6;
 										}
 									}
 								}
@@ -7242,386 +7242,386 @@ namespace CM3D2.MultipleMaids.Plugin
 							continue;
 							//goto IL_159C0;
 						}
-						for (l = 0; l < this.doguBObject.Count; l++)
+						for (l = 0; l < doguBObject.Count; l++)
 						{
-							if (!this.isCube2)
+							if (!isCube2)
 							{
-								this.gDogu[l].GetComponent<Renderer>().enabled = false;
-								this.gDogu[l].SetActive(false);
+								gDogu[l].GetComponent<Renderer>().enabled = false;
+								gDogu[l].SetActive(false);
 							}
 							else
 							{
-								if (this.ikMode2 > 0)
+								if (ikMode2 > 0)
 								{
-									this.gDogu[l].GetComponent<Renderer>().enabled = true;
-									this.gDogu[l].SetActive(true);
+									gDogu[l].GetComponent<Renderer>().enabled = true;
+									gDogu[l].SetActive(true);
 								}
 								else
 								{
-									this.gDogu[l].GetComponent<Renderer>().enabled = false;
-									this.gDogu[l].SetActive(false);
-									this.mDogu[l].isAlt = false;
+									gDogu[l].GetComponent<Renderer>().enabled = false;
+									gDogu[l].SetActive(false);
+									mDogu[l].isAlt = false;
 								}
-								if (this.ikMode2 == 10 || this.ikMode2 == 11 || this.ikMode2 == 12)
+								if (ikMode2 == 10 || ikMode2 == 11 || ikMode2 == 12)
 								{
-									this.gDogu[l].GetComponent<Renderer>().material.color = new Color(0.4f, 0.4f, 1f, 0.5f);
-									if (this.mDogu[l].isAlt)
+									gDogu[l].GetComponent<Renderer>().material.color = new Color(0.4f, 0.4f, 1f, 0.5f);
+									if (mDogu[l].isAlt)
 									{
-										this.gDogu[l].GetComponent<Renderer>().material.color = new Color(0.6f, 0.6f, 1f, 0.5f);
+										gDogu[l].GetComponent<Renderer>().material.color = new Color(0.6f, 0.6f, 1f, 0.5f);
 									}
 								}
-								if (this.ikMode2 == 9 || this.ikMode2 == 14)
+								if (ikMode2 == 9 || ikMode2 == 14)
 								{
-									this.gDogu[l].GetComponent<Renderer>().material.color = new Color(0.3f, 0.7f, 0.3f, 0.5f);
-									this.mDogu[l].Update();
+									gDogu[l].GetComponent<Renderer>().material.color = new Color(0.3f, 0.7f, 0.3f, 0.5f);
+									mDogu[l].Update();
 								}
-								if (this.ikMode2 == 15)
+								if (ikMode2 == 15)
 								{
-									this.gDogu[l].GetComponent<Renderer>().material.color = new Color(1f, 0.3f, 0.3f, 0.5f);
+									gDogu[l].GetComponent<Renderer>().material.color = new Color(1f, 0.3f, 0.3f, 0.5f);
 								}
-								if (this.ikMode2 == 16)
+								if (ikMode2 == 16)
 								{
-									this.gDogu[l].GetComponent<Renderer>().material.color = new Color(0.7f, 0.3f, 0.7f, 0.5f);
-									this.mDogu[l].Update();
+									gDogu[l].GetComponent<Renderer>().material.color = new Color(0.7f, 0.3f, 0.7f, 0.5f);
+									mDogu[l].Update();
 								}
-								if (this.ikMode2 == 13)
+								if (ikMode2 == 13)
 								{
-									this.gDogu[l].GetComponent<Renderer>().material.color = new Color(0.7f, 0.7f, 0.3f, 0.5f);
-									this.mDogu[l].Update();
+									gDogu[l].GetComponent<Renderer>().material.color = new Color(0.7f, 0.7f, 0.3f, 0.5f);
+									mDogu[l].Update();
 								}
-								if (this.ikMode2 == 13)
+								if (ikMode2 == 13)
 								{
-									if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 13 && this.gDogu[l])
+									if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 13 && gDogu[l])
 									{
-										this.mDogu[l].ido = 5;
-										this.mDogu[l].reset = true;
+										mDogu[l].ido = 5;
+										mDogu[l].reset = true;
 									}
 									else
 									{
-										this.gDogu[l].transform.position = this.doguBObject[l].transform.position;
-										this.gDogu[l].transform.eulerAngles = this.doguBObject[l].transform.eulerAngles;
-										this.mDogu[l].maid = this.doguBObject[l];
-										this.mDogu[l].ido = 5;
+										gDogu[l].transform.position = doguBObject[l].transform.position;
+										gDogu[l].transform.eulerAngles = doguBObject[l].transform.eulerAngles;
+										mDogu[l].maid = doguBObject[l];
+										mDogu[l].ido = 5;
 									}
 								}
-								else if (this.ikMode2 == 11)
+								else if (ikMode2 == 11)
 								{
-									if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 11 && this.gDogu[l])
+									if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 11 && gDogu[l])
 									{
-										this.mDogu[l].ido = 3;
-										this.mDogu[l].reset = true;
+										mDogu[l].ido = 3;
+										mDogu[l].reset = true;
 									}
 									else
 									{
-										this.gDogu[l].transform.position = this.doguBObject[l].transform.position;
-										this.gDogu[l].transform.eulerAngles = this.doguBObject[l].transform.eulerAngles;
-										this.mDogu[l].maid = this.doguBObject[l];
-										this.mDogu[l].ido = 3;
+										gDogu[l].transform.position = doguBObject[l].transform.position;
+										gDogu[l].transform.eulerAngles = doguBObject[l].transform.eulerAngles;
+										mDogu[l].maid = doguBObject[l];
+										mDogu[l].ido = 3;
 									}
 								}
-								else if (this.ikMode2 == 12)
+								else if (ikMode2 == 12)
 								{
-									if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 12 && this.gDogu[l])
+									if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 12 && gDogu[l])
 									{
-										this.mDogu[l].ido = 2;
-										this.mDogu[l].reset = true;
+										mDogu[l].ido = 2;
+										mDogu[l].reset = true;
 									}
 									else
 									{
-										this.gDogu[l].transform.position = this.doguBObject[l].transform.position;
-										this.gDogu[l].transform.eulerAngles = this.doguBObject[l].transform.eulerAngles;
-										this.mDogu[l].maid = this.doguBObject[l];
-										this.mDogu[l].ido = 2;
+										gDogu[l].transform.position = doguBObject[l].transform.position;
+										gDogu[l].transform.eulerAngles = doguBObject[l].transform.eulerAngles;
+										mDogu[l].maid = doguBObject[l];
+										mDogu[l].ido = 2;
 									}
 								}
-								else if (this.ikMode2 == 10)
+								else if (ikMode2 == 10)
 								{
-									if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 10 && this.gDogu[l])
+									if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 10 && gDogu[l])
 									{
-										this.mDogu[l].ido = 1;
-										this.mDogu[l].reset = true;
+										mDogu[l].ido = 1;
+										mDogu[l].reset = true;
 									}
 									else
 									{
-										this.gDogu[l].transform.position = this.doguBObject[l].transform.position;
-										this.gDogu[l].transform.eulerAngles = this.doguBObject[l].transform.eulerAngles;
-										this.mDogu[l].maid = this.doguBObject[l];
-										this.mDogu[l].maidArray = this.doguBObject.ToArray();
-										this.mDogu[l].mArray = this.mDogu.ToArray<MouseDrag6>();
-										this.mDogu[l].ido = 1;
+										gDogu[l].transform.position = doguBObject[l].transform.position;
+										gDogu[l].transform.eulerAngles = doguBObject[l].transform.eulerAngles;
+										mDogu[l].maid = doguBObject[l];
+										mDogu[l].maidArray = doguBObject.ToArray();
+										mDogu[l].mArray = mDogu.ToArray<MouseDrag6>();
+										mDogu[l].ido = 1;
 									}
 								}
-								else if (this.ikMode2 == 9)
+								else if (ikMode2 == 9)
 								{
-									if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 9 && this.gDogu[l])
+									if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 9 && gDogu[l])
 									{
-										this.mDogu[l].ido = 4;
-										this.mDogu[l].reset = true;
+										mDogu[l].ido = 4;
+										mDogu[l].reset = true;
 									}
 									else
 									{
-										this.gDogu[l].transform.position = this.doguBObject[l].transform.position;
-										this.gDogu[l].transform.eulerAngles = this.doguBObject[l].transform.eulerAngles;
-										this.mDogu[l].maid = this.doguBObject[l];
-										this.mDogu[l].ido = 4;
+										gDogu[l].transform.position = doguBObject[l].transform.position;
+										gDogu[l].transform.eulerAngles = doguBObject[l].transform.eulerAngles;
+										mDogu[l].maid = doguBObject[l];
+										mDogu[l].ido = 4;
 									}
 								}
-								else if (this.ikMode2 == 14)
+								else if (ikMode2 == 14)
 								{
-									if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 14 && this.gDogu[l])
+									if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 14 && gDogu[l])
 									{
-										this.mDogu[l].ido = 6;
-										this.mDogu[l].reset = true;
+										mDogu[l].ido = 6;
+										mDogu[l].reset = true;
 									}
 									else
 									{
-										this.gDogu[l].transform.position = this.doguBObject[l].transform.position;
-										this.gDogu[l].transform.eulerAngles = this.doguBObject[l].transform.eulerAngles;
-										this.mDogu[l].maid = this.doguBObject[l];
-										this.mDogu[l].ido = 6;
+										gDogu[l].transform.position = doguBObject[l].transform.position;
+										gDogu[l].transform.eulerAngles = doguBObject[l].transform.eulerAngles;
+										mDogu[l].maid = doguBObject[l];
+										mDogu[l].ido = 6;
 									}
 								}
-								else if (this.ikMode2 == 15)
+								else if (ikMode2 == 15)
 								{
-									if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 15 && this.gDogu[l])
+									if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 15 && gDogu[l])
 									{
-										this.mDogu[l].ido = 7;
-										this.mDogu[l].reset = true;
+										mDogu[l].ido = 7;
+										mDogu[l].reset = true;
 									}
 									else
 									{
-										this.gDogu[l].transform.position = this.doguBObject[l].transform.position;
-										this.gDogu[l].transform.eulerAngles = this.doguBObject[l].transform.eulerAngles;
-										this.mDogu[l].maid = this.doguBObject[l];
-										this.mDogu[l].ido = 7;
+										gDogu[l].transform.position = doguBObject[l].transform.position;
+										gDogu[l].transform.eulerAngles = doguBObject[l].transform.eulerAngles;
+										mDogu[l].maid = doguBObject[l];
+										mDogu[l].ido = 7;
 									}
 								}
-								else if (this.ikMode2 == 16)
+								else if (ikMode2 == 16)
 								{
-									if ((this.ikModeOld2 == 0 || this.ikModeOld2 >= 9) && this.ikModeOld2 != 16 && this.gDogu[l])
+									if ((ikModeOld2 == 0 || ikModeOld2 >= 9) && ikModeOld2 != 16 && gDogu[l])
 									{
-										this.mDogu[l].ido = 8;
-										this.mDogu[l].reset = true;
+										mDogu[l].ido = 8;
+										mDogu[l].reset = true;
 									}
 									else
 									{
-										this.gDogu[l].transform.position = this.doguBObject[l].transform.position;
-										this.gDogu[l].transform.eulerAngles = this.doguBObject[l].transform.eulerAngles;
-										this.mDogu[l].maid = this.doguBObject[l];
-										this.mDogu[l].ido = 8;
+										gDogu[l].transform.position = doguBObject[l].transform.position;
+										gDogu[l].transform.eulerAngles = doguBObject[l].transform.eulerAngles;
+										mDogu[l].maid = doguBObject[l];
+										mDogu[l].ido = 8;
 									}
 								}
 							}
 						}
-						this.ikModeOld2 = this.ikMode2;
-						Vector3 vector2 = this.mainCameraTransform.TransformDirection(Vector3.forward);
-						Vector3 vector3 = this.mainCameraTransform.TransformDirection(Vector3.right);
-						Vector3 vector4 = this.mainCameraTransform.TransformDirection(Vector3.up);
-						if (Input.GetKeyDown(KeyCode.Y) && this.getModKeyPressing(MultipleMaids.modKey.Shift))
+						ikModeOld2 = ikMode2;
+						Vector3 vector2 = mainCameraTransform.TransformDirection(Vector3.forward);
+						Vector3 vector3 = mainCameraTransform.TransformDirection(Vector3.right);
+						Vector3 vector4 = mainCameraTransform.TransformDirection(Vector3.up);
+						if (Input.GetKeyDown(KeyCode.Y) && getModKeyPressing(MultipleMaids.modKey.Shift))
 						{
-							this.keyFlg = true;
-							this.bgIndex--;
-							if (this.bgIndex <= -1)
+							keyFlg = true;
+							bgIndex--;
+							if (bgIndex <= -1)
 							{
-								this.bgIndex = this.bgArray.Length - 1;
+								bgIndex = bgArray.Length - 1;
 							}
-							if (!this.moveBg)
+							if (!moveBg)
 							{
-								this.bg.localScale = new Vector3(1f, 1f, 1f);
-								if (this.bgArray[this.bgIndex].Length == 36)
+								bg.localScale = new Vector3(1f, 1f, 1f);
+								if (bgArray[bgIndex].Length == 36)
 								{
-									GameMain.Instance.BgMgr.ChangeBgMyRoom(this.bgArray[this.bgIndex]);
+									GameMain.Instance.BgMgr.ChangeBgMyRoom(bgArray[bgIndex]);
 								}
 								else
 								{
-									GameMain.Instance.BgMgr.ChangeBg(this.bgArray[this.bgIndex]);
+									GameMain.Instance.BgMgr.ChangeBg(bgArray[bgIndex]);
 								}
-								this.bgCombo.selectedItemIndex = this.bgIndex;
+								bgCombo.selectedItemIndex = bgIndex;
 							}
 						}
 						else if (Input.GetKey(KeyCode.Y) && Input.GetKey(KeyCode.E))
 						{
-							this.keyFlg = true;
-							this.bg.localScale = new Vector3(this.bg.localScale.x * 1.005f, this.bg.localScale.y * 1.005f, this.bg.localScale.z * 1.005f);
+							keyFlg = true;
+							bg.localScale = new Vector3(bg.localScale.x * 1.005f, bg.localScale.y * 1.005f, bg.localScale.z * 1.005f);
 						}
 						else if (Input.GetKey(KeyCode.Y) && Input.GetKey(KeyCode.D))
 						{
-							this.keyFlg = true;
-							this.bg.localScale = new Vector3(this.bg.localScale.x * 0.995f, this.bg.localScale.y * 0.995f, this.bg.localScale.z * 0.995f);
+							keyFlg = true;
+							bg.localScale = new Vector3(bg.localScale.x * 0.995f, bg.localScale.y * 0.995f, bg.localScale.z * 0.995f);
 						}
 						else if (Input.GetKey(KeyCode.Y) && Input.GetKeyDown(KeyCode.C))
 						{
-							this.keyFlg = true;
-							this.bg.localScale = new Vector3(1f, 1f, 1f);
+							keyFlg = true;
+							bg.localScale = new Vector3(1f, 1f, 1f);
 						}
 						else if ((Input.GetKey(KeyCode.Y) || Input.GetKey(KeyCode.V)) && Input.GetKey(KeyCode.I) && Input.GetKey(KeyCode.J))
 						{
-							Vector3 vector5 = this.bg.position;
-							vector5 += new Vector3(vector2.x, 0f, vector2.z) * -0.025f * this.speed;
-							vector5 += new Vector3(vector3.x, 0f, vector3.z) * 0.025f * this.speed;
-							this.bg.localPosition = vector5;
+							Vector3 vector5 = bg.position;
+							vector5 += new Vector3(vector2.x, 0f, vector2.z) * -0.025f * speed;
+							vector5 += new Vector3(vector3.x, 0f, vector3.z) * 0.025f * speed;
+							bg.localPosition = vector5;
 							if (Input.GetKey(KeyCode.Y))
 							{
-								this.keyFlg = true;
+								keyFlg = true;
 							}
 						}
 						else if ((Input.GetKey(KeyCode.Y) || Input.GetKey(KeyCode.V)) && Input.GetKey(KeyCode.I) && Input.GetKey(KeyCode.L))
 						{
-							Vector3 vector5 = this.bg.position;
-							vector5 += new Vector3(vector2.x, 0f, vector2.z) * -0.025f * this.speed;
-							vector5 += new Vector3(vector3.x, 0f, vector3.z) * -0.025f * this.speed;
-							this.bg.localPosition = vector5;
+							Vector3 vector5 = bg.position;
+							vector5 += new Vector3(vector2.x, 0f, vector2.z) * -0.025f * speed;
+							vector5 += new Vector3(vector3.x, 0f, vector3.z) * -0.025f * speed;
+							bg.localPosition = vector5;
 							if (Input.GetKey(KeyCode.Y))
 							{
-								this.keyFlg = true;
+								keyFlg = true;
 							}
 						}
 						else if ((Input.GetKey(KeyCode.Y) || Input.GetKey(KeyCode.V)) && Input.GetKey(KeyCode.K) && Input.GetKey(KeyCode.J))
 						{
-							Vector3 vector5 = this.bg.position;
-							vector5 += new Vector3(vector2.x, 0f, vector2.z) * 0.025f * this.speed;
-							vector5 += new Vector3(vector3.x, 0f, vector3.z) * 0.025f * this.speed;
-							this.bg.localPosition = vector5;
+							Vector3 vector5 = bg.position;
+							vector5 += new Vector3(vector2.x, 0f, vector2.z) * 0.025f * speed;
+							vector5 += new Vector3(vector3.x, 0f, vector3.z) * 0.025f * speed;
+							bg.localPosition = vector5;
 							if (Input.GetKey(KeyCode.Y))
 							{
-								this.keyFlg = true;
+								keyFlg = true;
 							}
 						}
 						else if ((Input.GetKey(KeyCode.Y) || Input.GetKey(KeyCode.V)) && Input.GetKey(KeyCode.K) && Input.GetKey(KeyCode.L))
 						{
-							Vector3 vector5 = this.bg.position;
-							vector5 += new Vector3(vector2.x, 0f, vector2.z) * 0.025f * this.speed;
-							vector5 += new Vector3(vector3.x, 0f, vector3.z) * -0.025f * this.speed;
-							this.bg.localPosition = vector5;
+							Vector3 vector5 = bg.position;
+							vector5 += new Vector3(vector2.x, 0f, vector2.z) * 0.025f * speed;
+							vector5 += new Vector3(vector3.x, 0f, vector3.z) * -0.025f * speed;
+							bg.localPosition = vector5;
 							if (Input.GetKey(KeyCode.Y))
 							{
-								this.keyFlg = true;
+								keyFlg = true;
 							}
 						}
 						else if ((Input.GetKey(KeyCode.Y) || Input.GetKey(KeyCode.V)) && Input.GetKey(KeyCode.I))
 						{
-							Vector3 vector5 = this.bg.position;
-							vector5 += new Vector3(vector2.x, 0f, vector2.z) * -0.025f * this.speed;
-							this.bg.localPosition = vector5;
+							Vector3 vector5 = bg.position;
+							vector5 += new Vector3(vector2.x, 0f, vector2.z) * -0.025f * speed;
+							bg.localPosition = vector5;
 							if (Input.GetKey(KeyCode.Y))
 							{
-								this.keyFlg = true;
+								keyFlg = true;
 							}
 						}
 						else if ((Input.GetKey(KeyCode.Y) || Input.GetKey(KeyCode.V)) && Input.GetKey(KeyCode.K))
 						{
-							Vector3 vector5 = this.bg.position;
-							vector5 += new Vector3(vector2.x, 0f, vector2.z) * 0.025f * this.speed;
-							this.bg.localPosition = vector5;
+							Vector3 vector5 = bg.position;
+							vector5 += new Vector3(vector2.x, 0f, vector2.z) * 0.025f * speed;
+							bg.localPosition = vector5;
 							if (Input.GetKey(KeyCode.Y))
 							{
-								this.keyFlg = true;
+								keyFlg = true;
 							}
 						}
 						else if ((Input.GetKey(KeyCode.Y) || Input.GetKey(KeyCode.V)) && Input.GetKey(KeyCode.J))
 						{
-							Vector3 vector5 = this.bg.position;
-							vector5 += new Vector3(vector3.x, 0f, vector3.z) * 0.025f * this.speed;
-							this.bg.localPosition = vector5;
+							Vector3 vector5 = bg.position;
+							vector5 += new Vector3(vector3.x, 0f, vector3.z) * 0.025f * speed;
+							bg.localPosition = vector5;
 							if (Input.GetKey(KeyCode.Y))
 							{
-								this.keyFlg = true;
+								keyFlg = true;
 							}
 						}
 						else if ((Input.GetKey(KeyCode.Y) || Input.GetKey(KeyCode.V)) && Input.GetKey(KeyCode.L))
 						{
-							Vector3 vector5 = this.bg.position;
-							vector5 += new Vector3(vector3.x, 0f, vector3.z) * -0.025f * this.speed;
-							this.bg.localPosition = vector5;
+							Vector3 vector5 = bg.position;
+							vector5 += new Vector3(vector3.x, 0f, vector3.z) * -0.025f * speed;
+							bg.localPosition = vector5;
 							if (Input.GetKey(KeyCode.Y))
 							{
-								this.keyFlg = true;
+								keyFlg = true;
 							}
 						}
 						else if ((Input.GetKey(KeyCode.Y) || Input.GetKey(KeyCode.V)) && Input.GetKey(KeyCode.Alpha0))
 						{
-							Vector3 vector5 = this.bg.position;
-							vector5.y -= 0.015f * this.speed;
-							this.bg.localPosition = vector5;
+							Vector3 vector5 = bg.position;
+							vector5.y -= 0.015f * speed;
+							bg.localPosition = vector5;
 							if (Input.GetKey(KeyCode.Y))
 							{
-								this.keyFlg = true;
+								keyFlg = true;
 							}
 						}
 						else if ((Input.GetKey(KeyCode.Y) || Input.GetKey(KeyCode.V)) && Input.GetKey(KeyCode.P))
 						{
-							Vector3 vector5 = this.bg.position;
-							vector5.y += 0.015f * this.speed;
-							this.bg.localPosition = vector5;
+							Vector3 vector5 = bg.position;
+							vector5.y += 0.015f * speed;
+							bg.localPosition = vector5;
 							if (Input.GetKey(KeyCode.Y))
 							{
-								this.keyFlg = true;
+								keyFlg = true;
 							}
 						}
 						else if ((Input.GetKey(KeyCode.Y) || Input.GetKey(KeyCode.V)) && Input.GetKey(KeyCode.U))
 						{
-							this.bg.RotateAround(this.maidArray[0].transform.position, Vector3.up, 0.7f);
+							bg.RotateAround(maidArray[0].transform.position, Vector3.up, 0.7f);
 							if (Input.GetKey(KeyCode.Y))
 							{
-								this.keyFlg = true;
+								keyFlg = true;
 							}
 						}
 						else if ((Input.GetKey(KeyCode.Y) || Input.GetKey(KeyCode.V)) && Input.GetKey(KeyCode.O))
 						{
-							this.bg.RotateAround(this.maidArray[0].transform.position, Vector3.up, -0.7f);
+							bg.RotateAround(maidArray[0].transform.position, Vector3.up, -0.7f);
 							if (Input.GetKey(KeyCode.Y))
 							{
-								this.keyFlg = true;
+								keyFlg = true;
 							}
 						}
 						else if (Input.GetKeyUp(KeyCode.Y))
 						{
-							if (this.keyFlg)
+							if (keyFlg)
 							{
-								this.keyFlg = false;
+								keyFlg = false;
 							}
 							else
 							{
-								this.bgIndex++;
-								if (this.bgIndex == this.bgArray.Length)
+								bgIndex++;
+								if (bgIndex == bgArray.Length)
 								{
-									this.bgIndex = 0;
+									bgIndex = 0;
 								}
-								if (!this.moveBg)
+								if (!moveBg)
 								{
-									this.bg.localScale = new Vector3(1f, 1f, 1f);
-									if (this.bgArray[this.bgIndex].Length == 36)
+									bg.localScale = new Vector3(1f, 1f, 1f);
+									if (bgArray[bgIndex].Length == 36)
 									{
-										GameMain.Instance.BgMgr.ChangeBgMyRoom(this.bgArray[this.bgIndex]);
+										GameMain.Instance.BgMgr.ChangeBgMyRoom(bgArray[bgIndex]);
 									}
 									else
 									{
-										GameMain.Instance.BgMgr.ChangeBg(this.bgArray[this.bgIndex]);
+										GameMain.Instance.BgMgr.ChangeBg(bgArray[bgIndex]);
 									}
-									this.bgCombo.selectedItemIndex = this.bgIndex;
+									bgCombo.selectedItemIndex = bgIndex;
 								}
 							}
 						}
-						if (this.getModKeyPressing(MultipleMaids.modKey.Shift))
+						if (getModKeyPressing(MultipleMaids.modKey.Shift))
 						{
-							this.speed = 5f * Time.deltaTime * 60f;
+							speed = 5f * Time.deltaTime * 60f;
 						}
 						else
 						{
-							this.speed = 1f * Time.deltaTime * 60f;
+							speed = 1f * Time.deltaTime * 60f;
 						}
-						if (!this.isVR || this.isVR2)
+						if (!isVR || isVR2)
 						{
-							if (!this.isVR)
+							if (!isVR)
 							{
-								if (this.isBloom)
+								if (isBloom)
 								{
-									Bloom fieldValue7 = MultipleMaids.GetFieldValue<CameraMain, Bloom>(this.mainCamera, "m_gcBloom");
+									Bloom fieldValue7 = MultipleMaids.GetFieldValue<CameraMain, Bloom>(mainCamera, "m_gcBloom");
 									fieldValue7.enabled = true;
-									fieldValue7.bloomIntensity = this.bloom1;
-									fieldValue7.bloomBlurIterations = (int)this.bloom2;
-									fieldValue7.bloomThreshholdColor = new Color(1f - this.bloom3, 1f - this.bloom4, 1f - this.bloom5);
-									if (this.isBloomA)
+									fieldValue7.bloomIntensity = bloom1;
+									fieldValue7.bloomBlurIterations = (int)bloom2;
+									fieldValue7.bloomThreshholdColor = new Color(1f - bloom3, 1f - bloom4, 1f - bloom5);
+									if (isBloomA)
 									{
 										fieldValue7.hdr = Bloom.HDRBloomMode.On;
 									}
@@ -7629,101 +7629,101 @@ namespace CM3D2.MultipleMaids.Plugin
 									{
 										fieldValue7.hdr = Bloom.HDRBloomMode.Auto;
 									}
-									this.isBloom2 = true;
+									isBloom2 = true;
 								}
-								else if (this.isBloom2)
+								else if (isBloom2)
 								{
-									this.isBloom2 = false;
-									Bloom fieldValue7 = MultipleMaids.GetFieldValue<CameraMain, Bloom>(this.mainCamera, "m_gcBloom");
+									isBloom2 = false;
+									Bloom fieldValue7 = MultipleMaids.GetFieldValue<CameraMain, Bloom>(mainCamera, "m_gcBloom");
 									fieldValue7.enabled = true;
 									fieldValue7.bloomIntensity = 2.85f;
 									fieldValue7.hdr = 0;
 									fieldValue7.bloomThreshholdColor = new Color(1f, 1f, 1f);
 									fieldValue7.bloomBlurIterations = 3;
 								}
-								if (this.isDepth)
+								if (isDepth)
 								{
-									this.depth_field_.enabled = true;
-									this.depth_field_.focalLength = this.depth1;
-									this.depth_field_.focalSize = this.depth2;
-									this.depth_field_.aperture = this.depth3;
-									this.depth_field_.maxBlurSize = this.depth4;
-									if (this.isDepthA)
+									depth_field_.enabled = true;
+									depth_field_.focalLength = depth1;
+									depth_field_.focalSize = depth2;
+									depth_field_.aperture = depth3;
+									depth_field_.maxBlurSize = depth4;
+									if (isDepthA)
 									{
-										this.depth_field_.visualizeFocus = true;
+										depth_field_.visualizeFocus = true;
 									}
 									else
 									{
-										this.depth_field_.visualizeFocus = false;
+										depth_field_.visualizeFocus = false;
 									}
 								}
 								else
 								{
-									if (this.depth_field_ == null)
+									if (depth_field_ == null)
 									{
-										this.depth_field_ = GameMain.Instance.MainCamera.gameObject.AddComponent<DepthOfFieldScatter>();
-										if (this.depth_field_.dofHdrShader == null)
+										depth_field_ = GameMain.Instance.MainCamera.gameObject.AddComponent<DepthOfFieldScatter>();
+										if (depth_field_.dofHdrShader == null)
 										{
-											this.depth_field_.dofHdrShader = Shader.Find("Hidden/Dof/DepthOfFieldHdr");
+											depth_field_.dofHdrShader = Shader.Find("Hidden/Dof/DepthOfFieldHdr");
 										}
-										if (this.depth_field_.dx11BokehShader == null)
+										if (depth_field_.dx11BokehShader == null)
 										{
-											this.depth_field_.dx11BokehShader = Shader.Find("Hidden/Dof/DX11Dof");
+											depth_field_.dx11BokehShader = Shader.Find("Hidden/Dof/DX11Dof");
 										}
-										if (this.depth_field_.dx11BokehTexture == null)
+										if (depth_field_.dx11BokehTexture == null)
 										{
-											this.depth_field_.dx11BokehTexture = (Resources.Load("Textures/hexShape") as Texture2D);
+											depth_field_.dx11BokehTexture = (Resources.Load("Textures/hexShape") as Texture2D);
 										}
 									}
-									this.depth_field_.enabled = false;
+									depth_field_.enabled = false;
 								}
-								if (this.isFog)
+								if (isFog)
 								{
-									if (this.fog_.fogShader == null)
+									if (fog_.fogShader == null)
 									{
-										this.fog_.fogShader = Shader.Find("Hidden/GlobalFog");
+										fog_.fogShader = Shader.Find("Hidden/GlobalFog");
 									}
-									this.fog_.enabled = true;
-									this.fog_.startDistance = this.fog1;
-									this.fog_.globalDensity = this.fog2;
-									this.fog_.heightScale = this.fog3;
-									this.fog_.height = this.fog4;
-									this.fog_.globalFogColor.r = this.fog5;
-									this.fog_.globalFogColor.g = this.fog6;
-									this.fog_.globalFogColor.b = this.fog7;
+									fog_.enabled = true;
+									fog_.startDistance = fog1;
+									fog_.globalDensity = fog2;
+									fog_.heightScale = fog3;
+									fog_.height = fog4;
+									fog_.globalFogColor.r = fog5;
+									fog_.globalFogColor.g = fog6;
+									fog_.globalFogColor.b = fog7;
 								}
 								else
 								{
-									if (this.fog_ == null)
+									if (fog_ == null)
 									{
-										this.fog_ = GameMain.Instance.MainCamera.gameObject.AddComponent<GlobalFog>();
+										fog_ = GameMain.Instance.MainCamera.gameObject.AddComponent<GlobalFog>();
 									}
-									this.fog_.enabled = false;
+									fog_.enabled = false;
 								}
-								if (this.isSepia)
+								if (isSepia)
 								{
-									if (this.sepia_tone_.shader == null)
+									if (sepia_tone_.shader == null)
 									{
-										this.sepia_tone_.shader = Shader.Find("Hidden/Sepiatone Effect");
+										sepia_tone_.shader = Shader.Find("Hidden/Sepiatone Effect");
 									}
-									this.sepia_tone_.enabled = true;
+									sepia_tone_.enabled = true;
 								}
 								else
 								{
-									if (this.sepia_tone_ == null)
+									if (sepia_tone_ == null)
 									{
-										this.sepia_tone_ = GameMain.Instance.MainCamera.gameObject.AddComponent<SepiaToneEffect>();
+										sepia_tone_ = GameMain.Instance.MainCamera.gameObject.AddComponent<SepiaToneEffect>();
 									}
-									this.sepia_tone_.enabled = false;
+									sepia_tone_.enabled = false;
 								}
-								if (this.bokashi > 0f)
+								if (bokashi > 0f)
 								{
 									Blur component4 = GameMain.Instance.MainCamera.gameObject.GetComponent<Blur>();
 									component4.enabled = true;
-									component4.blurSize = this.bokashi / 10f;
+									component4.blurSize = bokashi / 10f;
 									component4.blurIterations = 0;
 									component4.downsample = 0;
-									if (this.bokashi > 3f)
+									if (bokashi > 3f)
 									{
 										component4.blurSize -= 0.3f;
 										component4.blurIterations = 1;
@@ -7735,11 +7735,11 @@ namespace CM3D2.MultipleMaids.Plugin
 									Blur component4 = GameMain.Instance.MainCamera.gameObject.GetComponent<Blur>();
 									component4.enabled = false;
 								}
-								if (this.kamiyure > 0f)
+								if (kamiyure > 0f)
 								{
-									for (int i2 = 0; i2 < this.maidCnt; i2++)
+									for (int i2 = 0; i2 < maidCnt; i2++)
 									{
-										Maid maid = this.maidArray[i2];
+										Maid maid = maidArray[i2];
 										for (int j = 0; j < maid.body0.goSlot.Count; j++)
 										{
 											if (maid.body0.goSlot[j].obj != null)
@@ -7747,31 +7747,31 @@ namespace CM3D2.MultipleMaids.Plugin
 												DynamicBone component = maid.body0.goSlot[j].obj.GetComponent<DynamicBone>();
 												if (component != null && component.enabled)
 												{
-													component.m_Gravity = new Vector3(this.softG.x * 5f, (this.softG.y + 0.003f) * 5f, this.softG.z * 5f);
+													component.m_Gravity = new Vector3(softG.x * 5f, (softG.y + 0.003f) * 5f, softG.z * 5f);
 												}
 											}
 											List<THair1> fieldValue6 = MultipleMaids.GetFieldValue<TBoneHair_, List<THair1>>(maid.body0.goSlot[j].bonehair, "hair1list");
 											for (int k = 0; k < fieldValue6.Count; k++)
 											{
-												fieldValue6[k].SoftG = new Vector3(this.softG.x, this.softG.y + this.kamiyure, this.softG.z);
+												fieldValue6[k].SoftG = new Vector3(softG.x, softG.y + kamiyure, softG.z);
 											}
 										}
 									}
 								}
-								if (this.isBlur)
+								if (isBlur)
 								{
 									Vignetting component2 = GameMain.Instance.MainCamera.gameObject.GetComponent<Vignetting>();
 									component2.mode = 0;
-									component2.intensity = this.blur1;
-									component2.chromaticAberration = this.blur4;
-									component2.blur = this.blur2;
-									component2.blurSpread = this.blur3;
+									component2.intensity = blur1;
+									component2.chromaticAberration = blur4;
+									component2.blur = blur2;
+									component2.blurSpread = blur3;
 									component2.enabled = true;
-									this.isBlur2 = true;
+									isBlur2 = true;
 								}
-								else if (this.isBlur2)
+								else if (isBlur2)
 								{
-									this.isBlur2 = false;
+									isBlur2 = false;
 									Vignetting component2 = GameMain.Instance.MainCamera.gameObject.GetComponent<Vignetting>();
 									component2.mode = 0;
 									component2.intensity = -3.98f;
@@ -7786,236 +7786,236 @@ namespace CM3D2.MultipleMaids.Plugin
 							if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.I))
 							{
 								GameMain.Instance.MainLight.transform.eulerAngles -= Vector3.right / 2f;
-								this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+								lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
 							}
 							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.K))
 							{
 								if (GameMain.Instance.MainLight.transform.eulerAngles.x < 85f)
 								{
 									GameMain.Instance.MainLight.transform.eulerAngles += Vector3.right / 2f;
-									this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+									lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
 								}
 							}
 							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.J))
 							{
 								GameMain.Instance.MainLight.transform.eulerAngles -= Vector3.up / 1.5f;
-								this.lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
+								lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
 							}
 							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.L))
 							{
 								GameMain.Instance.MainLight.transform.eulerAngles += Vector3.up / 1.5f;
-								this.lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
+								lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
 							}
 							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.BackQuote))
 							{
 								GameMain.Instance.MainLight.Reset();
 								GameMain.Instance.MainLight.SetIntensity(0.95f);
 								GameMain.Instance.MainLight.GetComponent<Light>().type = LightType.Directional;
-								this.lightIndex[0] = 0;
-								this.lightColorR[0] = 1f;
-								this.lightColorG[0] = 1f;
-								this.lightColorB[0] = 1f;
-								this.lightX[0] = 40f;
-								this.lightY[0] = 180f;
-								this.lightAkarusa[0] = 0.95f;
-								this.lightKage[0] = 0.098f;
-								this.lightRange[0] = 50f;
-								this.bgObject.SetActive(true);
-								this.mainCamera.GetComponent<Camera>().backgroundColor = new Color(0f, 0f, 0f);
-								this.isIdx1 = false;
-								this.isIdx2 = false;
-								this.isIdx3 = false;
-								this.isIdx4 = false;
+								lightIndex[0] = 0;
+								lightColorR[0] = 1f;
+								lightColorG[0] = 1f;
+								lightColorB[0] = 1f;
+								lightX[0] = 40f;
+								lightY[0] = 180f;
+								lightAkarusa[0] = 0.95f;
+								lightKage[0] = 0.098f;
+								lightRange[0] = 50f;
+								bgObject.SetActive(true);
+								mainCamera.GetComponent<Camera>().backgroundColor = new Color(0f, 0f, 0f);
+								isIdx1 = false;
+								isIdx2 = false;
+								isIdx3 = false;
+								isIdx4 = false;
 							}
-							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.Minus) && this.getModKeyPressing(MultipleMaids.modKey.Shift))
+							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.Minus) && getModKeyPressing(MultipleMaids.modKey.Shift))
 							{
 								List<float> list7;
-								(list7 = this.lightColorR)[0] = list7[0] + 0.01f;
-								if (this.lightColorR[0] > 1f)
+								(list7 = lightColorR)[0] = list7[0] + 0.01f;
+								if (lightColorR[0] > 1f)
 								{
-									this.lightColorR[0] = 1f;
+									lightColorR[0] = 1f;
 								}
-								if (this.lightIndex[0] != 3)
+								if (lightIndex[0] != 3)
 								{
-									GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+									GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 								}
 								else
 								{
-									this.mainCamera.GetComponent<Camera>().backgroundColor = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+									mainCamera.GetComponent<Camera>().backgroundColor = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 								}
 							}
-							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.Quote) && this.getModKeyPressing(MultipleMaids.modKey.Shift))
+							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.Quote) && getModKeyPressing(MultipleMaids.modKey.Shift))
 							{
 								List<float> list7;
-								(list7 = this.lightColorG)[0] = list7[0] + 0.01f;
-								if (this.lightColorG[0] > 1f)
+								(list7 = lightColorG)[0] = list7[0] + 0.01f;
+								if (lightColorG[0] > 1f)
 								{
-									this.lightColorG[0] = 1f;
+									lightColorG[0] = 1f;
 								}
-								if (this.lightIndex[0] != 3)
+								if (lightIndex[0] != 3)
 								{
-									GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+									GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 								}
 								else
 								{
-									this.mainCamera.GetComponent<Camera>().backgroundColor = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+									mainCamera.GetComponent<Camera>().backgroundColor = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 								}
 							}
-							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.LeftBracket) && this.getModKeyPressing(MultipleMaids.modKey.Shift))
+							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.LeftBracket) && getModKeyPressing(MultipleMaids.modKey.Shift))
 							{
 								List<float> list7;
-								(list7 = this.lightColorB)[0] = list7[0] + 0.01f;
-								if (this.lightColorB[0] > 1f)
+								(list7 = lightColorB)[0] = list7[0] + 0.01f;
+								if (lightColorB[0] > 1f)
 								{
-									this.lightColorB[0] = 1f;
+									lightColorB[0] = 1f;
 								}
-								if (this.lightIndex[0] != 3)
+								if (lightIndex[0] != 3)
 								{
-									GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+									GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 								}
 								else
 								{
-									this.mainCamera.GetComponent<Camera>().backgroundColor = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+									mainCamera.GetComponent<Camera>().backgroundColor = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 								}
 							}
 							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.Minus))
 							{
 								List<float> list7;
-								(list7 = this.lightColorR)[0] = list7[0] - 0.01f;
-								if (this.lightColorR[0] < 0f)
+								(list7 = lightColorR)[0] = list7[0] - 0.01f;
+								if (lightColorR[0] < 0f)
 								{
-									this.lightColorR[0] = 0f;
+									lightColorR[0] = 0f;
 								}
-								if (this.lightIndex[0] != 3)
+								if (lightIndex[0] != 3)
 								{
-									GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+									GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 								}
 								else
 								{
-									this.mainCamera.GetComponent<Camera>().backgroundColor = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+									mainCamera.GetComponent<Camera>().backgroundColor = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 								}
 							}
 							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.Quote))
 							{
 								List<float> list7;
-								(list7 = this.lightColorG)[0] = list7[0] - 0.01f;
-								if (this.lightColorG[0] < 0f)
+								(list7 = lightColorG)[0] = list7[0] - 0.01f;
+								if (lightColorG[0] < 0f)
 								{
-									this.lightColorG[0] = 0f;
+									lightColorG[0] = 0f;
 								}
-								if (this.lightIndex[0] != 3)
+								if (lightIndex[0] != 3)
 								{
-									GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+									GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 								}
 								else
 								{
-									this.mainCamera.GetComponent<Camera>().backgroundColor = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+									mainCamera.GetComponent<Camera>().backgroundColor = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 								}
 							}
 							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.LeftBracket))
 							{
 								List<float> list7;
-								(list7 = this.lightColorB)[0] = list7[0] - 0.01f;
-								if (this.lightColorB[0] < 0f)
+								(list7 = lightColorB)[0] = list7[0] - 0.01f;
+								if (lightColorB[0] < 0f)
 								{
-									this.lightColorB[0] = 0f;
+									lightColorB[0] = 0f;
 								}
-								if (this.lightIndex[0] != 3)
+								if (lightIndex[0] != 3)
 								{
-									GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+									GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 								}
 								else
 								{
-									this.mainCamera.GetComponent<Camera>().backgroundColor = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+									mainCamera.GetComponent<Camera>().backgroundColor = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 								}
 							}
 							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.Alpha0))
 							{
 								GameMain.Instance.MainLight.GetComponent<Light>().intensity += 0.12f * Time.deltaTime;
-								this.lightAkarusa[0] = GameMain.Instance.MainLight.GetComponent<Light>().intensity;
+								lightAkarusa[0] = GameMain.Instance.MainLight.GetComponent<Light>().intensity;
 							}
 							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.P))
 							{
 								GameMain.Instance.MainLight.GetComponent<Light>().intensity -= 0.12f * Time.deltaTime;
-								this.lightAkarusa[0] = GameMain.Instance.MainLight.GetComponent<Light>().intensity;
+								lightAkarusa[0] = GameMain.Instance.MainLight.GetComponent<Light>().intensity;
 							}
 							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.Alpha9))
 							{
 								GameMain.Instance.MainLight.GetComponent<Light>().spotAngle += 0.2f;
 								GameMain.Instance.MainLight.GetComponent<Light>().range += 0.2f;
-								this.lightRange[0] = GameMain.Instance.MainLight.GetComponent<Light>().spotAngle;
+								lightRange[0] = GameMain.Instance.MainLight.GetComponent<Light>().spotAngle;
 							}
 							else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.O))
 							{
 								GameMain.Instance.MainLight.GetComponent<Light>().spotAngle -= 0.2f;
 								GameMain.Instance.MainLight.GetComponent<Light>().range -= 0.2f;
-								this.lightRange[0] = GameMain.Instance.MainLight.GetComponent<Light>().spotAngle;
+								lightRange[0] = GameMain.Instance.MainLight.GetComponent<Light>().spotAngle;
 							}
 							else if (Input.GetKey(KeyCode.R) && Input.GetKeyDown(KeyCode.U))
 							{
 								List<int> list6;
-								(list6 = this.lightIndex)[0] = list6[0] + 1;
-								if (this.lightIndex[0] == 4)
+								(list6 = lightIndex)[0] = list6[0] + 1;
+								if (lightIndex[0] == 4)
 								{
-									this.lightIndex[0] = 0;
+									lightIndex[0] = 0;
 								}
-								this.lightColorR[0] = 1f;
-								this.lightColorG[0] = 1f;
-								this.lightColorB[0] = 1f;
-								this.lightX[0] = 40f;
-								this.lightY[0] = 180f;
-								this.lightAkarusa[0] = 0.95f;
-								this.lightKage[0] = 0.098f;
-								this.lightRange[0] = 50f;
+								lightColorR[0] = 1f;
+								lightColorG[0] = 1f;
+								lightColorB[0] = 1f;
+								lightX[0] = 40f;
+								lightY[0] = 180f;
+								lightAkarusa[0] = 0.95f;
+								lightKage[0] = 0.098f;
+								lightRange[0] = 50f;
 								GameMain.Instance.MainLight.Reset();
 								GameMain.Instance.MainLight.SetIntensity(0.95f);
 								GameMain.Instance.MainLight.GetComponent<Light>().spotAngle = 50f;
 								GameMain.Instance.MainLight.GetComponent<Light>().range = 10f;
 								GameMain.Instance.MainLight.gameObject.transform.position = new Vector3(0f, 2f, 0f);
-								if (this.lightIndex[0] == 0)
+								if (lightIndex[0] == 0)
 								{
 									GameMain.Instance.MainLight.GetComponent<Light>().type = LightType.Directional;
-									this.bgObject.SetActive(true);
-									this.mainCamera.GetComponent<Camera>().backgroundColor = new Color(0f, 0f, 0f);
+									bgObject.SetActive(true);
+									mainCamera.GetComponent<Camera>().backgroundColor = new Color(0f, 0f, 0f);
 								}
-								else if (this.lightIndex[0] == 1)
+								else if (lightIndex[0] == 1)
 								{
 									GameMain.Instance.MainLight.transform.eulerAngles += Vector3.right * 40f;
-									this.lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
+									lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
 									GameMain.Instance.MainLight.GetComponent<Light>().type = LightType.Spot;
-									if (this.gLight[0] == null)
+									if (gLight[0] == null)
 									{
-										this.gLight[0] = GameObject.CreatePrimitive(PrimitiveType.Cube);
+										gLight[0] = GameObject.CreatePrimitive(PrimitiveType.Cube);
 										Material material2 = new Material(Shader.Find("Transparent/Diffuse"));
 										material2.color = new Color(0.5f, 0.5f, 1f, 0.8f);
-										this.gLight[0].GetComponent<Renderer>().material = material2;
-										this.gLight[0].layer = 8;
-										this.gLight[0].GetComponent<Renderer>().enabled = false;
-										this.gLight[0].SetActive(false);
-										this.gLight[0].transform.position = GameMain.Instance.MainLight.transform.position;
-										this.mLight[0] = this.gLight[0].AddComponent<MouseDrag6>();
-										this.mLight[0].obj = this.gLight[0];
-										this.mLight[0].maid = GameMain.Instance.MainLight.gameObject;
-										this.mLight[0].angles = GameMain.Instance.MainLight.gameObject.transform.eulerAngles;
-										this.gLight[0].transform.localScale = new Vector3(0.12f, 0.12f, 0.12f);
-										this.mLight[0].ido = 1;
-										this.mLight[0].isScale = false;
+										gLight[0].GetComponent<Renderer>().material = material2;
+										gLight[0].layer = 8;
+										gLight[0].GetComponent<Renderer>().enabled = false;
+										gLight[0].SetActive(false);
+										gLight[0].transform.position = GameMain.Instance.MainLight.transform.position;
+										mLight[0] = gLight[0].AddComponent<MouseDrag6>();
+										mLight[0].obj = gLight[0];
+										mLight[0].maid = GameMain.Instance.MainLight.gameObject;
+										mLight[0].angles = GameMain.Instance.MainLight.gameObject.transform.eulerAngles;
+										gLight[0].transform.localScale = new Vector3(0.12f, 0.12f, 0.12f);
+										mLight[0].ido = 1;
+										mLight[0].isScale = false;
 									}
 								}
-								else if (this.lightIndex[0] == 2)
+								else if (lightIndex[0] == 2)
 								{
 									GameMain.Instance.MainLight.GetComponent<Light>().type = LightType.Point;
 								}
-								else if (this.lightIndex[0] == 3)
+								else if (lightIndex[0] == 3)
 								{
 									GameMain.Instance.MainLight.GetComponent<Light>().type = LightType.Directional;
-									this.mainCamera.GetComponent<Camera>().backgroundColor = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
-									this.bgObject.SetActive(false);
+									mainCamera.GetComponent<Camera>().backgroundColor = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
+									bgObject.SetActive(false);
 								}
-								this.isIdx1 = false;
-								this.isIdx2 = false;
-								this.isIdx3 = false;
-								this.isIdx4 = false;
+								isIdx1 = false;
+								isIdx2 = false;
+								isIdx3 = false;
+								isIdx4 = false;
 							}
 						}
 						else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.Insert))
@@ -8052,7 +8052,7 @@ namespace CM3D2.MultipleMaids.Plugin
 						}
 						else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.Quote))
 						{
-							if (this.lightIndex[0] == 1)
+							if (lightIndex[0] == 1)
 							{
 								GameMain.Instance.MainLight.GetComponent<Light>().spotAngle += 0.2f;
 							}
@@ -8063,7 +8063,7 @@ namespace CM3D2.MultipleMaids.Plugin
 						}
 						else if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.LeftBracket))
 						{
-							if (this.lightIndex[0] == 1)
+							if (lightIndex[0] == 1)
 							{
 								GameMain.Instance.MainLight.GetComponent<Light>().spotAngle -= 0.2f;
 							}
@@ -8075,60 +8075,60 @@ namespace CM3D2.MultipleMaids.Plugin
 						else if (Input.GetKey(KeyCode.R) && Input.GetKeyDown(KeyCode.Minus))
 						{
 							List<int> list6;
-							(list6 = this.lightIndex)[0] = list6[0] + 1;
-							if (this.lightIndex[0] == 3)
+							(list6 = lightIndex)[0] = list6[0] + 1;
+							if (lightIndex[0] == 3)
 							{
-								this.lightIndex[0] = 0;
+								lightIndex[0] = 0;
 							}
 							GameMain.Instance.MainLight.Reset();
 							GameMain.Instance.MainLight.SetIntensity(0.95f);
 							GameMain.Instance.MainLight.GetComponent<Light>().spotAngle = 50f;
 							GameMain.Instance.MainLight.GetComponent<Light>().range = 10f;
 							GameMain.Instance.MainLight.gameObject.transform.position = new Vector3(0f, 2f, 0f);
-							if (this.lightIndex[0] == 0)
+							if (lightIndex[0] == 0)
 							{
 								GameMain.Instance.MainLight.GetComponent<Light>().type = LightType.Directional;
 							}
-							else if (this.lightIndex[0] == 1)
+							else if (lightIndex[0] == 1)
 							{
 								GameMain.Instance.MainLight.transform.eulerAngles += Vector3.right * 40f;
 								GameMain.Instance.MainLight.GetComponent<Light>().type = LightType.Spot;
 							}
-							else if (this.lightIndex[0] == 2)
+							else if (lightIndex[0] == 2)
 							{
 								GameMain.Instance.MainLight.GetComponent<Light>().type = LightType.Point;
 							}
 						}
-						for (l = 0; l < this.lightList.Count; l++)
+						for (l = 0; l < lightList.Count; l++)
 						{
 							if (l > 0)
 							{
-								this.lightList[l].GetComponent<Light>().color = new Color(this.lightColorR[l], this.lightColorG[l], this.lightColorB[l]);
-								this.lightList[l].GetComponent<Light>().intensity = this.lightAkarusa[l];
-								this.lightList[l].GetComponent<Light>().spotAngle = this.lightRange[l];
-								this.lightList[l].GetComponent<Light>().range = this.lightRange[l] / 5f;
-								if (!Input.GetKey(KeyCode.X) && (!Input.GetKey(KeyCode.Z) || !this.getModKeyPressing(MultipleMaids.modKey.Shift)))
+								lightList[l].GetComponent<Light>().color = new Color(lightColorR[l], lightColorG[l], lightColorB[l]);
+								lightList[l].GetComponent<Light>().intensity = lightAkarusa[l];
+								lightList[l].GetComponent<Light>().spotAngle = lightRange[l];
+								lightList[l].GetComponent<Light>().range = lightRange[l] / 5f;
+								if (!Input.GetKey(KeyCode.X) && (!Input.GetKey(KeyCode.Z) || !getModKeyPressing(MultipleMaids.modKey.Shift)))
 								{
-									this.lightList[l].transform.eulerAngles = new Vector3(this.lightX[l], this.lightY[l], 18f);
+									lightList[l].transform.eulerAngles = new Vector3(lightX[l], lightY[l], 18f);
 								}
 							}
 							else
 							{
-								GameMain.Instance.MainLight.SetIntensity(this.lightAkarusa[0]);
-								GameMain.Instance.MainLight.GetComponent<Light>().shadowStrength = this.lightKage[0];
-								if (!Input.GetKey(KeyCode.X) && (!Input.GetKey(KeyCode.Z) || !this.getModKeyPressing(MultipleMaids.modKey.Shift)))
+								GameMain.Instance.MainLight.SetIntensity(lightAkarusa[0]);
+								GameMain.Instance.MainLight.GetComponent<Light>().shadowStrength = lightKage[0];
+								if (!Input.GetKey(KeyCode.X) && (!Input.GetKey(KeyCode.Z) || !getModKeyPressing(MultipleMaids.modKey.Shift)))
 								{
-									GameMain.Instance.MainLight.SetRotation(new Vector3(this.lightX[0], this.lightY[0], 18f));
+									GameMain.Instance.MainLight.SetRotation(new Vector3(lightX[0], lightY[0], 18f));
 								}
-								GameMain.Instance.MainLight.GetComponent<Light>().spotAngle = this.lightRange[l];
-								GameMain.Instance.MainLight.GetComponent<Light>().range = this.lightRange[l] / 5f;
-								if (this.lightIndex[l] != 3)
+								GameMain.Instance.MainLight.GetComponent<Light>().spotAngle = lightRange[l];
+								GameMain.Instance.MainLight.GetComponent<Light>().range = lightRange[l] / 5f;
+								if (lightIndex[l] != 3)
 								{
-									GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+									GameMain.Instance.MainLight.GetComponent<Light>().color = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 								}
 								else
 								{
-									this.mainCamera.GetComponent<Camera>().backgroundColor = new Color(this.lightColorR[0], this.lightColorG[0], this.lightColorB[0]);
+									mainCamera.GetComponent<Camera>().backgroundColor = new Color(lightColorR[0], lightColorG[0], lightColorB[0]);
 								}
 							}
 						}

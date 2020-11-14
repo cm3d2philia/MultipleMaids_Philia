@@ -972,6 +972,7 @@ namespace CM3D2.MultipleMaids.Plugin
 				strList2 = new List<string>();
 				strListE = new List<string>();
 				strListE2 = new List<string>();
+				//strListE3 = new List<string>();
 				strListS = new List<string>();
 				strListD = new List<string>();
 				strS = "";
@@ -1302,24 +1303,355 @@ namespace CM3D2.MultipleMaids.Plugin
 						strList2.Add(text2);
 					}
 				}
-				foreach (string text2 in strListE)
-				{
-					bool flag2 = false;
-					for (int l = 0; l < poseArray.Length; l++)
-					{
-						if (text2 == poseArray[l])
-						{
-							flag2 = true;
-						}
-					}
-					if (!flag2)
-					{
-						strListE2.Add(text2);
-						num2++;
-					}
-				}
-				list3.AddRange(strList2.ToArray());
-				list3.AddRange(strListE2.ToArray());
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("cbl21"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("amayakasi") || text2.StartsWith("anal_name") || text2.StartsWith("atama_kouhaii") || text2.StartsWith("arai2"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("asikoki"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("bed") || text2.StartsWith("bg_seijyoui"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("daijyou") || text2.StartsWith("deep") || text2.StartsWith("dildo_onani"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("fera_mzi"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("ganmenkijyoui"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("haimen") || text2.StartsWith("hanyou") || text2.StartsWith("harem") || text2.StartsWith("hasamikomi") || text2.StartsWith("hakimen") || text2.StartsWith("hizadati"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("inu") || text2.StartsWith("isu"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("jyouou"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("kakaekomizai") || text2.StartsWith("kaikyaku") || text2.StartsWith("kijyoui") || text2.StartsWith("kousoku") || text2.StartsWith("kubisime"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("m_anal") || text2.StartsWith("m_kousoku"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("manguri") || text2.StartsWith("misetuke") || text2.StartsWith("mittyaku") || text2.StartsWith("mokuba") || text2.StartsWith("mp"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("naziri") || text2.StartsWith("nefera"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("om") || text2.StartsWith("onahokoki") || text2.StartsWith("onani3") || text2.StartsWith("osaetuke") || text2.StartsWith("ositaosi"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("paizuri") || text2.StartsWith("poseizi"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("ran3p") || text2.StartsWith("ran4p") || text2.StartsWith("ritui2") || text2.StartsWith("rosyutu"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("s2") || text2.StartsWith("self_ir") || text2.StartsWith("senboukyou") || text2.StartsWith("sexsofa") || text2.StartsWith("siriname") || text2.StartsWith("siruo") || text2.StartsWith("sixnine") || text2.StartsWith("sokui3") || text2.StartsWith("sukebeisu"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("table") || text2.StartsWith("tati") || text2.StartsWith("tekoki") || text2.StartsWith("tetunagi") || text2.StartsWith("turusi"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("ude") || text2.StartsWith("umanori") || text2.StartsWith("vr") || text2.StartsWith("wfera"))
+     //               {
+     //                   strListE2.Add(text2);
+     //               }
+     //           }
+     //           foreach (string text2 in strListE)
+     //           {
+     //               bool flag2 = false;
+     //               for (int l = 0; l < poseArray.Length; l++)
+     //               {
+     //                   if (text2 == poseArray[l])
+     //                   {
+     //                       flag2 = true;
+     //                   }
+     //               }
+     //               if (!flag2 && text2.StartsWith("x_yuri") || text2.StartsWith("yotunbai") || text2.StartsWith("yukadon") || text2.StartsWith("yuri"))
+     //               {
+     //                   strListE2.Add(text2);
+					//	num2++;
+					//}
+     //           }
+                //            foreach (string text2 in strListE)
+                //            {
+                //                bool flag2 = false;
+                //                for (int l = 0; l < poseArray.Length; l++)
+                //                {
+                //                    if (text == poseArray[l])
+                //                    {
+                //                        flag2 = true;
+                //                    }
+                //                }
+                //                if (!flag2)
+                //                {
+                //                    strListE2.Add(text);
+                //                    num2++;
+                //                }
+                //            }
+                //foreach (string text2 in strListE)
+                //{
+                //    bool flag2 = false;
+                //    for (int l = 0; l < poseArray.Length; l++)
+                //    {
+                //        if (text == poseArray[l])
+                //        {
+                //            flag2 = true;
+                //        }
+                //    }
+                //    if (!flag2)
+                //    {
+                //        strListE21.Add(text);
+                //    }
+                //}
+                list3.AddRange(strList2.ToArray());
+				//list3.AddRange(strListE2.ToArray());
 				existPose = false;
 				poseIniStr = "";
 				List<IniKey> keys = base.Preferences["pose"].Keys;
@@ -1351,9 +1683,10 @@ namespace CM3D2.MultipleMaids.Plugin
 				list7.AddRange(poseGroupArray3);
 				list7.Add(poseArray5[0]);
 				list7.Add(poseArray6[0]);
-				list7.Add(strList2[0]);
-				list7.Add(strListE2[0]);
-				if (strListS.Count > 0 && poseIniStr == "")
+                list7.Add(strList2[0]);
+                //list7.Add(strListE2[0]);
+                //            list7.Add(strListE21[0]);
+                if (strListS.Count > 0 && poseIniStr == "")
 				{
 					list7.Add(strListS[0]);
 					existPose = true;

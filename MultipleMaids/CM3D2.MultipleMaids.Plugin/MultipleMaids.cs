@@ -7150,6 +7150,7 @@ namespace CM3D2.MultipleMaids.Plugin
 		private List<string> strList2 = new List<string>();
 		private List<string> strListE = new List<string>();
 		private List<string> strListE2 = new List<string>();
+		private List<string> strListE21 = new List<string>();
 		private List<string> strListS = new List<string>();
 		private List<string> strListD = new List<string>();
 

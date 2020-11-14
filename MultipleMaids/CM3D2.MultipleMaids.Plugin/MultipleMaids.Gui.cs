@@ -9522,15 +9522,19 @@ namespace CM3D2.MultipleMaids.Plugin
 					}
 					if (existPose && strS != "")
 					{
-						if (i == poseGroupArray.Length - 4)
-						{
-							poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":通常2");
-						}
-						if (i == poseGroupArray.Length - 3)
-						{
-							poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
-						}
-						if (i == poseGroupArray.Length - 2)
+                        if (i == poseGroupArray.Length - 3)
+                        {
+                            poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":通常2");
+                        }
+                        //if (i == poseGroupArray.Length - 4)
+                        //{
+                        //	poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
+                        //}
+                        //                  if (i == poseGroupArray.Length - 3)
+                        //                  {
+                        //                      poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ21");
+                        //                  }
+                        if (i == poseGroupArray.Length - 2)
 						{
 							poseGroupComboList[i + 1] = new GUIContent("98:撮影モード");
 						}
@@ -9541,46 +9545,58 @@ namespace CM3D2.MultipleMaids.Plugin
 					}
 					else if (existPose && strS == "")
 					{
-						if (i == poseGroupArray.Length - 3)
-						{
-							poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":通常2");
-						}
-						if (i == poseGroupArray.Length - 2)
-						{
-							poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
-						}
-						if (i == poseGroupArray.Length - 1)
+                        if (i == poseGroupArray.Length - 2)
+                        {
+                            poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":通常2");
+                        }
+                        //if (i == poseGroupArray.Length - 2)
+                        //{
+                        //	poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
+                        //}
+                        //                  if (i == poseGroupArray.Length - 2)
+                        //                  {
+                        //                      poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ21");
+                        //                  }
+                        if (i == poseGroupArray.Length - 1)
 						{
 							poseGroupComboList[i + 1] = new GUIContent("99:登録ポーズ");
 						}
 					}
 					else if (!existPose && strS != "")
 					{
-						if (i == poseGroupArray.Length - 3)
-						{
-							poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":通常2");
-						}
-						if (i == poseGroupArray.Length - 2)
-						{
-							poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
-						}
-						if (i == poseGroupArray.Length - 1)
+                        if (i == poseGroupArray.Length - 2)
+                        {
+                            poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":通常2");
+                        }
+                        //if (i == poseGroupArray.Length - 2)
+                        //{
+                        //	poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
+                        //}
+                        //                  if (i == poseGroupArray.Length - 2)
+                        //                  {
+                        //                      poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ21");
+                        //                  }
+                        if (i == poseGroupArray.Length - 1)
 						{
 							poseGroupComboList[i + 1] = new GUIContent("98:撮影モード");
 						}
 					}
-					else
-					{
-						if (i == poseGroupArray.Length - 2)
-						{
-							poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":通常2");
-						}
-						if (i == poseGroupArray.Length - 1)
-						{
-							poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
-						}
-					}
-				}
+                    else
+                    {
+                        if (i == poseGroupArray.Length - 1)
+                        {
+                            poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":通常2");
+                        }
+                        //if (i == poseGroupArray.Length - 2)
+                        //{
+                        //    poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
+                        //}
+                        //if (i == poseGroupArray.Length - 1)
+                        //{
+                        //    poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ21");
+                        //}
+                    }
+                }
 				poseInitFlg = true;
 				itemCombo.selectedItemIndex = 0;
 				num2 = itemArray.Length;
@@ -10378,7 +10394,8 @@ namespace CM3D2.MultipleMaids.Plugin
 							list2.Add(poseArray5[0]);
 							list2.Add(poseArray6[0]);
 							list2.Add(strList2[0]);
-							list2.Add(strListE2[0]);
+							//list2.Add(strListE2[0]);
+							//list2.Add(strListE2[0]);
 							existPose = false;
 							poseGroupArray = list2.ToArray();
 							groupList = new ArrayList();
@@ -10489,15 +10506,19 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									poseGroupComboList[m + 1] = new GUIContent(m + 2 + ":ダンス");
 								}
-								if (m == poseGroupArray.Length - 2)
-								{
-									poseGroupComboList[m + 1] = new GUIContent(m + 2 + ":通常2");
-								}
-								if (m == poseGroupArray.Length - 1)
-								{
-									poseGroupComboList[m + 1] = new GUIContent(m + 2 + ":エロ2");
-								}
-							}
+                                if (m == poseGroupArray.Length - 1)
+                                {
+                                    poseGroupComboList[m + 1] = new GUIContent(m + 2 + ":通常2");
+                                }
+                                //if (m == poseGroupArray.Length - 2)
+                                //{
+                                //	poseGroupComboList[m + 1] = new GUIContent(m + 2 + ":エロ2");
+                                //}
+                                //                        if (m == poseGroupArray.Length - 1)
+                                //                        {
+                                //                            poseGroupComboList[m + 1] = new GUIContent(m + 2 + ":エロ21");
+                                //                        }
+                            }
 						}
 						else
 						{

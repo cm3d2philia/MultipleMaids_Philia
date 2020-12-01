@@ -6534,23 +6534,23 @@ namespace CM3D2.MultipleMaids.Plugin
 							}
 							if (!isDanceChu)
 							{
-								if (maid.body0.GetMask(0) != isMaid)
+								if (maid.body0.GetMask(TBody.SlotID.body) != isMaid)
 								{
 									Hashtable fieldValue4 = MultipleMaids.GetFieldValue<TBody, Hashtable>(maid.body0, "m_hFoceHide");
-									fieldValue4[0] = isMaid;
-									fieldValue4[1] = isMaid;
-									fieldValue4[2] = isMaid;
-									fieldValue4[3] = isMaid;
-									fieldValue4[4] = isMaid;
-									fieldValue4[5] = isMaid;
-									fieldValue4[6] = isMaid;
-									fieldValue4[18] = isMaid;
-									fieldValue4[39] = isMaid;
-									fieldValue4[56] = isMaid;
-									fieldValue4[57] = isMaid;
+									fieldValue4[TBody.SlotID.body] = isMaid;
+									fieldValue4[TBody.SlotID.head] = isMaid;
+									fieldValue4[TBody.SlotID.eye] = isMaid;
+									fieldValue4[TBody.SlotID.hairF] = isMaid;
+									fieldValue4[TBody.SlotID.hairR] = isMaid;
+									fieldValue4[TBody.SlotID.hairS] = isMaid;
+									fieldValue4[TBody.SlotID.hairT] = isMaid;
+									fieldValue4[TBody.SlotID.hairAho] = isMaid;
+									fieldValue4[TBody.SlotID.chikubi] = isMaid;
+									fieldValue4[TBody.SlotID.underhair] = isMaid;
+									fieldValue4[TBody.SlotID.moza] = isMaid;
 									if (maid.body0.goSlot[19].m_strModelFileName.Contains("melala_body"))
 									{
-										fieldValue4[19] = isMaid;
+										fieldValue4[TBody.SlotID.accHana] = isMaid;
 									}
 									maid.body0.FixMaskFlag();
 									maid.body0.FixVisibleFlag(false);

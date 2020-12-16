@@ -20,7 +20,7 @@ using Math = System.Math;
 
 namespace CM3D2.MultipleMaids.Plugin
 {
-    [PluginVersion("23.1.1")]
+    [PluginVersion("23.1.2")]
     [PluginFilter("COM3D2x64")]
     [PluginFilter("CM3D2x86")]
     [PluginFilter("CM3D2VRx64")]

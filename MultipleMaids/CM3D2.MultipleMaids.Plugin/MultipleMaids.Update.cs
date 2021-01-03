@@ -328,7 +328,7 @@ namespace CM3D2.MultipleMaids.Plugin
 							isZurasi = !isZurasi;
 						}
 						h2Flg = true;
-						if (sceneLevel != 3 && sceneLevel != 5)
+						if (sceneLevel != 3 && sceneLevel != 5 && sceneLevel != 26)
 						{
 							maidArray[0] = GameMain.Instance.CharacterMgr.GetMaid(0);
 							maidArray[1] = GameMain.Instance.CharacterMgr.GetMaid(1);
@@ -342,7 +342,7 @@ namespace CM3D2.MultipleMaids.Plugin
 							{
 								if (Input.GetKeyDown(KeyCode.KeypadDivide) || Input.GetKeyDown(KeyCode.KeypadMultiply) || Input.GetKeyDown(KeyCode.KeypadMinus))
 								{
-									if (sceneLevel == 3 || sceneLevel == 5)
+									if (sceneLevel == 3 || sceneLevel == 5 || sceneLevel == 26)
 									{
 										if (Input.GetKeyDown(KeyCode.KeypadDivide))
 										{
@@ -5900,7 +5900,7 @@ namespace CM3D2.MultipleMaids.Plugin
 					{
 						if (isF6S || !getModKeyPressing(MultipleMaids.modKey.Shift) || !Input.GetKeyDown(KeyCode.F6))
 						{
-							if (!isF6 && Input.GetKeyDown(KeyCode.F6) && sceneLevel != 5 && sceneLevel != 3 && !isVR && maidArray[0] && maidArray[0].Visible)
+							if (!isF6 && Input.GetKeyDown(KeyCode.F6) && sceneLevel != 5 && sceneLevel != 26 && sceneLevel != 3 && !isVR && maidArray[0] && maidArray[0].Visible)
 							{
 								isF6 = true;
 								bGui = true;
@@ -5928,7 +5928,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								lightX[0] = GameMain.Instance.MainLight.transform.eulerAngles.x;
 								lightY[0] = GameMain.Instance.MainLight.transform.eulerAngles.y;
 							}
-							else if (!isF6 && Input.GetKeyDown(KeyCode.F7) && sceneLevel != 5 && sceneLevel != 3 && !isVR && maidArray[0] && maidArray[0].Visible)
+							else if (!isF6 && Input.GetKeyDown(KeyCode.F7) && sceneLevel != 5 && sceneLevel != 26 && sceneLevel != 3 && !isVR && maidArray[0] && maidArray[0].Visible)
 							{
 								isF6 = true;
 								bGui = true;
@@ -6852,7 +6852,7 @@ namespace CM3D2.MultipleMaids.Plugin
 						else
 						{
 							Maid maid = maidArray[selectMaidIndex];
-							if (!yotogiFlg && sceneLevel != 5 && sceneLevel != 3)
+							if (!yotogiFlg && sceneLevel != 5 && sceneLevel != 26 && sceneLevel != 3)
 							{
 								if (maid.body0.GetMask(TBody.SlotID.wear) != isWear)
 								{

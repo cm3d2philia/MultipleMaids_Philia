@@ -217,7 +217,7 @@ namespace CM3D2.MultipleMaids.Plugin
 			isPoseEdit = false;
 			isFaceEdit = false;
 			bgmIndex = 0;
-			if (sceneLevel == 5)
+			if (sceneLevel == 5 || sceneLevel == 26)
 			{
 				bgmIndex = 2;
 			}
@@ -687,7 +687,7 @@ namespace CM3D2.MultipleMaids.Plugin
 			isPoseEdit = false;
 			isFaceEdit = false;
 			bgmIndex = 0;
-			if (sceneLevel == 5)
+			if (sceneLevel == 5 || sceneLevel == 26)
 			{
 				bgmIndex = 2;
 			}

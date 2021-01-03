@@ -43,7 +43,7 @@ namespace CM3D2.MultipleMaids.Plugin
 					isGuiInit = false;
 					screenSize = new Vector2((float)Screen.width, (float)Screen.height);
 				}
-				if (sceneLevel != 5 && sceneLevel != 14)
+				if (sceneLevel != 5 && sceneLevel != 14 && sceneLevel != 26)
 				{
 					if (kankyoFlg || kankyo2Flg)
 					{
@@ -197,7 +197,7 @@ namespace CM3D2.MultipleMaids.Plugin
 							GameMain.Instance.MainCamera.SetControl(!rectWin.Contains(new Vector2(Input.mousePosition.x, (float)Screen.height - Input.mousePosition.y)));
 						}
 					}
-					else if (!yotogiFlg && sceneLevel != 3 && sceneLevel != 5 && rectWin.Contains(new Vector2(Input.mousePosition.x, (float)Screen.height - Input.mousePosition.y)))
+					else if (!yotogiFlg && sceneLevel != 3 && sceneLevel != 5 && sceneLevel != 26 && rectWin.Contains(new Vector2(Input.mousePosition.x, (float)Screen.height - Input.mousePosition.y)))
 					{
 						if (Input.GetMouseButtonDown(0))
 						{
@@ -230,7 +230,7 @@ namespace CM3D2.MultipleMaids.Plugin
 							GameMain.Instance.MainCamera.SetControl(!rectWin.Contains(new Vector2(Input.mousePosition.x, (float)Screen.height - Input.mousePosition.y)));
 						}
 					}
-					else if (!yotogiFlg && sceneLevel != 3 && sceneLevel != 5 && rectWin.Contains(new Vector2(Input.mousePosition.x, (float)Screen.height - Input.mousePosition.y)))
+					else if (!yotogiFlg && sceneLevel != 3 && sceneLevel != 5 && sceneLevel != 26 && rectWin.Contains(new Vector2(Input.mousePosition.x, (float)Screen.height - Input.mousePosition.y)))
 					{
 						if (Input.GetMouseButtonDown(0))
 						{
@@ -248,7 +248,7 @@ namespace CM3D2.MultipleMaids.Plugin
 							GameMain.Instance.MainCamera.SetControl(!rectWin.Contains(new Vector2(Input.mousePosition.x, (float)Screen.height - Input.mousePosition.y)));
 						}
 					}
-					else if (!yotogiFlg && sceneLevel != 3 && sceneLevel != 5 && rectWin.Contains(new Vector2(Input.mousePosition.x, (float)Screen.height - Input.mousePosition.y)))
+					else if (!yotogiFlg && sceneLevel != 3 && sceneLevel != 5 && sceneLevel != 26 &&rectWin.Contains(new Vector2(Input.mousePosition.x, (float)Screen.height - Input.mousePosition.y)))
 					{
 						if (Input.GetMouseButtonDown(0))
 						{
@@ -263,7 +263,7 @@ namespace CM3D2.MultipleMaids.Plugin
 				screenSize = new Vector2((float)Screen.width, (float)Screen.height);
 				rectWin2.Set(0f, 0f, (float)Screen.width * 0.4f, (float)Screen.height * 0.15f);
 				rectWin2.x = screenSize.x / 2f - rectWin2.width / 2f;
-				if (sceneLevel == 5)
+				if (sceneLevel == 5 || sceneLevel == 26)
 				{
 					rectWin2.y = screenSize.y * 0.94f - rectWin2.height;
 				}
@@ -2660,7 +2660,7 @@ namespace CM3D2.MultipleMaids.Plugin
 			{
 				GUI.enabled = false;
 			}
-			if (sceneLevel == 3 || sceneLevel == 5 || isF6)
+			if (sceneLevel == 3 || sceneLevel == 5 || sceneLevel == 26 || isF6)
 			{
 				if (!isF6)
 				{
@@ -2746,7 +2746,7 @@ namespace CM3D2.MultipleMaids.Plugin
 				float num2 = (float)GetPix(45);
 				Rect position;
 				Rect viewRect;
-				if (sceneLevel != 5)
+				if (sceneLevel != 5 && sceneLevel != 26)
 				{
 					position = new Rect((float)GetPix(7), (float)GetPix(108), (float)(GetPix(44) * 4 + GetPix(20)), rectWin.height * 0.825f);
 					viewRect = new Rect(0f, 0f, position.width * 0.85f, num2 * (float)Math.Ceiling((double)sortList.Count / 4.0) + (float)GetPix(50));
@@ -2854,7 +2854,7 @@ namespace CM3D2.MultipleMaids.Plugin
 				float num2 = (float)GetPix(45);
 				Rect position;
 				Rect viewRect;
-				if (sceneLevel != 5)
+				if (sceneLevel != 5 && sceneLevel != 26)
 				{
 					position = new Rect((float)GetPix(7), (float)GetPix(92), (float)(GetPix(44) * 4 + GetPix(20)), rectWin.height * 0.85f);
 					viewRect = new Rect(0f, 0f, position.width * 0.85f, num2 * (float)Math.Ceiling((double)sortListMy.Count / 4.0) + (float)GetPix(50));
@@ -5008,7 +5008,7 @@ namespace CM3D2.MultipleMaids.Plugin
 				listStyle3.padding.bottom = GetPix(0);
 				listStyle3.fontSize = GetPix(12);
 				bgmCombo.selectedItemIndex = bgmIndex;
-				if (sceneLevel == 5)
+				if (sceneLevel == 5 || sceneLevel == 26)
 				{
 					bgmCombo.selectedItemIndex = 2;
 				}
@@ -8409,7 +8409,7 @@ namespace CM3D2.MultipleMaids.Plugin
 			{
 				GUI.enabled = false;
 			}
-			if (sceneLevel == 3 || sceneLevel == 5 || isF6)
+			if (sceneLevel == 3 || sceneLevel == 5 || sceneLevel == 26 || isF6)
 			{
 				if (!isF6)
 				{
@@ -9795,7 +9795,7 @@ namespace CM3D2.MultipleMaids.Plugin
 			{
 				GUI.enabled = false;
 			}
-			if (sceneLevel == 3 || sceneLevel == 5 || isF6)
+			if (sceneLevel == 3 || sceneLevel == 5 || sceneLevel == 26 || isF6)
 			{
 				if (!isF6)
 				{
@@ -9866,7 +9866,7 @@ namespace CM3D2.MultipleMaids.Plugin
 			if (sceneLevel > 0)
 			{
 				int i = selectMaidIndex;
-				if (sceneLevel == 3 || (sceneLevel == 5 && (isF7 || maidCnt > 1)))
+				if (sceneLevel == 3 || (sceneLevel == 5 && (isF7 || maidCnt > 1)) || (sceneLevel == 26 && isF7))
 				{
 					if (GUI.Button(new Rect((float)GetPix(5), (float)GetPix(53), (float)GetPix(23), (float)GetPix(32)), "＜", guistyle3))
 					{
@@ -9909,7 +9909,7 @@ namespace CM3D2.MultipleMaids.Plugin
 					isStop[selectMaidIndex] = true;
 					isDanceStop = false;
 				}
-				if (sceneLevel == 5)
+				if (sceneLevel == 5 || sceneLevel == 26)
 				{
 					if (maidCnt > 1)
 					{
@@ -11847,7 +11847,7 @@ namespace CM3D2.MultipleMaids.Plugin
 			{
 				GUI.enabled = false;
 			}
-			if (sceneLevel == 3 || sceneLevel == 5 || isF6)
+			if (sceneLevel == 3 || sceneLevel == 5 || sceneLevel == 26 || isF6)
 			{
 				if (!isF6)
 				{
@@ -11918,7 +11918,7 @@ namespace CM3D2.MultipleMaids.Plugin
 			if (sceneLevel > 0)
 			{
 				int i = selectMaidIndex;
-				if (sceneLevel == 3 || (sceneLevel == 5 && (isF7 || maidCnt > 1)))
+				if (sceneLevel == 3 || (sceneLevel == 5 && (isF7 || maidCnt > 1)) || (sceneLevel == 26 && isF7))
 				{
 					if (GUI.Button(new Rect((float)GetPix(5), (float)GetPix(53), (float)GetPix(23), (float)GetPix(32)), "＜", guistyle3))
 					{
@@ -13239,7 +13239,7 @@ namespace CM3D2.MultipleMaids.Plugin
 			int stockMaidCount = characterMgr.GetStockMaidCount();
 			Rect position;
 			Rect viewRect;
-			if (sceneLevel != 5)
+			if (sceneLevel != 5 && sceneLevel != 26)
 			{
 				position = new Rect((float)GetPix(7), (float)GetPix(110), rectWin.width - (float)GetPix(14), rectWin.height * 0.83f);
 				viewRect = new Rect(0f, 0f, position.width * 0.85f, (num + (float)GetPix(5)) * (float)stockMaidCount + (float)GetPix(15));
@@ -13288,7 +13288,7 @@ namespace CM3D2.MultipleMaids.Plugin
 			GUIStyleState guistyleState = new GUIStyleState();
 			if (GUI.Button(new Rect((float)GetPix(10), (float)GetPix(52), rectWin.width * 0.4f, (float)GetPix(23)), "7人選択", guistyle4))
 			{
-				if (sceneLevel != 5)
+				if (sceneLevel != 5 && sceneLevel != 26)
 				{
 					selectList = new ArrayList();
 					selectList.Add(0);

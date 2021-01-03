@@ -123,12 +123,12 @@ namespace CM3D2.MultipleMaids.Plugin
 			isF7 = false;
 			isF7SInit = false;
 			isF6 = false;
-			if (sceneLevel == 3 || sceneLevel == 5)
+			if (sceneLevel == 3 || sceneLevel == 5 ||sceneLevel == 26)
 			{
 				Preference();
 				init();
 				isScript = false;
-				if (sceneLevel == 5)
+				if (sceneLevel == 5 || sceneLevel == 26)
 				{
 					isF7SInit = true;
 				}
@@ -221,7 +221,7 @@ namespace CM3D2.MultipleMaids.Plugin
 						maid.body0.Face.morph.LipSync1 = maid.body0.Face.morph.LipSync1 * 0.15f + (float)m_baKuchipakuPattern[i][num * 3] / 255f * 0.85f * 3f;
 						maid.body0.Face.morph.LipSync2 = maid.body0.Face.morph.LipSync2 * 0.15f + (float)m_baKuchipakuPattern[i][num * 3 + 1] / 255f * 0.85f * 3f;
 						maid.body0.Face.morph.LipSync3 = maid.body0.Face.morph.LipSync3 * 0.15f + (float)m_baKuchipakuPattern[i][num * 3 + 2] / 255f * 0.85f * 3f;
-						if (sceneLevel == 5)
+						if (sceneLevel == 5 || sceneLevel == 26)
 						{
 							if (maid.boMabataki && isFace[i])
 							{

@@ -317,7 +317,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								}
 								maidArray[k].Visible = true;
 							}
-							else if (sceneLevel != 5 && sceneLevel != 26)
+							else if (sceneLevel != 5)
 							{
 								maidArray[k] = GameMain.Instance.CharacterMgr.Activate((int)selectList[k], (int)selectList[k], false, false);
 								maidArray[k] = GameMain.Instance.CharacterMgr.CharaVisible((int)selectList[k], true, false);
@@ -358,7 +358,7 @@ namespace CM3D2.MultipleMaids.Plugin
 					isYobidashi = false;
 				}
 			}
-			if ((sceneLevel == 5 || sceneLevel == 26) && !isFadeOut && Input.GetKeyDown(KeyCode.F7) && getModKeyPressing(MultipleMaids.modKey.Shift))
+			if (sceneLevel == 5 && !isFadeOut && Input.GetKeyDown(KeyCode.F7) && getModKeyPressing(MultipleMaids.modKey.Shift))
 			{
 				if (!isF7S)
 				{
@@ -384,7 +384,7 @@ namespace CM3D2.MultipleMaids.Plugin
 					GameMain.Instance.SoundMgr.PlaySe("se003.ogg", false);
 				}
 			}
-			else if ((sceneLevel == 5 || sceneLevel == 26)&& !isFadeOut && Input.GetKeyDown(KeyCode.F7))
+			else if (sceneLevel == 5 && !isFadeOut && Input.GetKeyDown(KeyCode.F7))
 			{
 				if (isF7S && !isF7)
 				{

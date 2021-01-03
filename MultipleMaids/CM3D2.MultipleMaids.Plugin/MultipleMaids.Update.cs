@@ -1038,322 +1038,322 @@ namespace CM3D2.MultipleMaids.Plugin
 							strList2.Add(text);
 						}
 					}
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("cbl21"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("amayakasi") || text.StartsWith("anal_name") || text.StartsWith("atama_kouhaii") || text.StartsWith("arai2"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("asikoki"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("bed") || text.StartsWith("bg_seijyoui"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("daijyou") || text.StartsWith("deep") || text.StartsWith("dildo_onani"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("fera_mzi"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("ganmenkijyoui"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("haimen") || text.StartsWith("hanyou") || text.StartsWith("harem") || text.StartsWith("hasamikomi") || text.StartsWith("hakimen") || text.StartsWith("hizadati"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("inu") || text.StartsWith("isu"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("jyouou"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("kakaekomizai") || text.StartsWith("kaikyaku") || text.StartsWith("kijyoui") || text.StartsWith("kousoku") || text.StartsWith("kubisime"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("m_anal") || text.StartsWith("m_kousoku"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("manguri") || text.StartsWith("misetuke") || text.StartsWith("mittyaku") || text.StartsWith("mokuba") || text.StartsWith("mp"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("naziri") || text.StartsWith("nefera"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("om") || text.StartsWith("onahokoki") || text.StartsWith("onani3") || text.StartsWith("osaetuke") || text.StartsWith("ositaosi"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("paizuri") || text.StartsWith("poseizi"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("ran3p") || text.StartsWith("ran4p") || text.StartsWith("ritui2") || text.StartsWith("rosyutu"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("s2") || text.StartsWith("self_ir") || text.StartsWith("senboukyou") || text.StartsWith("sexsofa") || text.StartsWith("siriname") || text.StartsWith("siruo") || text.StartsWith("sixnine") || text.StartsWith("sokui3") || text.StartsWith("sukebeisu"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("table") || text.StartsWith("tati") || text.StartsWith("tekoki") || text.StartsWith("tetunagi") || text.StartsWith("turusi"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("ude") || text.StartsWith("umanori") || text.StartsWith("vr") || text.StartsWith("wfera"))
-      //                  {
-      //                      strListE2.Add(text);
-      //                  }
-      //              }
-      //              foreach (string text in strListE)
-      //              {
-      //                  bool flag3 = false;
-      //                  for (int l = 0; l < poseArray.Length; l++)
-      //                  {
-      //                      if (text == poseArray[l])
-      //                      {
-      //                          flag3 = true;
-      //                      }
-      //                  }
-      //                  if (!flag3 && text.StartsWith("x_yuri") || text.StartsWith("yotunbai") || text.StartsWith("yukadon") || text.StartsWith("yuri"))
-      //                  {
-      //                      strListE2.Add(text);
-						//	num2++;
-						//}
-      //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("cbl21"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("amayakasi") || text.StartsWith("anal_name") || text.StartsWith("atama_kouhaii") || text.StartsWith("arai2"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("asikoki"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    foreach (string text in strListE)
+                    {
+                        bool flag3 = false;
+                        for (int l = 0; l < poseArray.Length; l++)
+                        {
+                            if (text == poseArray[l])
+                            {
+                                flag3 = true;
+                            }
+                        }
+                        if (!flag3 && text.StartsWith("bed") || text.StartsWith("bg_seijyoui"))
+                        {
+                            strListE2.Add(text);
+                        }
+                    }
+                    foreach (string text in strListE)
+                    {
+                        bool flag3 = false;
+                        for (int l = 0; l < poseArray.Length; l++)
+                        {
+                            if (text == poseArray[l])
+                            {
+                                flag3 = true;
+                            }
+                        }
+                        if (!flag3 && text.StartsWith("daijyou") || text.StartsWith("deep") || text.StartsWith("dildo_onani"))
+                        {
+                            strListE2.Add(text);
+                        }
+                    }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("fera_mzi"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("ganmenkijyoui"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("haimen") || text.StartsWith("hanyou") || text.StartsWith("harem") || text.StartsWith("hasamikomi") || text.StartsWith("hakimen") || text.StartsWith("hizadati"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("inu") || text.StartsWith("isu"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("jyouou"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("kakaekomizai") || text.StartsWith("kaikyaku") || text.StartsWith("kijyoui") || text.StartsWith("kousoku") || text.StartsWith("kubisime"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("m_anal") || text.StartsWith("m_kousoku"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("manguri") || text.StartsWith("misetuke") || text.StartsWith("mittyaku") || text.StartsWith("mokuba") || text.StartsWith("mp"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("naziri") || text.StartsWith("nefera"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("om") || text.StartsWith("onahokoki") || text.StartsWith("onani3") || text.StartsWith("osaetuke") || text.StartsWith("ositaosi"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("paizuri") || text.StartsWith("poseizi"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("ran3p") || text.StartsWith("ran4p") || text.StartsWith("ritui2") || text.StartsWith("rosyutu"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("s2") || text.StartsWith("self_ir") || text.StartsWith("senboukyou") || text.StartsWith("sexsofa") || text.StartsWith("siriname") || text.StartsWith("siruo") || text.StartsWith("sixnine") || text.StartsWith("sokui3") || text.StartsWith("sukebeisu"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("table") || text.StartsWith("tati") || text.StartsWith("tekoki") || text.StartsWith("tetunagi") || text.StartsWith("turusi"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("ude") || text.StartsWith("umanori") || text.StartsWith("vr") || text.StartsWith("wfera"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //                  }
+                    //              }
+                    //              foreach (string text in strListE)
+                    //              {
+                    //                  bool flag3 = false;
+                    //                  for (int l = 0; l < poseArray.Length; l++)
+                    //                  {
+                    //                      if (text == poseArray[l])
+                    //                      {
+                    //                          flag3 = true;
+                    //                      }
+                    //                  }
+                    //                  if (!flag3 && text.StartsWith("x_yuri") || text.StartsWith("yotunbai") || text.StartsWith("yukadon") || text.StartsWith("yuri"))
+                    //                  {
+                    //                      strListE2.Add(text);
+                    //	num2++;
+                    //}
+                    //              }
                     //               foreach (string text in strListE)
                     //               {
                     //                   bool flag3 = false;
@@ -1386,8 +1386,8 @@ namespace CM3D2.MultipleMaids.Plugin
                     //    }
                     //}
                     list.AddRange(strList2.ToArray());
-					//list.AddRange(strListE2.ToArray());
-					existPose = false;
+                    list.AddRange(strListE2.ToArray());
+                    existPose = false;
 					poseIniStr = "";
 					List<IniKey> keys = base.Preferences["pose"].Keys;
 					foreach (IniKey iniKey in keys)
@@ -1419,8 +1419,7 @@ namespace CM3D2.MultipleMaids.Plugin
 					list5.Add(poseArray5[0]);
 					list5.Add(poseArray6[0]);
                     list5.Add(strList2[0]);
-                    //list5.Add(strListE2[0]);
-                    //               list5.Add(strListE21[0]);
+                    list5.Add(strListE2[0]);
                     existPose = true;
 					if (strListS.Count > 0 && poseIniStr == "")
 					{
@@ -1538,18 +1537,14 @@ namespace CM3D2.MultipleMaids.Plugin
 						{
 							poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":ダンス");
 						}
-                        if (n == poseGroupArray.Length - 2)
+                        if (n == poseGroupArray.Length - 3)
                         {
                             poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":通常2");
                         }
-                        //if (n == poseGroupArray.Length - 3)
-                        //{
-                        //	poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":エロ2");
-                        //}
-                        //                  if (n == poseGroupArray.Length - 2)
-                        //                  {
-                        //                      poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":エロ21");
-                        //                  }
+                        if (n == poseGroupArray.Length - 2)
+                        {
+                            poseGroupComboList[n + 1] = new GUIContent(n + 2 + ":エロ2");
+                        }
                         if (n == poseGroupArray.Length - 1)
 						{
 							poseGroupComboList[n + 1] = new GUIContent("99:登録ポーズ");

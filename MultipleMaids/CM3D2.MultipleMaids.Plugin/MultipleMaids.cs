@@ -20,7 +20,7 @@ using Math = System.Math;
 
 namespace CM3D2.MultipleMaids.Plugin
 {
-    [PluginVersion("23.1.2")]
+    [PluginVersion("23.1.3")]
     [PluginFilter("COM3D2x64")]
     [PluginFilter("CM3D2x86")]
     [PluginFilter("CM3D2VRx64")]
@@ -7150,7 +7150,6 @@ namespace CM3D2.MultipleMaids.Plugin
 		private List<string> strList2 = new List<string>();
 		private List<string> strListE = new List<string>();
 		private List<string> strListE2 = new List<string>();
-		private List<string> strListE21 = new List<string>();
 		private List<string> strListS = new List<string>();
 		private List<string> strListD = new List<string>();
 

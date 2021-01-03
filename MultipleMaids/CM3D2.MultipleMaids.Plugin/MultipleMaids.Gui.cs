@@ -9522,18 +9522,14 @@ namespace CM3D2.MultipleMaids.Plugin
 					}
 					if (existPose && strS != "")
 					{
-                        if (i == poseGroupArray.Length - 3)
+                        if (i == poseGroupArray.Length - 4)
                         {
                             poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":通常2");
                         }
-                        //if (i == poseGroupArray.Length - 4)
-                        //{
-                        //	poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
-                        //}
-                        //                  if (i == poseGroupArray.Length - 3)
-                        //                  {
-                        //                      poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ21");
-                        //                  }
+                        if (i == poseGroupArray.Length - 3)
+                        {
+                            poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
+                        }
                         if (i == poseGroupArray.Length - 2)
 						{
 							poseGroupComboList[i + 1] = new GUIContent("98:撮影モード");
@@ -9545,18 +9541,14 @@ namespace CM3D2.MultipleMaids.Plugin
 					}
 					else if (existPose && strS == "")
 					{
-                        if (i == poseGroupArray.Length - 2)
+                        if (i == poseGroupArray.Length - 3)
                         {
                             poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":通常2");
                         }
-                        //if (i == poseGroupArray.Length - 2)
-                        //{
-                        //	poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
-                        //}
-                        //                  if (i == poseGroupArray.Length - 2)
-                        //                  {
-                        //                      poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ21");
-                        //                  }
+                        if (i == poseGroupArray.Length - 2)
+                        {
+                            poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
+                        }
                         if (i == poseGroupArray.Length - 1)
 						{
 							poseGroupComboList[i + 1] = new GUIContent("99:登録ポーズ");
@@ -9564,18 +9556,14 @@ namespace CM3D2.MultipleMaids.Plugin
 					}
 					else if (!existPose && strS != "")
 					{
-                        if (i == poseGroupArray.Length - 2)
+                        if (i == poseGroupArray.Length - 3)
                         {
                             poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":通常2");
                         }
-                        //if (i == poseGroupArray.Length - 2)
-                        //{
-                        //	poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
-                        //}
-                        //                  if (i == poseGroupArray.Length - 2)
-                        //                  {
-                        //                      poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ21");
-                        //                  }
+                        if (i == poseGroupArray.Length - 2)
+                        {
+                            poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
+                        }
                         if (i == poseGroupArray.Length - 1)
 						{
 							poseGroupComboList[i + 1] = new GUIContent("98:撮影モード");
@@ -9583,18 +9571,14 @@ namespace CM3D2.MultipleMaids.Plugin
 					}
                     else
                     {
-                        if (i == poseGroupArray.Length - 1)
+                        if (i == poseGroupArray.Length - 2)
                         {
                             poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":通常2");
                         }
-                        //if (i == poseGroupArray.Length - 2)
-                        //{
-                        //    poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
-                        //}
-                        //if (i == poseGroupArray.Length - 1)
-                        //{
-                        //    poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ21");
-                        //}
+                        if (i == poseGroupArray.Length - 1)
+                        {
+                            poseGroupComboList[i + 1] = new GUIContent(i + 2 + ":エロ2");
+                        }
                     }
                 }
 				poseInitFlg = true;
@@ -10394,9 +10378,8 @@ namespace CM3D2.MultipleMaids.Plugin
 							list2.Add(poseArray5[0]);
 							list2.Add(poseArray6[0]);
 							list2.Add(strList2[0]);
-							//list2.Add(strListE2[0]);
-							//list2.Add(strListE2[0]);
-							existPose = false;
+                            list2.Add(strListE2[0]);
+                            existPose = false;
 							poseGroupArray = list2.ToArray();
 							groupList = new ArrayList();
 							for (int k = 0; k < poseArray.Length; k++)

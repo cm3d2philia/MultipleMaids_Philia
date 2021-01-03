@@ -24,3 +24,16 @@ C:\Users\bean9\source\repos\MultipleMaids_Philia\MultipleMaids\bin\Debug\ExIni.d
 C:\Users\bean9\source\repos\MultipleMaids_Philia\MultipleMaids\bin\Debug\UnityEngine.dll
 C:\Users\bean9\source\repos\MultipleMaids_Philia\MultipleMaids\bin\Debug\UnityInjector.dll
 C:\Users\bean9\source\repos\MultipleMaids_Philia\MultipleMaids\obj\Debug\COM3D2.MultipleMaids.Plugin.csproj.CopyComplete
+C:\Users\bean9\Documents\GitHub\MultipleMaids_Philia\MultipleMaids\bin\Debug\COM3D2.MultipleMaids.Plugin.dll
+C:\Users\bean9\Documents\GitHub\MultipleMaids_Philia\MultipleMaids\bin\Debug\COM3D2.MultipleMaids.Plugin.pdb
+C:\Users\bean9\Documents\GitHub\MultipleMaids_Philia\MultipleMaids\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\bean9\Documents\GitHub\MultipleMaids_Philia\MultipleMaids\bin\Debug\Assembly-CSharp.dll
+C:\Users\bean9\Documents\GitHub\MultipleMaids_Philia\MultipleMaids\bin\Debug\Assembly-UnityScript-firstpass.dll
+C:\Users\bean9\Documents\GitHub\MultipleMaids_Philia\MultipleMaids\bin\Debug\ExIni.dll
+C:\Users\bean9\Documents\GitHub\MultipleMaids_Philia\MultipleMaids\bin\Debug\UnityEngine.dll
+C:\Users\bean9\Documents\GitHub\MultipleMaids_Philia\MultipleMaids\bin\Debug\UnityInjector.dll
+C:\Users\bean9\Documents\GitHub\MultipleMaids_Philia\MultipleMaids\obj\Debug\COM3D2.MultipleMaids.Plugin.csprojAssemblyReference.cache
+C:\Users\bean9\Documents\GitHub\MultipleMaids_Philia\MultipleMaids\obj\Debug\COM3D2.MultipleMaids.Plugin.csproj.CoreCompileInputs.cache
+C:\Users\bean9\Documents\GitHub\MultipleMaids_Philia\MultipleMaids\obj\Debug\COM3D2.MultipleMaids.Plugin.csproj.CopyComplete
+C:\Users\bean9\Documents\GitHub\MultipleMaids_Philia\MultipleMaids\obj\Debug\COM3D2.MultipleMaids.Plugin.dll
+C:\Users\bean9\Documents\GitHub\MultipleMaids_Philia\MultipleMaids\obj\Debug\COM3D2.MultipleMaids.Plugin.pdb

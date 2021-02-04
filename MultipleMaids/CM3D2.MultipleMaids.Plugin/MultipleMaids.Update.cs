@@ -1053,36 +1053,21 @@ namespace CM3D2.MultipleMaids.Plugin
                     //                      strListE2.Add(text);
                     //                  }
                     //              }
-                    //              foreach (string text in strListE)
-                    //              {
-                    //                  bool flag3 = false;
-                    //                  for (int l = 0; l < poseArray.Length; l++)
-                    //                  {
-                    //                      if (text == poseArray[l])
-                    //                      {
-                    //                          flag3 = true;
-                    //                      }
-                    //                  }
-                    //                  if (!flag3 && text.StartsWith("amayakasi") || text.StartsWith("anal_name") || text.StartsWith("atama_kouhaii") || text.StartsWith("arai2"))
-                    //                  {
-                    //                      strListE2.Add(text);
-                    //                  }
-                    //              }
-                    //              foreach (string text in strListE)
-                    //              {
-                    //                  bool flag3 = false;
-                    //                  for (int l = 0; l < poseArray.Length; l++)
-                    //                  {
-                    //                      if (text == poseArray[l])
-                    //                      {
-                    //                          flag3 = true;
-                    //                      }
-                    //                  }
-                    //                  if (!flag3 && text.StartsWith("asikoki"))
-                    //                  {
-                    //                      strListE2.Add(text);
-                    //                  }
-                    //              }
+                    foreach (string text in strListE)
+                    {
+                        bool flag3 = false;
+                        for (int l = 0; l < poseArray.Length; l++)
+                        {
+                            if (text == poseArray[l])
+                            {
+                                flag3 = true;
+                            }
+                        }
+                        if (!flag3 && text.StartsWith("amayakasi") || text.StartsWith("anal_name") || text.StartsWith("atama_kouhaii") || text.StartsWith("arai2") || text.StartsWith("asikoki"))
+                        {
+                            strListE2.Add(text);
+                        }
+                    }
                     foreach (string text in strListE)
                     {
                         bool flag3 = false;

@@ -1317,36 +1317,21 @@ namespace CM3D2.MultipleMaids.Plugin
                 //                   strListE2.Add(text2);
                 //               }
                 //           }
-                //           foreach (string text2 in strListE)
-                //           {
-                //               bool flag2 = false;
-                //               for (int l = 0; l < poseArray.Length; l++)
-                //               {
-                //                   if (text2 == poseArray[l])
-                //                   {
-                //                       flag2 = true;
-                //                   }
-                //               }
-                //               if (!flag2 && text2.StartsWith("amayakasi") || text2.StartsWith("anal_name") || text2.StartsWith("atama_kouhaii") || text2.StartsWith("arai2"))
-                //               {
-                //                   strListE2.Add(text2);
-                //               }
-                //           }
-                //           foreach (string text2 in strListE)
-                //           {
-                //               bool flag2 = false;
-                //               for (int l = 0; l < poseArray.Length; l++)
-                //               {
-                //                   if (text2 == poseArray[l])
-                //                   {
-                //                       flag2 = true;
-                //                   }
-                //               }
-                //               if (!flag2 && text2.StartsWith("asikoki"))
-                //               {
-                //                   strListE2.Add(text2);
-                //               }
-                //           }
+                foreach (string text2 in strListE)
+                {
+                    bool flag2 = false;
+                    for (int l = 0; l < poseArray.Length; l++)
+                    {
+                        if (text2 == poseArray[l])
+                        {
+                            flag2 = true;
+                        }
+                    }
+                    if (!flag2 && text2.StartsWith("amayakasi") || text2.StartsWith("anal_name") || text2.StartsWith("atama_kouhaii") || text2.StartsWith("arai2") || text2.StartsWith("asikoki"))
+                    {
+                        strListE2.Add(text2);
+                    }
+                }
                 foreach (string text2 in strListE)
                 {
                     bool flag2 = false;

@@ -34,7 +34,7 @@ namespace CM3D2.MultipleMaids.Plugin
 	{
 		//private const string PluginName = "Multiple maids";
 		//private const string PluginVersion = "23.1.1";
-
+		
 		public Dictionary<string, int> bgUiArray=new Dictionary<string, int>();
 		public Dictionary<string, int> PartsUIArray = new Dictionary<string, int>();
 		public Dictionary<string, int> ItemUIArray = new Dictionary<string, int>();

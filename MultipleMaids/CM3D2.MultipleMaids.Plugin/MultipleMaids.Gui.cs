@@ -10489,18 +10489,14 @@ namespace CM3D2.MultipleMaids.Plugin
 								{
 									poseGroupComboList[m + 1] = new GUIContent(m + 2 + ":ダンス");
 								}
-                                if (m == poseGroupArray.Length - 1)
+                                if (m == poseGroupArray.Length - 2)
                                 {
                                     poseGroupComboList[m + 1] = new GUIContent(m + 2 + ":通常2");
                                 }
-                                //if (m == poseGroupArray.Length - 2)
-                                //{
-                                //	poseGroupComboList[m + 1] = new GUIContent(m + 2 + ":エロ2");
-                                //}
-                                //                        if (m == poseGroupArray.Length - 1)
-                                //                        {
-                                //                            poseGroupComboList[m + 1] = new GUIContent(m + 2 + ":エロ21");
-                                //                        }
+                                if (m == poseGroupArray.Length - 1)
+                                {
+                                    poseGroupComboList[m + 1] = new GUIContent(m + 2 + ":エロ2");
+                                }
                             }
 						}
 						else

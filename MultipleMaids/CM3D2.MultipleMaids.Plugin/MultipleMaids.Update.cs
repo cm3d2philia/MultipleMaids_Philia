@@ -1355,21 +1355,6 @@ namespace CM3D2.MultipleMaids.Plugin
                     //                       num2++;
                     //                   }
                     //               }
-                    //foreach (string text in strListE)
-                    //{
-                    //    bool flag3 = false;
-                    //    for (int l = 0; l < poseArray.Length; l++)
-                    //    {
-                    //        if (text == poseArray[l])
-                    //        {
-                    //            flag3 = true;
-                    //        }
-                    //    }
-                    //    if (!flag3)
-                    //    {
-                    //        strListE21.Add(text);
-                    //    }
-                    //}
                     list.AddRange(strList2.ToArray());
                     list.AddRange(strListE2.ToArray());
                     existPose = false;

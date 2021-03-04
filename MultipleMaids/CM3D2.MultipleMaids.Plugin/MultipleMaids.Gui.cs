@@ -408,7 +408,8 @@ namespace CM3D2.MultipleMaids.Plugin
 							}
 						}
 					}
-					//IL_3CD:
+					
+				//IL_3CD:
 					i++;
 					continue;
 					//goto IL_3CD;
@@ -486,7 +487,8 @@ namespace CM3D2.MultipleMaids.Plugin
 							}
 						}
 					}
-					//IL_6B3:
+					
+				//IL_6B3:
 					i++;
 					continue;
 					//goto IL_6B3;
@@ -714,7 +716,6 @@ namespace CM3D2.MultipleMaids.Plugin
 					{
 						goto IL_1662;
 					}
-					//if (<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000014-1 == null)
 					if (bgUiArray == null)
 					{
 						bgUiArray = new Dictionary<string, int>(120)
@@ -1201,10 +1202,6 @@ namespace CM3D2.MultipleMaids.Plugin
 							}
 						};
 					}
-					//if (!<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000014-1.TryGetValue(text, out num))
-					//{
-					//	goto IL_1662;
-					//}
 					if (!bgUiArray.TryGetValue(text, out num))
 					{
 						goto IL_1662;
@@ -1614,10 +1611,8 @@ namespace CM3D2.MultipleMaids.Plugin
 					{
 						goto IL_1C03;
 					}
-					//if (<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000014-2 == null)
 					if (PartsUIArray == null)
 					{
-						//<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000014-2 = new Dictionary<string, int>(26)
 						PartsUIArray = new Dictionary<string, int>(26)
 						{
 							{
@@ -1726,10 +1721,6 @@ namespace CM3D2.MultipleMaids.Plugin
 							}
 						};
 					}
-					//if (!<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000014-2.TryGetValue(text, out num))
-					//{
-					//	goto IL_1C03;
-					//}
 					if (!PartsUIArray.TryGetValue(text, out num))
 					{
 						goto IL_1C03;
@@ -1842,10 +1833,8 @@ namespace CM3D2.MultipleMaids.Plugin
 					{
 						goto IL_2E56;
 					}
-					//if (<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000014-3 == null)
 					if (ItemUIArray == null)
 					{
-						//<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000014-3 = new Dictionary<string, int>(108)
 						ItemUIArray = new Dictionary<string, int>(108)
 						{
 							{
@@ -2282,10 +2271,6 @@ namespace CM3D2.MultipleMaids.Plugin
 							}
 						};
 					}
-					//if (!<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000014-3.TryGetValue(text, out num))
-					//{
-					//	goto IL_2E56;
-					//}
 					if (!ItemUIArray.TryGetValue(text, out num))
 					{
 						goto IL_2E56;
@@ -3813,10 +3798,8 @@ namespace CM3D2.MultipleMaids.Plugin
 						{
 							goto IL_8500;
 						}
-						//if (<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000014-6 == null)
 						if (OdoguUIArray == null)
 						{
-							//<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000014-6 = new Dictionary<string, int>(173)
 							OdoguUIArray = new Dictionary<string, int>(173)
 							{
 								{
@@ -4514,10 +4497,6 @@ namespace CM3D2.MultipleMaids.Plugin
 							};
 						}
 						int num;
-						//if (!<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000014-6.TryGetValue(text, out num))
-						//{
-						//	goto IL_8500;
-						//}
 						if (!OdoguUIArray.TryGetValue(text, out num))
 						{
 							goto IL_8500;
@@ -5073,10 +5052,6 @@ namespace CM3D2.MultipleMaids.Plugin
 							}
 						};
 					}
-					//if (!<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000015-1.TryGetValue(text, out num))
-					//{
-					//	goto IL_501;
-					//}
 					if (!DanceArray.TryGetValue(text, out num))
 					{
 						goto IL_501;
@@ -5136,7 +5111,6 @@ namespace CM3D2.MultipleMaids.Plugin
 					{
 						goto IL_18DC;
 					}
-					//if (<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000015-2 == null)
 					if (bgUiArray == null)
 					{
 						bgUiArray = new Dictionary<string, int>(120)
@@ -5246,7 +5220,7 @@ namespace CM3D2.MultipleMaids.Plugin
 								25
 							},
 							{
-								"SMRoom2",
+								"smroom2",
 								26
 							},
 							{
@@ -5322,27 +5296,27 @@ namespace CM3D2.MultipleMaids.Plugin
 								44
 							},
 							{
-								"villa",
+								"Villa",
 								45
 							},
 							{
-								"villa_night",
+								"Villa_Night",
 								46
 							},
 							{
-								"villa_bedroom",
+								"Villa_BedRoom",
 								47
 							},
 							{
-								"villa_bedroom_night",
+								"Villa_BedRoom_Night",
 								48
 							},
 							{
-								"villa_farm",
+								"Villa_Farm",
 								49
 							},
 							{
-								"villa_farm_night",
+								"Villa_Farm_Night",
 								50
 							},
 							{
@@ -5623,10 +5597,6 @@ namespace CM3D2.MultipleMaids.Plugin
 							}
 						};
 					}
-					//if (!<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000015-2.TryGetValue(text, out num))
-					//{
-					//	goto IL_18DC;
-					//}
 					if (!bgUiArray.TryGetValue(text, out num))
 					{
 						goto IL_18DC;
@@ -6036,7 +6006,6 @@ namespace CM3D2.MultipleMaids.Plugin
 					{
 						goto IL_4852;
 					}
-					//if (<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000015-3 == null)
 					if (OdoguUIArray == null)
 					{
 						OdoguUIArray = new Dictionary<string, int>(276)
@@ -7147,10 +7116,6 @@ namespace CM3D2.MultipleMaids.Plugin
 							}
 						};
 					}
-					//if (!<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000015-3.TryGetValue(text, out num))
-					//{
-					//	goto IL_4852;
-					//}
 					if (!OdoguUIArray.TryGetValue(text, out num))
 					{
 						goto IL_4852;
@@ -8017,10 +7982,8 @@ namespace CM3D2.MultipleMaids.Plugin
 					{
 						goto IL_50A8;
 					}
-					//if (<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000015-4 == null)
 					if (bgUiArrayB == null)
 					{
-						//<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000015-4 = new Dictionary<string, int>(46)
 						bgUiArrayB = new Dictionary<string, int>(46)
 						{
 							{
@@ -8209,10 +8172,6 @@ namespace CM3D2.MultipleMaids.Plugin
 							}
 						};
 					}
-					//if (!<PrivateImplementationDetails>{54936A6C-01FC-422B-BFCA-C5A294F216D4}.$$method0x6000015-4.TryGetValue(text, out num))
-					//{
-					//	goto IL_50A8;
-					//}
 					if (!bgUiArrayB.TryGetValue(text, out num))
 					{
 						goto IL_50A8;
